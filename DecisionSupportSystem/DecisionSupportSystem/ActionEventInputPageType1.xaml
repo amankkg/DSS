@@ -9,13 +9,15 @@
 	WindowWidth="640" WindowHeight="480">
 
 	<Grid x:Name="LayoutRoot">
-		<DataGrid HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="432" Width="219.361"/>
+		<DataGrid HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="397.58" Width="219.361"/>
 		<TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="action name" VerticalAlignment="Top" Width="139.361"/>
 		<Button Content="save" HorizontalAlignment="Left" Margin="154.361,13.04,0,0" VerticalAlignment="Top" Width="75"/>
-		<DataGrid HorizontalAlignment="Left" Margin="234.361,38,0,0" VerticalAlignment="Top" Height="432" Width="219.361"/>
+		<DataGrid HorizontalAlignment="Left" Margin="234.361,38,0,0" VerticalAlignment="Top" Height="397.58" Width="219.361"/>
 		<TextBox HorizontalAlignment="Left" Height="23" Margin="234.361,10,0,0" TextWrapping="Wrap" Text="action name" VerticalAlignment="Top" Width="139.361"/>
 		<Button Content="save" HorizontalAlignment="Left" Margin="378.722,13.04,0,0" VerticalAlignment="Top" Width="75"/>
-		<DataGrid HorizontalAlignment="Left" Margin="458.722,38,0,0" VerticalAlignment="Top" Height="432" Width="171.278"/>
+		<DataGrid HorizontalAlignment="Left" Margin="458.722,38,0,0" VerticalAlignment="Top" Height="397.58" Width="171.278"/>
 		<Label Content="Parameters" HorizontalAlignment="Left" Margin="458.722,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+		<DataGrid HorizontalAlignment="Left" Margin="10,440.58,0,0" VerticalAlignment="Top" Height="29.42" Width="443.722"/>
+		<Label Content="Constants" HorizontalAlignment="Left" Margin="458.722,440.58,0,0" VerticalAlignment="Top" Foreground="White"/>
 	</Grid>
 </Page>
