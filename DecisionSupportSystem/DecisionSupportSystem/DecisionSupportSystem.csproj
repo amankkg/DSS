@@ -53,34 +53,34 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="ActionEventCombinationPage.xaml.cs">
-      <DependentUpon>ActionEventCombinationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ActionEventInputPageType1.xaml.cs">
-      <DependentUpon>ActionEventInputPageType1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConclusionPage.xaml.cs">
       <DependentUpon>ConclusionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GenericPage.xaml.cs">
       <DependentUpon>GenericPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputType1Page.xaml.cs">
+      <DependentUpon>InputType1Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputType2Page.xaml.cs">
+      <DependentUpon>InputType2Page.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SolutionPage.xaml.cs">
       <DependentUpon>SolutionPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="ActionEventCombinationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ActionEventInputPageType1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ConclusionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GenericPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputType1Page.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InputType2Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

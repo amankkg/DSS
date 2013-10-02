@@ -12,9 +12,9 @@ using System.Windows.Shapes;
 
 namespace DecisionSupportSystem
 {
-	public partial class ActionEventCombinationPage
+	public partial class InputType1Page
 	{
-		public ActionEventCombinationPage()
+		public InputType1Page()
 		{
 			this.InitializeComponent();
 
