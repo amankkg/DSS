@@ -19,7 +19,7 @@ namespace DecisionSupportSystem
 			this.InitializeComponent();
 
 			// Insert code required on object creation below this point.
-			// Узбакойза
+			// Узбакойза2
 		}
 	}
 }
