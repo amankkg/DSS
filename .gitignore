@@ -40,6 +40,11 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
+*.exe
+*.pdb
+*.config
+*.manifest
+*.vshost
 
 # Build results
 

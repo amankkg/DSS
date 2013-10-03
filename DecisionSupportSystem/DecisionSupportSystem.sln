@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionSupportSystem", "DecisionSupportSystem\DecisionSupportSystem.csproj", "{52455b50-b0e8-4a1f-81f0-68046e4114f8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionSupportSystem", "DecisionSupportSystem\DecisionSupportSystem.csproj", "{52455B50-B0E8-4A1F-81F0-68046E4114F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +13,8 @@ Global
 		{52455B50-B0E8-4A1F-81F0-68046E4114F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52455B50-B0E8-4A1F-81F0-68046E4114F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52455B50-B0E8-4A1F-81F0-68046E4114F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

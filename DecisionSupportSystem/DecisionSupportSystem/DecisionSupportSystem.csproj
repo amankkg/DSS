@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>52455b50-b0e8-4a1f-81f0-68046e4114f8</ProjectGuid>
+    <ProjectGuid>{52455B50-B0E8-4A1F-81F0-68046E4114F8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DecisionSupportSystem</RootNamespace>
@@ -62,6 +62,8 @@
     <Compile Include="ConclusionPage.xaml.cs">
       <DependentUpon>ConclusionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EmvAndEolClasses\SolveEmv.cs" />
+    <Compile Include="EmvAndEolClasses\SolveEol.cs" />
     <Compile Include="GenericPage.xaml.cs">
       <DependentUpon>GenericPage.xaml</DependentUpon>
     </Compile>
