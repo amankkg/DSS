@@ -56,6 +56,7 @@ namespace DecisionSupportSystem
 
     public class SolveEmv
     {
+        //коммент
         #region закрытые
         private List<WeightedProfit>        _weightedProfits;
         private List<ConditionalProfit>     _conditionalProfits;
