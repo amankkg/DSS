@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="Actions" EntityType="DBModel.Store.Actions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Combinations" EntityType="DBModel.Store.Combinations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Events" EntityType="DBModel.Store.Events" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tasks" EntityType="DBModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Constants" EntityType="DBModel.Store.Constants" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Parameters" EntityType="DBModel.Store.Parameters" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ParameterValues" EntityType="DBModel.Store.ParameterValues" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ActionCombination" Association="DBModel.Store.ActionCombination">
+      <End Role="Action" EntitySet="Actions" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="EventCombination" Association="DBModel.Store.EventCombination">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="TaskCombination" Association="DBModel.Store.TaskCombination">
+      <End Role="Task" EntitySet="Tasks" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="ConstantTask" Association="DBModel.Store.ConstantTask">
+      <End Role="Constant" EntitySet="Constants" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="ParameterParameterValue" Association="DBModel.Store.ParameterParameterValue">
+      <End Role="Parameter" EntitySet="Parameters" />
+      <End Role="ParameterValue" EntitySet="ParameterValues" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationParameterValue" Association="DBModel.Store.CombinationParameterValue">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="ParameterValue" EntitySet="ParameterValues" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Actions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Combinations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActionId" Type="int" Nullable="false" />
+    <Property Name="EventId" Type="int" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Probability" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Constants">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="decimal" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parameters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParameterValues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="decimal" Nullable="false" />
+    <Property Name="ParameterId" Type="int" Nullable="false" />
+    <Property Name="CombinationId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ActionCombination">
+    <End Role="Action" Type="DBModel.Store.Actions" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="ActionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventCombination">
+    <End Role="Event" Type="DBModel.Store.Events" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TaskCombination">
+    <End Role="Task" Type="DBModel.Store.Tasks" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ConstantTask">
+    <End Role="Constant" Type="DBModel.Store.Constants" Multiplicity="*" />
+    <End Role="Task" Type="DBModel.Store.Tasks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Constant">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParameterParameterValue">
+    <End Role="Parameter" Type="DBModel.Store.Parameters" Multiplicity="1" />
+    <End Role="ParameterValue" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parameter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ParameterValue">
+        <PropertyRef Name="ParameterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationParameterValue">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="1" />
+    <End Role="ParameterValue" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Combination">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ParameterValue">
+        <PropertyRef Name="CombinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="DBModel.Action" />
+          <EntitySet Name="Combinations" EntityType="DBModel.Combination" />
+          <EntitySet Name="Events" EntityType="DBModel.Event" />
+          <EntitySet Name="Tasks" EntityType="DBModel.Task" />
+          <AssociationSet Name="ActionCombination" Association="DBModel.ActionCombination">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="Combination" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="EventCombination" Association="DBModel.EventCombination">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Combination" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="TaskCombination" Association="DBModel.TaskCombination">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="Combination" EntitySet="Combinations" />
+          </AssociationSet>
+          <EntitySet Name="Constants" EntityType="DBModel.Constant" />
+          <AssociationSet Name="ConstantTask" Association="DBModel.ConstantTask">
+            <End Role="Constant" EntitySet="Constants" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <EntitySet Name="Parameters" EntityType="DBModel.Parameter" />
+          <EntitySet Name="ParameterValues" EntityType="DBModel.ParameterValue" />
+          <AssociationSet Name="ParameterParameterValue" Association="DBModel.ParameterParameterValue">
+            <End Role="Parameter" EntitySet="Parameters" />
+            <End Role="ParameterValue" EntitySet="ParameterValues" />
+          </AssociationSet>
+          <AssociationSet Name="CombinationParameterValue" Association="DBModel.CombinationParameterValue">
+            <End Role="Combination" EntitySet="Combinations" />
+            <End Role="ParameterValue" EntitySet="ParameterValues" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Combinations" Relationship="DBModel.ActionCombination" FromRole="Action" ToRole="Combination" />
+        </EntityType>
+        <EntityType Name="Combination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Action" Relationship="DBModel.ActionCombination" FromRole="Combination" ToRole="Action" />
+          <Property Type="Int32" Name="ActionId" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="DBModel.EventCombination" FromRole="Combination" ToRole="Event" />
+          <Property Type="Int32" Name="EventId" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="DBModel.TaskCombination" FromRole="Combination" ToRole="Task" />
+          <Property Type="Int32" Name="TaskId" Nullable="false" />
+          <NavigationProperty Name="ParameterValues" Relationship="DBModel.CombinationParameterValue" FromRole="Combination" ToRole="ParameterValue" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Decimal" Name="Probability" Nullable="false" />
+          <NavigationProperty Name="Combinations" Relationship="DBModel.EventCombination" FromRole="Event" ToRole="Combination" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Comment" Nullable="false" />
+          <NavigationProperty Name="Combinations" Relationship="DBModel.TaskCombination" FromRole="Task" ToRole="Combination" />
+          <NavigationProperty Name="Constants" Relationship="DBModel.ConstantTask" FromRole="Task" ToRole="Constant" />
+        </EntityType>
+        <Association Name="ActionCombination">
+          <End Type="DBModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combination">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EventCombination">
+          <End Type="DBModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combination">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TaskCombination">
+          <End Type="DBModel.Task" Role="Task" Multiplicity="1" />
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combination">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Constant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Decimal" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="DBModel.ConstantTask" FromRole="Constant" ToRole="Task" />
+          <Property Type="Int32" Name="TaskId" Nullable="false" />
+        </EntityType>
+        <Association Name="ConstantTask">
+          <End Type="DBModel.Constant" Role="Constant" Multiplicity="*" />
+          <End Type="DBModel.Task" Role="Task" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Constant">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ParameterValues" Relationship="DBModel.ParameterParameterValue" FromRole="Parameter" ToRole="ParameterValue" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParameterValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Parameter" Relationship="DBModel.ParameterParameterValue" FromRole="ParameterValue" ToRole="Parameter" />
+          <Property Type="Int32" Name="ParameterId" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DBModel.CombinationParameterValue" FromRole="ParameterValue" ToRole="Combination" />
+          <Property Type="Int32" Name="CombinationId" Nullable="false" />
+        </EntityType>
+        <Association Name="ParameterParameterValue">
+          <End Type="DBModel.Parameter" Role="Parameter" Multiplicity="1" />
+          <End Type="DBModel.ParameterValue" Role="ParameterValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parameter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterValue">
+              <PropertyRef Name="ParameterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CombinationParameterValue">
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="1" />
+          <End Type="DBModel.ParameterValue" Role="ParameterValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Combination">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParameterValue">
+              <PropertyRef Name="CombinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBModelContainer">
+    <EntitySetMapping Name="Actions">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Action)">
+        <MappingFragment StoreEntitySet="Actions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Combinations">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Combination)">
+        <MappingFragment StoreEntitySet="Combinations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Event)">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Probability" ColumnName="Probability" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Task)">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Constants">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Constant)">
+        <MappingFragment StoreEntitySet="Constants">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parameters">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Parameter)">
+        <MappingFragment StoreEntitySet="Parameters">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParameterValues">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.ParameterValue)">
+        <MappingFragment StoreEntitySet="ParameterValues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+          <ScalarProperty Name="CombinationId" ColumnName="CombinationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

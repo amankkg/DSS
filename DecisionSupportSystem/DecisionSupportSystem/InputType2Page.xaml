@@ -1,0 +1,19 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="DecisionSupportSystem.InputType2Page"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="640" Height="480"
+	WindowWidth="640" WindowHeight="480">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid>
+			<DataGrid HorizontalAlignment="Left" Margin="10,40.96,0,0" VerticalAlignment="Top" Height="429.04" Width="227.882"/>
+			<Label Content="actions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+			<Label Content="events" HorizontalAlignment="Left" Margin="264.604,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+			<Button Content="add" HorizontalAlignment="Left" Margin="313.854,13,0,0" VerticalAlignment="Top" Width="75"/>
+			<DataGrid HorizontalAlignment="Left" Margin="264.604,40.96,0,0" VerticalAlignment="Top" Height="429.04" Width="227.882"/></Grid>
+	</Grid>
+</Page>
