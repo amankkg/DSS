@@ -28,8 +28,6 @@ namespace DecisionSupportSystem
             var cpsForCurrentEvent = (from cp in ConditionalProfits
                      where cp.Combination.Event == conditionalProfit.Combination.Event
                      select cp.Value).ToList();
-            var d = cpsForCurrentEvent.Max();
-            var c = conditionalProfit.Value;
             _value = cpsForCurrentEvent.Max() - conditionalProfit.Value;
         }
     }
