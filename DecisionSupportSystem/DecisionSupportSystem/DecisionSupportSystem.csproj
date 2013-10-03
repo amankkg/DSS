@@ -90,6 +90,8 @@
     <Compile Include="Event.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmvAndEolClasses\SolveEmv.cs" />
+    <Compile Include="EmvAndEolClasses\SolveEol.cs" />
     <Compile Include="GenericPage.xaml.cs">
       <DependentUpon>GenericPage.xaml</DependentUpon>
     </Compile>

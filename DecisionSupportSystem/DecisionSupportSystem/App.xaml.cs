@@ -11,6 +11,7 @@ namespace DecisionSupportSystem
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+	//нурбек
     public partial class App : Application
     {
     }
