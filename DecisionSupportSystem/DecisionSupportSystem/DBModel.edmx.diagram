@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a1febd9bf910405aa3a9cc7217914c13" Name="Diagram1" ZoomLevel="97" >
+        <EntityTypeShape EntityType="DBModel.Action" Width="1.5" PointX="2.375" PointY="1.125" />
+        <EntityTypeShape EntityType="DBModel.Combination" Width="1.5" PointX="4.25" PointY="2.875" />
+        <EntityTypeShape EntityType="DBModel.Event" Width="1.5" PointX="6.25" PointY="1" />
+        <EntityTypeShape EntityType="DBModel.Task" Width="1.5" PointX="6.125" PointY="3.25" />
+        <AssociationConnector Association="DBModel.ActionCombination" />
+        <AssociationConnector Association="DBModel.EventCombination" />
+        <AssociationConnector Association="DBModel.TaskCombination" />
+        <EntityTypeShape EntityType="DBModel.Constant" Width="1.5" PointX="8" PointY="3.25" />
+        <AssociationConnector Association="DBModel.ConstantTask" />
+        <EntityTypeShape EntityType="DBModel.Parameter" Width="1.5" PointX="0.5" PointY="3.25" />
+        <EntityTypeShape EntityType="DBModel.ParameterValue" Width="1.5" PointX="2.375" PointY="3.125" />
+        <AssociationConnector Association="DBModel.ParameterParameterValue" />
+        <AssociationConnector Association="DBModel.CombinationParameterValue" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
