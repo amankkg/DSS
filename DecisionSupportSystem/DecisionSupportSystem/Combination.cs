@@ -28,5 +28,9 @@ namespace DecisionSupportSystem
         public virtual Event Event { get; set; }
         public virtual Task Task { get; set; }
         public virtual ICollection<ParameterValue> ParameterValues { get; set; }
+        public virtual ConditionalProfit ConditionalProfit { get; set; }
+        public virtual WeightedProfit WeightedProfit { get; set; }
+        public virtual ConditionalOpportunityLoss ConditionalOpportunityLoss { get; set; }
+        public virtual WeightedOpportunityLoss WeightedOpportunityLoss { get; set; }
     }
 }

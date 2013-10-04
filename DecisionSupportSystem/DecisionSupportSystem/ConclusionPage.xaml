@@ -10,7 +10,7 @@
 
 	<Grid x:Name="LayoutRoot">
 		<Grid HorizontalAlignment="Left" Height="480" VerticalAlignment="Top" Width="640">
-			<Label x:Name="LabelTitle" Content="CONCLUSIO N" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63.521" Width="620" FontSize="40" Foreground="#FF00B9FF"/>
+			<Label x:Name="LabelTitle" Content="CONCLUSION" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63.521" Width="620" FontSize="40" Foreground="#FF00B9FF"/>
 			<RichTextBox HorizontalAlignment="Left" Height="391.479" Margin="10,78.521,0,0" VerticalAlignment="Top" Width="620">
 				<FlowDocument>
 					<Paragraph><Run Text="RichTextBox"/></Paragraph>

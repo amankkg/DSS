@@ -69,6 +69,12 @@
     <Compile Include="ConclusionPage.xaml.cs">
       <DependentUpon>ConclusionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConditionalOpportunityLoss.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConditionalProfit.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Constant.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -92,6 +98,12 @@
     </Compile>
     <Compile Include="EmvAndEolClasses\SolveEmv.cs" />
     <Compile Include="EmvAndEolClasses\SolveEol.cs" />
+    <Compile Include="ExpectedMonetaryValue.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpectedOpportunityLoss.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GenericPage.xaml.cs">
       <DependentUpon>GenericPage.xaml</DependentUpon>
     </Compile>
@@ -111,6 +123,12 @@
       <DependentUpon>SolutionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeightedOpportunityLoss.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeightedProfit.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Page Include="ConclusionPage.xaml">

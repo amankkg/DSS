@@ -16,7 +16,6 @@ namespace DecisionSupportSystem
     {
         public int Id { get; set; }
         public double Value { get; set; }
-        public int ActionId { get; set; }
     
         public virtual Action Action { get; set; }
     }
