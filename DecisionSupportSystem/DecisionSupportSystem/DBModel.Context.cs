@@ -32,5 +32,11 @@ namespace DecisionSupportSystem
         public DbSet<Constant> Constants { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
         public DbSet<ParameterValue> ParameterValues { get; set; }
+        public DbSet<ConditionalProfit> ConditionalProfits { get; set; }
+        public DbSet<ExpectedMonetaryValue> ExpectedMonetaryValues { get; set; }
+        public DbSet<ExpectedOpportunityLoss> ExpectedOpportunityLosses { get; set; }
+        public DbSet<WeightedProfit> WeightedProfits { get; set; }
+        public DbSet<ConditionalOpportunityLoss> ConditionalOpportunityLosses { get; set; }
+        public DbSet<WeightedOpportunityLoss> WeightedOpportunityLosses { get; set; }
     }
 }

@@ -12,18 +12,11 @@ namespace DecisionSupportSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class Action
+    public partial class WeightedProfit
     {
-        public Action()
-        {
-            this.Combinations = new HashSet<Combination>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public double Value { get; set; }
     
-        public virtual ICollection<Combination> Combinations { get; set; }
-        public virtual ExpectedMonetaryValue ExpectedMonetaryValue { get; set; }
-        public virtual ExpectedOpportunityLoss ExpectedOpportunityLoss { get; set; }
+        public virtual Combination Combination { get; set; }
     }
 }
