@@ -5,169 +5,319 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="DBModelStoreContainer">
-          <EntitySet Name="Actions" EntityType="DBModel.Store.Actions" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Combinations" EntityType="DBModel.Store.Combinations" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Constants" EntityType="DBModel.Store.Constants" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Events" EntityType="DBModel.Store.Events" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Parameters" EntityType="DBModel.Store.Parameters" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ParameterValues" EntityType="DBModel.Store.ParameterValues" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Tasks" EntityType="DBModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_ActionCombination" Association="DBModel.Store.FK_ActionCombination">
-            <End Role="Actions" EntitySet="Actions" />
-            <End Role="Combinations" EntitySet="Combinations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CombinationParameterValue" Association="DBModel.Store.FK_CombinationParameterValue">
-            <End Role="Combinations" EntitySet="Combinations" />
-            <End Role="ParameterValues" EntitySet="ParameterValues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ConstantTask" Association="DBModel.Store.FK_ConstantTask">
-            <End Role="Tasks" EntitySet="Tasks" />
-            <End Role="Constants" EntitySet="Constants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventCombination" Association="DBModel.Store.FK_EventCombination">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="Combinations" EntitySet="Combinations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ParameterParameterValue" Association="DBModel.Store.FK_ParameterParameterValue">
-            <End Role="Parameters" EntitySet="Parameters" />
-            <End Role="ParameterValues" EntitySet="ParameterValues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TaskCombination" Association="DBModel.Store.FK_TaskCombination">
-            <End Role="Tasks" EntitySet="Tasks" />
-            <End Role="Combinations" EntitySet="Combinations" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Actions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Combinations">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ActionId" Type="int" Nullable="false" />
-          <Property Name="EventId" Type="int" Nullable="false" />
-          <Property Name="TaskId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Constants">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Value" Type="decimal" Nullable="false" Scale="8" />
-          <Property Name="TaskId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Events">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Probability" Type="decimal" Nullable="false" Scale="8" />
-        </EntityType>
-        <EntityType Name="Parameters">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ParameterValues">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Value" Type="decimal" Nullable="false" Scale="8" />
-          <Property Name="ParameterId" Type="int" Nullable="false" />
-          <Property Name="CombinationId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tasks">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_ActionCombination">
-          <End Role="Actions" Type="DBModel.Store.Actions" Multiplicity="1" />
-          <End Role="Combinations" Type="DBModel.Store.Combinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Actions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Combinations">
-              <PropertyRef Name="ActionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CombinationParameterValue">
-          <End Role="Combinations" Type="DBModel.Store.Combinations" Multiplicity="1" />
-          <End Role="ParameterValues" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Combinations">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ParameterValues">
-              <PropertyRef Name="CombinationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ConstantTask">
-          <End Role="Tasks" Type="DBModel.Store.Tasks" Multiplicity="1" />
-          <End Role="Constants" Type="DBModel.Store.Constants" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tasks">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Constants">
-              <PropertyRef Name="TaskId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventCombination">
-          <End Role="Events" Type="DBModel.Store.Events" Multiplicity="1" />
-          <End Role="Combinations" Type="DBModel.Store.Combinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Combinations">
-              <PropertyRef Name="EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ParameterParameterValue">
-          <End Role="Parameters" Type="DBModel.Store.Parameters" Multiplicity="1" />
-          <End Role="ParameterValues" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Parameters">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ParameterValues">
-              <PropertyRef Name="ParameterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TaskCombination">
-          <End Role="Tasks" Type="DBModel.Store.Tasks" Multiplicity="1" />
-          <End Role="Combinations" Type="DBModel.Store.Combinations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tasks">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Combinations">
-              <PropertyRef Name="TaskId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="Actions" EntityType="DBModel.Store.Actions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Combinations" EntityType="DBModel.Store.Combinations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Events" EntityType="DBModel.Store.Events" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tasks" EntityType="DBModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Constants" EntityType="DBModel.Store.Constants" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Parameters" EntityType="DBModel.Store.Parameters" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ParameterValues" EntityType="DBModel.Store.ParameterValues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ConditionalProfits" EntityType="DBModel.Store.ConditionalProfits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExpectedMonetaryValues" EntityType="DBModel.Store.ExpectedMonetaryValues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExpectedOpportunityLosses" EntityType="DBModel.Store.ExpectedOpportunityLosses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WeightedProfits" EntityType="DBModel.Store.WeightedProfits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ConditionalOpportunityLosses" EntityType="DBModel.Store.ConditionalOpportunityLosses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WeightedOpportunityLosses" EntityType="DBModel.Store.WeightedOpportunityLosses" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ActionCombination" Association="DBModel.Store.ActionCombination">
+      <End Role="Action" EntitySet="Actions" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="EventCombination" Association="DBModel.Store.EventCombination">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="TaskCombination" Association="DBModel.Store.TaskCombination">
+      <End Role="Task" EntitySet="Tasks" />
+      <End Role="Combination" EntitySet="Combinations" />
+    </AssociationSet>
+    <AssociationSet Name="ConstantTask" Association="DBModel.Store.ConstantTask">
+      <End Role="Constant" EntitySet="Constants" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="ParameterParameterValue" Association="DBModel.Store.ParameterParameterValue">
+      <End Role="Parameter" EntitySet="Parameters" />
+      <End Role="ParameterValue" EntitySet="ParameterValues" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationParameterValue" Association="DBModel.Store.CombinationParameterValue">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="ParameterValue" EntitySet="ParameterValues" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationConditionalProfit" Association="DBModel.Store.CombinationConditionalProfit">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="ConditionalProfit" EntitySet="ConditionalProfits" />
+    </AssociationSet>
+    <AssociationSet Name="ActionExpectedMonetaryValue" Association="DBModel.Store.ActionExpectedMonetaryValue">
+      <End Role="Action" EntitySet="Actions" />
+      <End Role="ExpectedMonetaryValue" EntitySet="ExpectedMonetaryValues" />
+    </AssociationSet>
+    <AssociationSet Name="ActionExpectedOpportunityLoss" Association="DBModel.Store.ActionExpectedOpportunityLoss">
+      <End Role="Action" EntitySet="Actions" />
+      <End Role="ExpectedOpportunityLoss" EntitySet="ExpectedOpportunityLosses" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationWeightedProfit" Association="DBModel.Store.CombinationWeightedProfit">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="WeightedProfit" EntitySet="WeightedProfits" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationConditionalOpportunityLoss" Association="DBModel.Store.CombinationConditionalOpportunityLoss">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="ConditionalOpportunityLoss" EntitySet="ConditionalOpportunityLosses" />
+    </AssociationSet>
+    <AssociationSet Name="CombinationWeightedOpportunityLoss" Association="DBModel.Store.CombinationWeightedOpportunityLoss">
+      <End Role="Combination" EntitySet="Combinations" />
+      <End Role="WeightedOpportunityLoss" EntitySet="WeightedOpportunityLosses" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Actions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExpectedMonetaryValue_Id" Type="int" Nullable="false" />
+    <Property Name="ExpectedOpportunityLoss_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Combinations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActionId" Type="int" Nullable="false" />
+    <Property Name="EventId" Type="int" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+    <Property Name="ConditionalProfit_Id" Type="int" Nullable="false" />
+    <Property Name="WeightedProfit_Id" Type="int" Nullable="false" />
+    <Property Name="ConditionalOpportunityLoss_Id" Type="int" Nullable="false" />
+    <Property Name="WeightedOpportunityLoss_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Probability" Type="decimal" Nullable="false" Precision="18" Scale="8" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Constants">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="decimal" Nullable="false" Precision="18" Scale="8" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parameters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParameterValues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="decimal" Nullable="false" Precision="18" Scale="8" />
+    <Property Name="ParameterId" Type="int" Nullable="false" />
+    <Property Name="CombinationId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConditionalProfits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExpectedMonetaryValues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExpectedOpportunityLosses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WeightedProfits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConditionalOpportunityLosses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WeightedOpportunityLosses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="ActionCombination">
+    <End Role="Action" Type="DBModel.Store.Actions" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="ActionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EventCombination">
+    <End Role="Event" Type="DBModel.Store.Events" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TaskCombination">
+    <End Role="Task" Type="DBModel.Store.Tasks" Multiplicity="1" />
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ConstantTask">
+    <End Role="Constant" Type="DBModel.Store.Constants" Multiplicity="*" />
+    <End Role="Task" Type="DBModel.Store.Tasks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Constant">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParameterParameterValue">
+    <End Role="Parameter" Type="DBModel.Store.Parameters" Multiplicity="1" />
+    <End Role="ParameterValue" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parameter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ParameterValue">
+        <PropertyRef Name="ParameterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationParameterValue">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="1" />
+    <End Role="ParameterValue" Type="DBModel.Store.ParameterValues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Combination">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ParameterValue">
+        <PropertyRef Name="CombinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationConditionalProfit">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <End Role="ConditionalProfit" Type="DBModel.Store.ConditionalProfits" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ConditionalProfit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="ConditionalProfit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ActionExpectedMonetaryValue">
+    <End Role="Action" Type="DBModel.Store.Actions" Multiplicity="*" />
+    <End Role="ExpectedMonetaryValue" Type="DBModel.Store.ExpectedMonetaryValues" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ExpectedMonetaryValue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Action">
+        <PropertyRef Name="ExpectedMonetaryValue_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ActionExpectedOpportunityLoss">
+    <End Role="Action" Type="DBModel.Store.Actions" Multiplicity="*" />
+    <End Role="ExpectedOpportunityLoss" Type="DBModel.Store.ExpectedOpportunityLosses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ExpectedOpportunityLoss">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Action">
+        <PropertyRef Name="ExpectedOpportunityLoss_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationWeightedProfit">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <End Role="WeightedProfit" Type="DBModel.Store.WeightedProfits" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WeightedProfit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="WeightedProfit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationConditionalOpportunityLoss">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <End Role="ConditionalOpportunityLoss" Type="DBModel.Store.ConditionalOpportunityLosses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ConditionalOpportunityLoss">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="ConditionalOpportunityLoss_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CombinationWeightedOpportunityLoss">
+    <End Role="Combination" Type="DBModel.Store.Combinations" Multiplicity="*" />
+    <End Role="WeightedOpportunityLoss" Type="DBModel.Store.WeightedOpportunityLosses" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WeightedOpportunityLoss">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Combination">
+        <PropertyRef Name="WeightedOpportunityLoss_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -203,7 +353,37 @@
             <End Role="Combination" EntitySet="Combinations" />
             <End Role="ParameterValue" EntitySet="ParameterValues" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="ConditionalProfits" EntityType="DBModel.ConditionalProfit" />
+          <AssociationSet Name="CombinationConditionalProfit" Association="DBModel.CombinationConditionalProfit">
+            <End Role="Combination" EntitySet="Combinations" />
+            <End Role="ConditionalProfit" EntitySet="ConditionalProfits" />
+          </AssociationSet>
+          <EntitySet Name="ExpectedMonetaryValues" EntityType="DBModel.ExpectedMonetaryValue" />
+          <AssociationSet Name="ActionExpectedMonetaryValue" Association="DBModel.ActionExpectedMonetaryValue">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="ExpectedMonetaryValue" EntitySet="ExpectedMonetaryValues" />
+          </AssociationSet>
+          <EntitySet Name="ExpectedOpportunityLosses" EntityType="DBModel.ExpectedOpportunityLoss" />
+          <AssociationSet Name="ActionExpectedOpportunityLoss" Association="DBModel.ActionExpectedOpportunityLoss">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="ExpectedOpportunityLoss" EntitySet="ExpectedOpportunityLosses" />
+          </AssociationSet>
+          <EntitySet Name="WeightedProfits" EntityType="DBModel.WeightedProfit" />
+          <AssociationSet Name="CombinationWeightedProfit" Association="DBModel.CombinationWeightedProfit">
+            <End Role="Combination" EntitySet="Combinations" />
+            <End Role="WeightedProfit" EntitySet="WeightedProfits" />
+          </AssociationSet>
+          <EntitySet Name="ConditionalOpportunityLosses" EntityType="DBModel.ConditionalOpportunityLoss" />
+          <AssociationSet Name="CombinationConditionalOpportunityLoss" Association="DBModel.CombinationConditionalOpportunityLoss">
+            <End Role="Combination" EntitySet="Combinations" />
+            <End Role="ConditionalOpportunityLoss" EntitySet="ConditionalOpportunityLosses" />
+          </AssociationSet>
+          <EntitySet Name="WeightedOpportunityLosses" EntityType="DBModel.WeightedOpportunityLoss" />
+          <AssociationSet Name="CombinationWeightedOpportunityLoss" Association="DBModel.CombinationWeightedOpportunityLoss">
+            <End Role="Combination" EntitySet="Combinations" />
+            <End Role="WeightedOpportunityLoss" EntitySet="WeightedOpportunityLosses" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Action">
           <Key>
             <PropertyRef Name="Id" />
@@ -211,6 +391,8 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Combinations" Relationship="DBModel.ActionCombination" FromRole="Action" ToRole="Combination" />
+          <NavigationProperty Name="ExpectedMonetaryValue" Relationship="DBModel.ActionExpectedMonetaryValue" FromRole="Action" ToRole="ExpectedMonetaryValue" />
+          <NavigationProperty Name="ExpectedOpportunityLoss" Relationship="DBModel.ActionExpectedOpportunityLoss" FromRole="Action" ToRole="ExpectedOpportunityLoss" />
         </EntityType>
         <EntityType Name="Combination">
           <Key>
@@ -224,6 +406,10 @@
           <NavigationProperty Name="Task" Relationship="DBModel.TaskCombination" FromRole="Combination" ToRole="Task" />
           <Property Type="Int32" Name="TaskId" Nullable="false" />
           <NavigationProperty Name="ParameterValues" Relationship="DBModel.CombinationParameterValue" FromRole="Combination" ToRole="ParameterValue" />
+          <NavigationProperty Name="ConditionalProfit" Relationship="DBModel.CombinationConditionalProfit" FromRole="Combination" ToRole="ConditionalProfit" />
+          <NavigationProperty Name="WeightedProfit" Relationship="DBModel.CombinationWeightedProfit" FromRole="Combination" ToRole="WeightedProfit" />
+          <NavigationProperty Name="ConditionalOpportunityLoss" Relationship="DBModel.CombinationConditionalOpportunityLoss" FromRole="Combination" ToRole="ConditionalOpportunityLoss" />
+          <NavigationProperty Name="WeightedOpportunityLoss" Relationship="DBModel.CombinationWeightedOpportunityLoss" FromRole="Combination" ToRole="WeightedOpportunityLoss" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -345,6 +531,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ConditionalProfit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DBModel.CombinationConditionalProfit" FromRole="ConditionalProfit" ToRole="Combination" />
+        </EntityType>
+        <Association Name="CombinationConditionalProfit">
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="1" />
+          <End Type="DBModel.ConditionalProfit" Role="ConditionalProfit" Multiplicity="1" />
+        </Association>
+        <EntityType Name="ExpectedMonetaryValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Action" Relationship="DBModel.ActionExpectedMonetaryValue" FromRole="ExpectedMonetaryValue" ToRole="Action" />
+        </EntityType>
+        <Association Name="ActionExpectedMonetaryValue">
+          <End Type="DBModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="DBModel.ExpectedMonetaryValue" Role="ExpectedMonetaryValue" Multiplicity="1" />
+        </Association>
+        <EntityType Name="ExpectedOpportunityLoss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Action" Relationship="DBModel.ActionExpectedOpportunityLoss" FromRole="ExpectedOpportunityLoss" ToRole="Action" />
+        </EntityType>
+        <Association Name="ActionExpectedOpportunityLoss">
+          <End Type="DBModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="DBModel.ExpectedOpportunityLoss" Role="ExpectedOpportunityLoss" Multiplicity="1" />
+        </Association>
+        <EntityType Name="WeightedProfit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DBModel.CombinationWeightedProfit" FromRole="WeightedProfit" ToRole="Combination" />
+        </EntityType>
+        <Association Name="CombinationWeightedProfit">
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="1" />
+          <End Type="DBModel.WeightedProfit" Role="WeightedProfit" Multiplicity="1" />
+        </Association>
+        <EntityType Name="ConditionalOpportunityLoss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DBModel.CombinationConditionalOpportunityLoss" FromRole="ConditionalOpportunityLoss" ToRole="Combination" />
+        </EntityType>
+        <Association Name="CombinationConditionalOpportunityLoss">
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="1" />
+          <End Type="DBModel.ConditionalOpportunityLoss" Role="ConditionalOpportunityLoss" Multiplicity="1" />
+        </Association>
+        <EntityType Name="WeightedOpportunityLoss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Value" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DBModel.CombinationWeightedOpportunityLoss" FromRole="WeightedOpportunityLoss" ToRole="Combination" />
+        </EntityType>
+        <Association Name="CombinationWeightedOpportunityLoss">
+          <End Type="DBModel.Combination" Role="Combination" Multiplicity="1" />
+          <End Type="DBModel.WeightedOpportunityLoss" Role="WeightedOpportunityLoss" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -415,6 +673,102 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ConditionalProfits">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.ConditionalProfit)">
+        <MappingFragment StoreEntitySet="ConditionalProfits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpectedMonetaryValues">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.ExpectedMonetaryValue)">
+        <MappingFragment StoreEntitySet="ExpectedMonetaryValues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpectedOpportunityLosses">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.ExpectedOpportunityLoss)">
+        <MappingFragment StoreEntitySet="ExpectedOpportunityLosses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeightedProfits">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.WeightedProfit)">
+        <MappingFragment StoreEntitySet="WeightedProfits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConditionalOpportunityLosses">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.ConditionalOpportunityLoss)">
+        <MappingFragment StoreEntitySet="ConditionalOpportunityLosses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WeightedOpportunityLosses">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.WeightedOpportunityLoss)">
+        <MappingFragment StoreEntitySet="WeightedOpportunityLosses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CombinationConditionalProfit" TypeName="DBModel.CombinationConditionalProfit" StoreEntitySet="Combinations">
+      <EndProperty Name="ConditionalProfit">
+        <ScalarProperty Name="Id" ColumnName="ConditionalProfit_Id" />
+      </EndProperty>
+      <EndProperty Name="Combination">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ActionExpectedMonetaryValue" TypeName="DBModel.ActionExpectedMonetaryValue" StoreEntitySet="Actions">
+      <EndProperty Name="ExpectedMonetaryValue">
+        <ScalarProperty Name="Id" ColumnName="ExpectedMonetaryValue_Id" />
+      </EndProperty>
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ActionExpectedOpportunityLoss" TypeName="DBModel.ActionExpectedOpportunityLoss" StoreEntitySet="Actions">
+      <EndProperty Name="ExpectedOpportunityLoss">
+        <ScalarProperty Name="Id" ColumnName="ExpectedOpportunityLoss_Id" />
+      </EndProperty>
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CombinationWeightedProfit" TypeName="DBModel.CombinationWeightedProfit" StoreEntitySet="Combinations">
+      <EndProperty Name="WeightedProfit">
+        <ScalarProperty Name="Id" ColumnName="WeightedProfit_Id" />
+      </EndProperty>
+      <EndProperty Name="Combination">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CombinationConditionalOpportunityLoss" TypeName="DBModel.CombinationConditionalOpportunityLoss" StoreEntitySet="Combinations">
+      <EndProperty Name="ConditionalOpportunityLoss">
+        <ScalarProperty Name="Id" ColumnName="ConditionalOpportunityLoss_Id" />
+      </EndProperty>
+      <EndProperty Name="Combination">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CombinationWeightedOpportunityLoss" TypeName="DBModel.CombinationWeightedOpportunityLoss" StoreEntitySet="Combinations">
+      <EndProperty Name="WeightedOpportunityLoss">
+        <ScalarProperty Name="Id" ColumnName="WeightedOpportunityLoss_Id" />
+      </EndProperty>
+      <EndProperty Name="Combination">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
