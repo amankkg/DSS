@@ -1,0 +1,47 @@
+﻿<Page x:Class="DecisionSupportSystem.Task_8_2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:src="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+  d:DesignHeight="400" d:DesignWidth="500"
+	Title="События">
+
+    <Grid>
+        <Rectangle Fill="#FF6C9EC1" Height="125" VerticalAlignment="Top"/>
+        <Button x:Name="BtnAdd" Content="Добавить" Margin="0,92,10,0" VerticalAlignment="Top" 
+                 HorizontalAlignment="Right" Width="75"/>
+        <Label Content="Событие:" HorizontalAlignment="Left" Margin="10,10,0,0" 
+               VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold"/>
+        <TextBox x:Name="TxtEvent" Height="48" Margin="163,12,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" Text="С1"/>
+        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="233" Height="29" FontSize="14"/>
+        <Label Content="Вероятность:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="25" Foreground="Black"/>
+        <TextBox x:Name="TxtProbability" Height="22" Margin="163,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="96" Text="0,4"/>
+        <DataGrid x:Name="GrdEventsLst" Margin="10,164,10,48"  Background="White" BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="14">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.ContextMenu>
+                        <ContextMenu/>
+                    </ContextMenu.ContextMenu>
+                    <MenuItem Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Событие" Width="270" 
+                             Binding="{Binding Path=Name}" CanUserSort="False" CanUserReorder="True">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Вероятность"  Width="100"
+                             Binding="{Binding Path=Probability}"></DataGridTextColumn>
+            <DataGridTextColumn Header="Брак изделия"  Width="150"
+                             Binding="{Binding Path=Defect.Value}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="btn_Next" 
+                Content="далее >>" Margin="0,0,10,10"  Height="23" Click="btn_Next_Click"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Label Content="Брак изделия:" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Height="26" Foreground="Black"/>
+        <TextBox x:Name="TxtProductDefect" Height="22" Margin="163,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="96" Text="0,8"/>
+
+
+    </Grid>
+</Page>
