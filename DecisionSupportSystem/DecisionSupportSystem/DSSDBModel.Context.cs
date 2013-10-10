@@ -13,10 +13,10 @@ namespace DecisionSupportSystem
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBModelContainer : DbContext
+    public partial class DSSDBEntities : DbContext
     {
-        public DBModelContainer()
-            : base("name=DBModelContainer")
+        public DSSDBEntities()
+            : base("name=DSSDBEntities")
         {
         }
     
@@ -27,16 +27,9 @@ namespace DecisionSupportSystem
     
         public DbSet<Action> Actions { get; set; }
         public DbSet<Combination> Combinations { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Task> Tasks { get; set; }
         public DbSet<Constant> Constants { get; set; }
+        public DbSet<Event> Events { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
-        public DbSet<ParameterValue> ParameterValues { get; set; }
-        public DbSet<ConditionalProfit> ConditionalProfits { get; set; }
-        public DbSet<ExpectedMonetaryValue> ExpectedMonetaryValues { get; set; }
-        public DbSet<ExpectedOpportunityLoss> ExpectedOpportunityLosses { get; set; }
-        public DbSet<WeightedProfit> WeightedProfits { get; set; }
-        public DbSet<ConditionalOpportunityLoss> ConditionalOpportunityLosses { get; set; }
-        public DbSet<WeightedOpportunityLoss> WeightedOpportunityLosses { get; set; }
+        public DbSet<Task> Tasks { get; set; }
     }
 }

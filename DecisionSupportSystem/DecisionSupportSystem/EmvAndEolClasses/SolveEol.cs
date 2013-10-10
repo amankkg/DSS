@@ -49,7 +49,7 @@ namespace DecisionSupportSystem
         public WeightedOpportLoss(ConditionalOpportLoss col)
         {
             _id = Guid.NewGuid();
-            _value = col.Value * col.ConditionalProfit.Combination.Event.Probability;
+            _value = col.Value * (double) col.ConditionalProfit.Combination.Event.Probability;
             _conditionalOpportLoss = col;
         }
     }

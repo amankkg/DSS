@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31a99dca7f7246849dae0486a2545854" Name="Диаграмма1">
+        <EntityTypeShape EntityType="DSSDBModel.Action" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSSDBModel.Combination" Width="1.5" PointX="5.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSSDBModel.Constant" Width="1.5" PointX="5.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSSDBModel.Event" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSSDBModel.Parameter" Width="1.5" PointX="7.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSSDBModel.Task" Width="1.5" PointX="3.25" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="DSSDBModel.FK__Combinati__Actio__0CBAE877" ManuallyRouted="false" />
+        <AssociationConnector Association="DSSDBModel.FK__Combinati__Event__0DAF0CB0" ManuallyRouted="false" />
+        <AssociationConnector Association="DSSDBModel.FK__Combinati__TaskI__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="DSSDBModel.FK__Parameter__Combi__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="DSSDBModel.FK__Constants__TaskI__1367E606" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DSSDBModel.TaskType" Width="1.5" PointX="1.375" PointY="1.875" />
+        <AssociationConnector Association="DSSDBModel.TaskTaskType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

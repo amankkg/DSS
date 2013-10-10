@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DSSDBModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Хранилище DSSDBModelContainer">
+          <EntitySet Name="Actions" EntityType="Хранилище DSSDBModel.Actions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Combinations" EntityType="Хранилище DSSDBModel.Combinations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Constants" EntityType="Хранилище DSSDBModel.Constants" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Events" EntityType="Хранилище DSSDBModel.Events" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Parameters" EntityType="Хранилище DSSDBModel.Parameters" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tasks" EntityType="Хранилище DSSDBModel.Tasks" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Combinati__Actio__0CBAE877" Association="Хранилище DSSDBModel.FK__Combinati__Actio__0CBAE877">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Combinati__Event__0DAF0CB0" Association="Хранилище DSSDBModel.FK__Combinati__Event__0DAF0CB0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Combinati__TaskI__0EA330E9" Association="Хранилище DSSDBModel.FK__Combinati__TaskI__0EA330E9">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Constants__TaskI__1367E606" Association="Хранилище DSSDBModel.FK__Constants__TaskI__1367E606">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Constants" EntitySet="Constants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parameter__Combi__182C9B23" Association="Хранилище DSSDBModel.FK__Parameter__Combi__182C9B23">
+            <End Role="Combinations" EntitySet="Combinations" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ExpectedMonetaryValue" Type="decimal" Scale="8" />
+          <Property Name="ExpectedOpportunityLoss" Type="decimal" Scale="8" />
+        </EntityType>
+        <EntityType Name="Combinations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActionId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="ConditionalProfit" Type="decimal" Scale="8" />
+          <Property Name="WeightedProfit" Type="decimal" Scale="8" />
+          <Property Name="ConditionalOpportunityLoss" Type="decimal" Scale="8" />
+          <Property Name="WeightedOpportunityLoss" Type="decimal" Scale="8" />
+        </EntityType>
+        <EntityType Name="Constants">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Value" Type="decimal" Nullable="false" Scale="8" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Probability" Type="decimal" Nullable="false" Scale="8" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Value" Type="decimal" Nullable="false" Scale="8" />
+          <Property Name="CombinationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Recommendation" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Combinati__Actio__0CBAE877">
+          <End Role="Actions" Type="Хранилище DSSDBModel.Actions" Multiplicity="1" />
+          <End Role="Combinations" Type="Хранилище DSSDBModel.Combinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Combinati__Event__0DAF0CB0">
+          <End Role="Events" Type="Хранилище DSSDBModel.Events" Multiplicity="1" />
+          <End Role="Combinations" Type="Хранилище DSSDBModel.Combinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Combinati__TaskI__0EA330E9">
+          <End Role="Tasks" Type="Хранилище DSSDBModel.Tasks" Multiplicity="1" />
+          <End Role="Combinations" Type="Хранилище DSSDBModel.Combinations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Constants__TaskI__1367E606">
+          <End Role="Tasks" Type="Хранилище DSSDBModel.Tasks" Multiplicity="1" />
+          <End Role="Constants" Type="Хранилище DSSDBModel.Constants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Constants">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parameter__Combi__182C9B23">
+          <End Role="Combinations" Type="Хранилище DSSDBModel.Combinations" Multiplicity="1" />
+          <End Role="Parameters" Type="Хранилище DSSDBModel.Parameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Combinations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="CombinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DSSDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DSSDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="DSSDBModel.Action" />
+          <EntitySet Name="Combinations" EntityType="DSSDBModel.Combination" />
+          <EntitySet Name="Constants" EntityType="DSSDBModel.Constant" />
+          <EntitySet Name="Events" EntityType="DSSDBModel.Event" />
+          <EntitySet Name="Parameters" EntityType="DSSDBModel.Parameter" />
+          <EntitySet Name="Tasks" EntityType="DSSDBModel.Task" />
+          <AssociationSet Name="FK__Combinati__Actio__0CBAE877" Association="DSSDBModel.FK__Combinati__Actio__0CBAE877">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Combinati__Event__0DAF0CB0" Association="DSSDBModel.FK__Combinati__Event__0DAF0CB0">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Combinati__TaskI__0EA330E9" Association="DSSDBModel.FK__Combinati__TaskI__0EA330E9">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Combinations" EntitySet="Combinations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Parameter__Combi__182C9B23" Association="DSSDBModel.FK__Parameter__Combi__182C9B23">
+            <End Role="Combinations" EntitySet="Combinations" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Constants__TaskI__1367E606" Association="DSSDBModel.FK__Constants__TaskI__1367E606">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Constants" EntitySet="Constants" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ExpectedMonetaryValue" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="ExpectedOpportunityLoss" Type="Decimal" Precision="18" Scale="8" />
+          <NavigationProperty Name="Combinations" Relationship="DSSDBModel.FK__Combinati__Actio__0CBAE877" FromRole="Actions" ToRole="Combinations" />
+        </EntityType>
+        <EntityType Name="Combination">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionId" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="ConditionalProfit" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="WeightedProfit" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="ConditionalOpportunityLoss" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="WeightedOpportunityLoss" Type="Decimal" Precision="18" Scale="8" />
+          <NavigationProperty Name="Action" Relationship="DSSDBModel.FK__Combinati__Actio__0CBAE877" FromRole="Combinations" ToRole="Actions" />
+          <NavigationProperty Name="Event" Relationship="DSSDBModel.FK__Combinati__Event__0DAF0CB0" FromRole="Combinations" ToRole="Events" />
+          <NavigationProperty Name="Task" Relationship="DSSDBModel.FK__Combinati__TaskI__0EA330E9" FromRole="Combinations" ToRole="Tasks" />
+          <NavigationProperty Name="Parameters" Relationship="DSSDBModel.FK__Parameter__Combi__182C9B23" FromRole="Combinations" ToRole="Parameters" />
+        </EntityType>
+        <EntityType Name="Constant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="8" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="DSSDBModel.FK__Constants__TaskI__1367E606" FromRole="Constants" ToRole="Tasks" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Probability" Type="Decimal" Nullable="false" Precision="18" Scale="8" />
+          <NavigationProperty Name="Combinations" Relationship="DSSDBModel.FK__Combinati__Event__0DAF0CB0" FromRole="Events" ToRole="Combinations" />
+        </EntityType>
+        <EntityType Name="Parameter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="8" />
+          <Property Name="CombinationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Combination" Relationship="DSSDBModel.FK__Parameter__Combi__182C9B23" FromRole="Parameters" ToRole="Combinations" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Recommendation" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Combinations" Relationship="DSSDBModel.FK__Combinati__TaskI__0EA330E9" FromRole="Tasks" ToRole="Combinations" />
+          <NavigationProperty Name="Constants" Relationship="DSSDBModel.FK__Constants__TaskI__1367E606" FromRole="Tasks" ToRole="Constants" />
+        </EntityType>
+        <Association Name="FK__Combinati__Actio__0CBAE877">
+          <End Role="Actions" Type="DSSDBModel.Action" Multiplicity="1" />
+          <End Role="Combinations" Type="DSSDBModel.Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Combinati__Event__0DAF0CB0">
+          <End Role="Events" Type="DSSDBModel.Event" Multiplicity="1" />
+          <End Role="Combinations" Type="DSSDBModel.Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Combinati__TaskI__0EA330E9">
+          <End Role="Tasks" Type="DSSDBModel.Task" Multiplicity="1" />
+          <End Role="Combinations" Type="DSSDBModel.Combination" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Combinations">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Parameter__Combi__182C9B23">
+          <End Role="Combinations" Type="DSSDBModel.Combination" Multiplicity="1" />
+          <End Role="Parameters" Type="DSSDBModel.Parameter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Combinations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="CombinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Constants__TaskI__1367E606">
+          <End Role="Tasks" Type="DSSDBModel.Task" Multiplicity="1" />
+          <End Role="Constants" Type="DSSDBModel.Constant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Constants">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DSSDBModelContainer" CdmEntityContainer="DSSDBEntities">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="DSSDBModel.Action">
+              <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ExpectedMonetaryValue" ColumnName="ExpectedMonetaryValue" />
+                <ScalarProperty Name="ExpectedOpportunityLoss" ColumnName="ExpectedOpportunityLoss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Combinations">
+            <EntityTypeMapping TypeName="DSSDBModel.Combination">
+              <MappingFragment StoreEntitySet="Combinations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="ConditionalProfit" ColumnName="ConditionalProfit" />
+                <ScalarProperty Name="WeightedProfit" ColumnName="WeightedProfit" />
+                <ScalarProperty Name="ConditionalOpportunityLoss" ColumnName="ConditionalOpportunityLoss" />
+                <ScalarProperty Name="WeightedOpportunityLoss" ColumnName="WeightedOpportunityLoss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constants">
+            <EntityTypeMapping TypeName="DSSDBModel.Constant">
+              <MappingFragment StoreEntitySet="Constants">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="DSSDBModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameters">
+            <EntityTypeMapping TypeName="DSSDBModel.Parameter">
+              <MappingFragment StoreEntitySet="Parameters">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CombinationId" ColumnName="CombinationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="DSSDBModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Recommendation" ColumnName="Recommendation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
