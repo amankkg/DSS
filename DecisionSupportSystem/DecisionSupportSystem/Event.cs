@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Dynamic;
+
 namespace DecisionSupportSystem
 {
     using System;
@@ -22,7 +24,6 @@ namespace DecisionSupportSystem
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Probability { get; set; }
-    
         public virtual ICollection<Combination> Combinations { get; set; }
     }
 }

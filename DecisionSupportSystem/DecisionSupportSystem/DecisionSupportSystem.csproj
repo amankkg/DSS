@@ -128,15 +128,31 @@
     <Compile Include="Interfaces\InputType2Page.xaml.cs">
       <DependentUpon>InputType2Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Task_5\LayerTask.cs" />
+    <Compile Include="Interfaces\Task_5\MainNavigationTask5.xaml.cs">
+      <DependentUpon>MainNavigationTask5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task_5\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task_5\Page_1.xaml.cs">
+      <DependentUpon>Page_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task_5\Page_2.xaml.cs">
+      <DependentUpon>Page_2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task_5\Page_3.xaml.cs">
+      <DependentUpon>Page_3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task_5\Page_4.xaml.cs">
+      <DependentUpon>Page_4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\Task_1-3\LayerTask.cs" />
     <Compile Include="Interfaces\Task_1-3\MainNavigationTask1-3.xaml.cs">
       <DependentUpon>MainNavigationTask1-3.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\Task_1-3\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_8\MainNavigationTask8.xaml.cs">
-      <DependentUpon>MainNavigationTask8.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\Task_1-3\Page_1.xaml.cs">
       <DependentUpon>Page_1.xaml</DependentUpon>
@@ -150,18 +166,13 @@
     <Compile Include="Interfaces\Task_1-3\Page_4.xaml.cs">
       <DependentUpon>Page_4.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_8\Task_8_1.xaml.cs">
-      <DependentUpon>Task_8_1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_8\Task_8_2.xaml.cs">
-      <DependentUpon>Task_8_2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_8\Task_8_3.xaml.cs">
-      <DependentUpon>Task_8_3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_8\Task_8_4.xaml.cs">
-      <DependentUpon>Task_8_4.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\Task_8\InterfaceData.cs" />
+    <Compile Include="Interfaces\Task_8\MainNavigationTask8.xaml.cs" />
+    <Compile Include="Interfaces\Task_8\MainPage.xaml.cs" />
+    <Compile Include="Interfaces\Task_8\Task_8_1.xaml.cs" />
+    <Compile Include="Interfaces\Task_8\Task_8_2.xaml.cs" />
+    <Compile Include="Interfaces\Task_8\Task_8_3.xaml.cs" />
+    <Compile Include="Interfaces\Task_8\Task_8_4.xaml.cs" />
     <Compile Include="Parameter.cs">
       <DependentUpon>DSSDBModel.tt</DependentUpon>
     </Compile>
@@ -199,15 +210,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Interfaces\Task_5\MainNavigationTask5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_5\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_5\Page_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_5\Page_2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_5\Page_3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_5\Page_4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Interfaces\Task_1-3\MainNavigationTask1-3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Interfaces\Task_1-3\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Interfaces\Task_8\MainNavigationTask8.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,22 +255,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Interfaces\Task_1-3\Page_4.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\Task_8\Task_8_1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\Task_8\Task_8_2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\Task_8\Task_8_3.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\Task_8\Task_8_4.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -262,6 +277,30 @@
     <Page Include="Interfaces\SolvedTasksWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Interfaces\Task_8\MainNavigationTask8.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_8\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_8\Task_8_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_8\Task_8_2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_8\Task_8_3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task_8\Task_8_4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
