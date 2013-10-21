@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CoinGameClassesLibrary">
+      <HintPath>Libraries\CoinGameClassesLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="DiceGameClassesLibrary">
+      <HintPath>Libraries\DiceGameClassesLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -128,6 +134,10 @@
     <Compile Include="Interfaces\InputType2Page.xaml.cs">
       <DependentUpon>InputType2Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\Task no. 7\GameConditions.xaml.cs">
+      <DependentUpon>GameConditions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\Task no. 7\LayerTask.cs" />
     <Compile Include="Interfaces\Task_5\LayerTask.cs" />
     <Compile Include="Interfaces\Task_5\MainNavigationTask5.xaml.cs">
       <DependentUpon>MainNavigationTask5.xaml</DependentUpon>
@@ -209,6 +219,10 @@
     <Page Include="Interfaces\InputType2Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Interfaces\Task no. 7\GameConditions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Interfaces\Task_5\MainNavigationTask5.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -371,6 +385,9 @@
   <ItemGroup>
     <Content Include="DBModel.edmx.sql" />
     <Resource Include="Interfaces\allTasks.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\Task no. 6\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
