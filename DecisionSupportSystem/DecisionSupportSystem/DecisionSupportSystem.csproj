@@ -66,64 +66,60 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="Action.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
+    <Compile Include="DbModel\Action.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Combination.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
+    <Compile Include="DbModel\ActionParam.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DSSDBModel.Context.cs">
+    <Compile Include="DbModel\ActionParamName.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\BasePropertyChanged.cs" />
+    <Compile Include="DbModel\Combination.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\CombinParam.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\CombinParamName.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\DssDbContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DSSDBModel.Context.tt</DependentUpon>
+      <DependentUpon>DssDbContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DSSDBModel.cs">
+    <Compile Include="DbModel\DssDbContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
+      <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DSSDBModel.Designer.cs">
+    <Compile Include="DbModel\DssDbContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DSSDBModel.edmx</DependentUpon>
+      <DependentUpon>DssDbContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\Event.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\EventParam.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\EventParamName.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\Task.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\TaskParam.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel\TaskParamName.cs">
+      <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ConclusionPage.xaml.cs">
       <DependentUpon>ConclusionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ConditionalOpportunityLoss.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConditionalProfit.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Constant.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Event.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EmvAndEolClasses\SolveEmv.cs" />
-    <Compile Include="EmvAndEolClasses\SolveEol.cs" />
-    <Compile Include="ExpectedMonetaryValue.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExpectedOpportunityLoss.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\GenericPage.xaml.cs">
       <DependentUpon>GenericPage.xaml</DependentUpon>
@@ -134,75 +130,94 @@
     <Compile Include="Interfaces\InputType2Page.xaml.cs">
       <DependentUpon>InputType2Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\TaskNo7\GameConditions.xaml.cs">
+    <Compile Include="MainClasses\ActionForSecondType.cs" />
+    <Compile Include="MainClasses\BaseTaskLayer.cs" />
+    <Compile Include="MainClasses\CpMax.cs" />
+    <Compile Include="MainClasses\BaseMethods.cs" />
+    <Compile Include="MainClasses\PagePattern.cs" />
+    <Compile Include="SolvingTree\Action.cs" />
+    <Compile Include="SolvingTree\ActionControl.xaml.cs">
+      <DependentUpon>ActionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\AddDepedence.xaml.cs">
+      <DependentUpon>AddDepedence.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\DLine.cs" />
+    <Compile Include="SolvingTree\DrawLine.cs" />
+    <Compile Include="SolvingTree\Event.cs" />
+    <Compile Include="SolvingTree\EventControl.xaml.cs">
+      <DependentUpon>EventControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\EventOrigin.cs" />
+    <Compile Include="SolvingTree\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SolvingTree\SolvingLayer.cs" />
+    <Compile Include="TaskNo7\GameConditions.xaml.cs">
       <DependentUpon>GameConditions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\TaskNo7\TaskModel.cs" />
-    <Compile Include="Interfaces\Task_5\LayerTask.cs" />
-    <Compile Include="Interfaces\Task_5\MainNavigationTask5.xaml.cs">
+    <Compile Include="TaskNo7\TaskModel.cs" />
+    <Compile Include="Task_1\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_1\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_1\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_1\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_1\PageSolve.xaml.cs">
+      <DependentUpon>PageSolve.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_5\LayerTask.cs" />
+    <Compile Include="Task_5\MainNavigationTask5.xaml.cs">
       <DependentUpon>MainNavigationTask5.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_5\MainPage.xaml.cs">
+    <Compile Include="Task_5\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_5\Page_1.xaml.cs">
+    <Compile Include="Task_5\Page_1.xaml.cs">
       <DependentUpon>Page_1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_5\Page_2.xaml.cs">
+    <Compile Include="Task_5\Page_2.xaml.cs">
       <DependentUpon>Page_2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_5\Page_3.xaml.cs">
+    <Compile Include="Task_5\Page_3.xaml.cs">
       <DependentUpon>Page_3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_5\Page_4.xaml.cs">
+    <Compile Include="Task_5\Page_4.xaml.cs">
       <DependentUpon>Page_4.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\Task_1-3\LayerTask.cs" />
-    <Compile Include="Interfaces\Task_1-3\MainNavigationTask1-3.xaml.cs">
-      <DependentUpon>MainNavigationTask1-3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_1-3\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_1-3\Page_1.xaml.cs">
-      <DependentUpon>Page_1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_1-3\Page_2.xaml.cs">
-      <DependentUpon>Page_2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_1-3\Page_3.xaml.cs">
-      <DependentUpon>Page_3.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_1-3\Page_4.xaml.cs">
-      <DependentUpon>Page_4.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\Task_8\InterfaceData.cs" />
-    <Compile Include="Interfaces\Task_8\MainNavigationTask8.xaml.cs" />
-    <Compile Include="Interfaces\Task_8\MainPage.xaml.cs" />
-    <Compile Include="Interfaces\Task_8\Task_8_1.xaml.cs" />
-    <Compile Include="Interfaces\Task_8\Task_8_2.xaml.cs" />
-    <Compile Include="Interfaces\Task_8\Task_8_3.xaml.cs" />
-    <Compile Include="Interfaces\Task_8\Task_8_4.xaml.cs" />
-    <Compile Include="Parameter.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ParameterValue.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Task_8\InterfaceData.cs" />
     <Compile Include="Interfaces\SolutionPage.xaml.cs">
       <DependentUpon>SolutionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\SolvedTasksWindow.xaml.cs">
       <DependentUpon>SolvedTasksWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task.cs">
-      <DependentUpon>DSSDBModel.tt</DependentUpon>
+    <Compile Include="Task_8\Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeightedOpportunityLoss.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+    <Compile Include="Task_8\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeightedProfit.cs">
-      <DependentUpon>DBModel.tt</DependentUpon>
+    <Compile Include="Task_8\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\PageSolve.xaml.cs">
+      <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
     <Page Include="Interfaces\ConclusionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -220,59 +235,79 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\TaskNo7\GameConditions.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Interfaces\Task_5\MainNavigationTask5.xaml">
+    <Page Include="SolvingTree\ActionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_5\MainPage.xaml">
+    <Page Include="SolvingTree\AddDepedence.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_5\Page_1.xaml">
+    <Page Include="SolvingTree\EventControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_5\Page_2.xaml">
+    <Page Include="SolvingTree\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_5\Page_3.xaml">
+    <Page Include="SolvingTree\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_5\Page_4.xaml">
+    <Page Include="SolvingTree\PageEvents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_1-3\MainNavigationTask1-3.xaml">
+    <Page Include="TaskNo7\GameConditions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interfaces\Task_1-3\MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Interfaces\Task_1-3\Page_1.xaml">
+    <Page Include="Task_1\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_1-3\Page_2.xaml">
+    <Page Include="Task_1\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_1-3\Page_3.xaml">
+    <Page Include="Task_1\PageCombinations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_1-3\Page_4.xaml">
+    <Page Include="Task_1\PageEvents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\MainWindow.xaml">
+    <Page Include="Task_1\PageSolve.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Task_5\MainNavigationTask5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_5\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_5\Page_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_5\Page_2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_5\Page_3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_5\Page_4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -280,7 +315,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interfaces\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -292,27 +327,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Interfaces\Task_8\MainNavigationTask8.xaml">
+    <Page Include="Task_8\Main.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_8\MainPage.xaml">
+    <Page Include="Task_8\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_8\Task_8_1.xaml">
+    <Page Include="Task_8\PageCombinations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_8\Task_8_2.xaml">
+    <Page Include="Task_8\PageEvents.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_8\Task_8_3.xaml">
+    <Page Include="Task_8\PageSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\Task_8\Task_8_4.xaml">
+    <Page Include="Themes\StyleDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -335,39 +370,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DBModel.edmx">
+    <EntityDeploy Include="DbModel\DssDbContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DssDbContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DBModel.Context.tt">
+    <None Include="DbModel\DssDbContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-      <LastGenOutput>DBModel.Context.cs</LastGenOutput>
+      <DependentUpon>DssDbContext.edmx</DependentUpon>
+      <LastGenOutput>DssDbContext.Context.cs</LastGenOutput>
     </None>
-    <None Include="DBModel.edmx.diagram">
-      <DependentUpon>DBModel.edmx</DependentUpon>
+    <None Include="DbModel\DssDbContext.edmx.diagram">
+      <DependentUpon>DssDbContext.edmx</DependentUpon>
     </None>
-    <None Include="DBModel.tt">
+    <None Include="DbModel\DssDbContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBModel.edmx</DependentUpon>
-      <LastGenOutput>DBModel.cs</LastGenOutput>
-    </None>
-    <EntityDeploy Include="DSSDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DSSDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DSSDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DSSDBModel.edmx</DependentUpon>
-      <LastGenOutput>DSSDBModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="DSSDBModel.edmx.diagram">
-      <DependentUpon>DSSDBModel.edmx</DependentUpon>
-    </None>
-    <None Include="DSSDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DSSDBModel.edmx</DependentUpon>
-      <LastGenOutput>DSSDBModel.cs</LastGenOutput>
+      <DependentUpon>DssDbContext.edmx</DependentUpon>
+      <LastGenOutput>DssDbContext.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -383,8 +401,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBModel.edmx.sql" />
-    <Resource Include="Interfaces\allTasks.xml" />
+    <Resource Include="allTasks.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

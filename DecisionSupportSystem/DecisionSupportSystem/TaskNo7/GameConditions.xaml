@@ -1,0 +1,47 @@
+﻿<Page x:Class="DecisionSupportSystem.Interfaces.Task_no._7.GameConditions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" d:DesignWidth="276.37"
+	Title="GameConditions" Height="327.74">
+
+    <Grid>
+        <ComboBox x:Name="cb_NumberOfThrowings" HorizontalAlignment="Left" Margin="141,80,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1">
+            <ComboBoxItem Content="1 бросок"/>
+            <ComboBoxItem Content="2 броска"/>
+            <ComboBoxItem Content="3 броска"/>
+            <ComboBoxItem Content="4 броска"/>
+            <ComboBoxItem Content="5 бросков"/>
+            <ComboBoxItem Content="6 бросков"/>
+            <ComboBoxItem Content="7 бросков"/>
+            <ComboBoxItem Content="8 бросков"/>
+            <ComboBoxItem Content="9 бросков"/>
+            <ComboBoxItem Content="10 бросков"/>
+            <ComboBoxItem Content="11 бросков"/>
+        </ComboBox>
+        <ListBox x:Name="lb_InitialEvents" HorizontalAlignment="Left" Height="49" Margin="141,12,0,0" VerticalAlignment="Top" Width="100">
+            <TextBox Text="Ч" Width="80"/>
+            <TextBox Text="Н" Width="80"/>
+        </ListBox>
+        <Label Content="Исходные события:" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top"/>
+        <Expander Header="Доп. условия" HorizontalAlignment="Left" Margin="10,141,0,0" VerticalAlignment="Top" Width="251" RenderTransformOrigin="0.5,0.5">
+            <Grid Background="#FFE5E5E5" Height="127" Margin="0,0,-2,0">
+                <ComboBox x:Name="cb_NumberOfOutcomesPerStake" HorizontalAlignment="Left" Margin="136,47,0,0" VerticalAlignment="Top" Width="105" SelectedIndex="1">
+                    <ComboBoxItem Content="1 исход"/>
+                    <ComboBoxItem Content="2 исхода"/>
+                    <ComboBoxItem Content="3 исхода"/>
+                    <ComboBoxItem Content="4 исхода"/>
+                    <ComboBoxItem Content="5 исходов"/>
+                    <ComboBoxItem Content="6 исходов"/>
+                </ComboBox>
+                <CheckBox x:Name="cb_OrderOfOutcomesDoesNotMatter" Content="Порядок исходов не имеет значения" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Height="29" IsChecked="True" Width="231"/>
+                <Label Content="Количество исходов, &#xD;&#xA;покрываемых одной&#xD;&#xA;ставкой" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="131" Height="59"/>
+            </Grid>
+        </Expander>
+        <Button x:Name="b_Next" Content="Далее" HorizontalAlignment="Left" Margin="181,299,0,0" VerticalAlignment="Top" Width="80" />
+        <Label Content="Количество бросков:" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top"/>
+        <Label Content="Сумма ставки: $" HorizontalAlignment="Left" Margin="38,109,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tb_StakeValue" HorizontalAlignment="Left" Height="23" Margin="136,113,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="28"/>
+    </Grid>
+</Page>

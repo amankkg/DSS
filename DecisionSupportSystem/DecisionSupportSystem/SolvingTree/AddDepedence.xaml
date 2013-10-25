@@ -1,0 +1,24 @@
+﻿<Window x:Class="DecisionSupportSystem.SolvingTree.AddDepedence"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddDepedence" Height="287.672" Width="371.918" WindowStyle="ToolWindow" Loaded="Window_Loaded_1">
+    <Grid>
+        <GroupBox Header="Событие" VerticalAlignment="Top" Height="144">
+            <Grid>
+                <Label Content="Действие:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.391,0.506" Height="24" Width="65" Margin="10,0,0,0"/>
+                <ComboBox Name="MainAction" Margin="10,24,10,0" VerticalAlignment="Top" DisplayMemberPath="Name" SelectionChanged="MainAction_SelectionChanged"/>
+                <Label Content="Событие:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.391,0.506" Height="24" Width="65" Margin="10,51,0,0"/>
+                <ComboBox Name="Events" Margin="10,75,10,0" VerticalAlignment="Top" DisplayMemberPath="EventOrigin.Name"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Действие" HorizontalAlignment="Left" VerticalAlignment="Top" Height="84" Width="364" RenderTransformOrigin="1.26,0.475" Margin="0,144,0,0">
+            <Grid>
+                <Label Content="Действие:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.391,0.506" Height="24" Width="65" Margin="10,10,0,0"/>
+                <ComboBox Name="SActions" Margin="10,34,10,0" VerticalAlignment="Top" DisplayMemberPath="Name"/>
+            </Grid>
+        </GroupBox>
+        <Button Content="Отмена" Margin="0,0,13,8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button Content="OK" Margin="0,0,93,8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>
