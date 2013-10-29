@@ -6,12 +6,13 @@ using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.MainClasses;
 
 
-namespace DecisionSupportSystem.Task_8
+namespace DecisionSupportSystem.Task_4
 { 
     public partial class PageEvents
     {
         private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
                                                                 // которые могут использоваться любой страницей 
+        private Task4CombinationsView localTaskLayer;
         private NavigationService navigation;  
         private Event eEvent = new Event();
 
@@ -21,13 +22,14 @@ namespace DecisionSupportSystem.Task_8
         {
             gridEvent.DataContext = eEvent; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
             GrdEventsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Events.Local;
-                // привязываем локальные данные таблицы Actions к датагриду
+                                        // привязываем локальные данные таблицы Actions к датагриду
         }
 
-        public PageEvents(BaseLayer taskLayer)
+        public PageEvents(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;
+            localTaskLayer = task4CombinationsView;
             Init();
         }
 
@@ -53,11 +55,21 @@ namespace DecisionSupportSystem.Task_8
             GrdEventsLst.Items.Refresh();
         }
 
+        #region Валидаторы
+        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
+        {
+            pagePattern.DatagridValidationError(e);
+        }
+
         private void EventValidationError(object sender, ValidationErrorEventArgs e)
         {
             pagePattern.EntityValidationError(e);
         }
+        
+        #endregion
 
+        #region Навигация
+        
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             pagePattern.NavigatePageCanExecute(e);
@@ -66,7 +78,7 @@ namespace DecisionSupportSystem.Task_8
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer, localTaskLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -77,13 +89,10 @@ namespace DecisionSupportSystem.Task_8
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageActions(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageActions(pagePattern.baseTaskLayer, localTaskLayer));
         }
 
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.DatagridValidationError(e);
-        }
+        #endregion
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {

@@ -12,7 +12,7 @@ namespace DecisionSupportSystem.Task_1
         // которые могут использоваться любой страницей 
         private NavigationService navigation;  
 
-        public PageCombinations(BaseTaskLayer taskLayer)
+        public PageCombinations(BaseLayer taskLayer)
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;

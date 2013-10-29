@@ -24,20 +24,20 @@ namespace DecisionSupportSystem.Task_8
             gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
             GrdActionsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
         }
-         
+        
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = new BaseTaskLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            pagePattern.baseTaskLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
         }
 
-        public PageActions(BaseTaskLayer taskLayer)
+        public PageActions(BaseLayer taskLayer)
         { 
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;
         }
         #endregion
-          
+        
         private void PageActionsOnLoaded(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);

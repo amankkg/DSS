@@ -24,7 +24,7 @@ namespace DecisionSupportSystem.Task_1
                 // привязываем локальные данные таблицы Actions к датагриду
         }
 
-        public PageEvents(BaseTaskLayer taskLayer)
+        public PageEvents(BaseLayer taskLayer)
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;

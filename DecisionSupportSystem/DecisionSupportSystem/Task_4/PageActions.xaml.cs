@@ -1,20 +1,19 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.MainClasses;
-using Action = DecisionSupportSystem.DbModel.Action;
 
-namespace DecisionSupportSystem.Task_1
+namespace DecisionSupportSystem.Task_4
 {
     public partial class PageActions
     {
         private PagePattern pagePattern = new PagePattern();  // ссылка на шаблон, который хранит общие функции и поля,
         private NavigationService navigation;                 // которые могут использоваться любой страницей 
         private Action action = new Action();
+        private Task4CombinationsView localTaskLayer;
         #region Конструкторы
-       
 
         private void Init()
         {
@@ -26,22 +25,28 @@ namespace DecisionSupportSystem.Task_1
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            localTaskLayer = new Task4CombinationsView (pagePattern.baseTaskLayer);
         }
 
         public PageActions(BaseLayer taskLayer)
+        {
+            InitializeComponent();
+            pagePattern.baseTaskLayer = taskLayer;
+            localTaskLayer = new Task4CombinationsView (taskLayer);
+            
+        }
+
+        public PageActions(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
         { 
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;
-            Init();
+            localTaskLayer = task4CombinationsView;
         }
         #endregion
 
-        public void Show(object obj, string title, string taskuniq, BaseLayer baseLayer)
+        public void Show(object obj, string title, string taskuniq)
         {
-            if (baseLayer != null)
-            pagePattern.baseTaskLayer = baseLayer;
             pagePattern.baseTaskLayer.Task.TaskUniq = taskuniq;
-            Init();
             var wind = new NavigationWindow();
             wind.Content = obj;
             wind.Title = title;
@@ -50,9 +55,11 @@ namespace DecisionSupportSystem.Task_1
             wind.Show();
         }
 
+
         private void PageActionsOnLoaded(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
+            Init();
         }
 
         public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -64,7 +71,7 @@ namespace DecisionSupportSystem.Task_1
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer, localTaskLayer));
         }
 
         private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)

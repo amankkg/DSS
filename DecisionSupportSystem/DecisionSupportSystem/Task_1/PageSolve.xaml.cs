@@ -10,7 +10,7 @@ namespace DecisionSupportSystem.Task_1
     /// <summary>
     /// Логика взаимодействия для PageSolve.xaml
     /// </summary>
-    public partial class PageSolve : Page
+    public partial class PageSolve
     {
         private PagePattern pagePattern = new PagePattern(); 
         private NavigationService navigation;
@@ -18,9 +18,10 @@ namespace DecisionSupportSystem.Task_1
         private void Init()
         {
             GrdSolutionLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;
+            GrdTask.DataContext = pagePattern.baseTaskLayer.TaskView;
         }
 
-        public PageSolve(BaseTaskLayer taskLayer)
+        public PageSolve(BaseLayer taskLayer)
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;
@@ -31,13 +32,6 @@ namespace DecisionSupportSystem.Task_1
         {
             pagePattern.baseTaskLayer.SolveWpColWol();
             pagePattern.baseTaskLayer.SolveEmvEol();
-            var k = Convert.ToDecimal(Convert.ToDouble(pagePattern.baseTaskLayer.DssDbContext.Actions.Local.Max(a => a.Emv)));
-            var optimAct = pagePattern.baseTaskLayer.DssDbContext.Actions.Local.FirstOrDefault(a => a.Emv == k).Name;
-            SolveTextBlock.Text =
-            string.Format(
-                "Рекомендуется выбрать действие '{0}'. Такое решение принесет максимальное значение средней ожидаемой прибыли равное {1} $. Такое значение средней ожидаемой прибыли ожидается, если многогратно в пределе после бесчисленного множества раз будет выбрано это действие при условии, что вероятности событий будут неизменны.",
-                optimAct, k);
-            MaxEMV.Content = k;
             GrdSolutionLst.Items.Refresh();
         }
 
@@ -45,6 +39,11 @@ namespace DecisionSupportSystem.Task_1
         {
             navigation = NavigationService.GetNavigationService(this);
             navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer));
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            pagePattern.baseTaskLayer.Save();
         }
     }
 }

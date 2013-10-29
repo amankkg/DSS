@@ -1,4 +1,5 @@
-﻿using DecisionSupportSystem.DbModel;
+﻿using System.Collections.Generic;
+using DecisionSupportSystem.DbModel;
 
 namespace DecisionSupportSystem.MainClasses
 { 
@@ -16,7 +17,7 @@ namespace DecisionSupportSystem.MainClasses
         public void AddTask(Task task)
         {
             if (task == null) return;
-            dssDbContext.Tasks.Add(task);
+            dssDbContext.Tasks.Local.Add(task);
         }
 
         public void AddTaskParam(TaskParam param, Task task, TaskParamName name)
@@ -30,19 +31,19 @@ namespace DecisionSupportSystem.MainClasses
         public void AddAction(Action action)
         {
             if (action == null) return;
-            dssDbContext.Actions.Add(action);
+            dssDbContext.Actions.Local.Add(action);
         }
 
         public void AddActionParamName(ActionParamName actionParamName)
         {
             if (actionParamName == null) return;
-            dssDbContext.ActionParamNames.Add(actionParamName);
+                dssDbContext.ActionParamNames.Add(actionParamName);
         }
 
         public void AddActionParam(ActionParam param)
         {
             if (param == null) return;
-            dssDbContext.ActionParams.Add(new ActionParam
+            dssDbContext.ActionParams.Local.Add(new ActionParam
                 {
                     Action = param.Action,
                     ActionParamName = param.ActionParamName,
@@ -67,29 +68,34 @@ namespace DecisionSupportSystem.MainClasses
             if (param == null || eEvent == null || name == null) return;
             param.Event = eEvent;
             param.EventParamName = name;
-            dssDbContext.Events.Add(eEvent);
+            dssDbContext.Events.Local.Add(eEvent);
         }
 
         public void AddCombination(Combination combination, Action action, Event eEvent, Task task, decimal cpValue)
         {
-            //if (eEvent == null || action == null || task == null) return;
             combination.Cp = cpValue;
             combination.Action = action;
             combination.Event = eEvent;
             combination.Task = task;
-            dssDbContext.Combinations.Add(combination);
+            dssDbContext.Combinations.Local.Add(combination);
         }
 
-        public void AddCombinParamName(CombinParamName combinParamName)
+        public void AddCombinParamNames(List<CombinParamName> combinParamNames)
         {
-            if (combinParamName == null) return;
-            dssDbContext.CombinParamNames.Add(combinParamName);
+            if (combinParamNames == null) return;
+            foreach (var combinParamName in combinParamNames)
+            {
+               dssDbContext.CombinParamNames.Add(combinParamName);
+            }
         }
 
-        public void AddCombinationParam(CombinParam param)
+        public void AddCombinationParams(List<CombinParam> combinParams)
         {
-            if (param == null) return;
-            dssDbContext.CombinParams.Add(param);
+            if (combinParams == null) return;
+            foreach (var combinParam in combinParams)
+            {
+                dssDbContext.CombinParams.Add(combinParam);
+            }
         }
 
         #endregion

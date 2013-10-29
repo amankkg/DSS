@@ -8,12 +8,9 @@ namespace DecisionSupportSystem.SolvingTree
 {
     public class SolvingLayer
     {
-        public List<DLine> dLines;
-        public List<Event> events;
-        public List<EventControl> eventControls;
-        public List<ActionControl> actionControls;
-        public List<Action> acts;
-
-
+        public List<DLine> DLines = new List<DLine>();
+        public List<Event> Events = new List<Event>();
+        public List<Action> Actions = new List<Action>();
+        public List<EventOrigin> EventOrigins = new List<EventOrigin>(); 
     }
 }

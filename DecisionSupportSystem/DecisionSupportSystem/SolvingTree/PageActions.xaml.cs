@@ -9,27 +9,27 @@ namespace DecisionSupportSystem.SolvingTree
 {
     public partial class PageActions
     {
-        private PagePattern pagePattern = new PagePattern();  // ссылка на шаблон, который хранит общие функции и поля,
+        private SolvingLayer layer;  // ссылка на шаблон, который хранит общие функции и поля,
         private NavigationService navigation;                 // которые могут использоваться любой страницей 
         private Action action = new Action();
         #region Конструкторы
 
         private void Init()
         {
-            gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdActionsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
+            gridAct.DataContext = action;              // указываем датаконтекст гриду, который содержит текстбокс и кнопку
+            GrdActionsLst.ItemsSource = layer.Actions; // привязываем локальные данные таблицы Actions к датагриду
         }
 
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = new BaseTaskLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            layer = new SolvingLayer();
         }
 
-        public PageActions(BaseTaskLayer taskLayer)
+        public PageActions(SolvingLayer Layer)
         { 
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            layer = Layer;
         }
         #endregion
          
@@ -39,41 +39,15 @@ namespace DecisionSupportSystem.SolvingTree
             Init();
         }
 
-        public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            pagePattern.baseTaskLayer.BaseMethods.AddAction(new Action {Name = action.Name});
-            GrdActionsLst.Items.Refresh();
-        }
-
-        public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void BtnNextClick(object sender, RoutedEventArgs e)
         {
             if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageEvents(layer));
         }
 
-        private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void AddActionClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.EntityAddCanExecute(e);
-        }
-
-        private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.NavigatePageCanExecute(e);
-        }
-
-        private void ActionValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.EntityValidationError(e);
-        }
-
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.DatagridValidationError(e);
-        }
-
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
+            layer.Actions.Add(new Action{Name = action.Name, Credit = action.Credit});
             GrdActionsLst.Items.Refresh();
         }
     }

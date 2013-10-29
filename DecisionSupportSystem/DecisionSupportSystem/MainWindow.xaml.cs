@@ -1,9 +1,10 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
+using DecisionSupportSystem.Task_1;
 
 
 namespace DecisionSupportSystem
@@ -38,12 +39,20 @@ namespace DecisionSupportSystem
         {
             if (gridTasks.SelectedItem != null)
             {
-                            var asm = Assembly.GetExecutingAssembly();
+            var asm = Assembly.GetExecutingAssembly();
             var d = (XmlElement)gridTasks.SelectedItem;
-            var navigationwindow = asm.GetType(d.LastChild.InnerText.Trim());
-            object obj = Activator.CreateInstance(navigationwindow);
-            MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-            methodInfo.Invoke(obj, null);
+                try
+                {
+                    var navigationwindow = asm.GetType(d.ChildNodes[4].InnerText.Trim());
+                    object obj = Activator.CreateInstance(navigationwindow);
+                    MethodInfo methodInfo = navigationwindow.GetMethod("Show");
+                    methodInfo.Invoke(obj, new[] { obj, d.ChildNodes[0].InnerText.Trim(), d.ChildNodes[3].InnerText.Trim(), null });
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Указанный модуль " + d.LastChild.InnerText.Trim() + " не найден.");
+                }
+
             } 
         }
 

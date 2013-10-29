@@ -15,7 +15,7 @@ namespace DiceGameClassesLibrary
         //или массив содержит индексы того, какие исходы сейчас рассматриваются
         //например: если currentIndexes = [1, 2], то Ставка = _Outcomes[1] + _Outcomes[2] = "ЧЧ" + "ЧН"
 
-        public List<Outcome> Outcomes; //  исходы (события)
+        public List<int[]> Outcomes; //  исходы (события)
         void GenerateOutcomes(int throwing = 1)
         {
             #region алгоритм
@@ -41,7 +41,7 @@ namespace DiceGameClassesLibrary
             if (throwing == 1)
             {
                 currentIndexes = new int[_NumberOfThrowings];
-                Outcomes = new List<Outcome>();
+                Outcomes = new List<int[]>();
                 //size = Convert.ToInt32(Math.Pow(InitialEvents.Length, NumberOfThrowings))
             }
             for (int i = 0; i < _NumberOfInitialEvents; i++)
@@ -53,8 +53,8 @@ namespace DiceGameClassesLibrary
                 }
                 else
                 {   //  добавление исхода
-                    Outcome item = new Outcome() { Events = new int[_NumberOfThrowings] };
-                    Array.Copy(currentIndexes, item.Events, _NumberOfThrowings);
+                    int[] item = new int[_NumberOfThrowings];
+                    Array.Copy(currentIndexes, item, _NumberOfThrowings);
                     Outcomes.Add(item);
                 }
             }
@@ -147,7 +147,7 @@ namespace DiceGameClassesLibrary
             {
                 for (int j = 0; j < Outcomes.Count; j++)
                 {
-                    Combinations.Add(new Combination() { StakeOutcomes = Stakes[i], AcutalOutcome = j, SoEG = SetSoEG(Stakes[i], j) });
+                    Combinations.Add(new Combination() { StakeOutcomes = Stakes[i], _ChoosenStake = i, AcutalOutcome = j, SoEG = SetSoEG(Stakes[i], j) });
                 }
             }
         }
@@ -164,14 +164,6 @@ namespace DiceGameClassesLibrary
             return false;
         }
 
-        public void SetBonusValues(double[] Bonuses)
-        {
-            for (int i = 0; i < Outcomes.Count; i++)
-            {
-                Outcomes[i] = new Outcome() { Events = Outcomes[i].Events, Bonus = Bonuses[i] };
-            }
-        }
-
         public Dice(int NumberOfInitialEvents, int NumberOfThrowings, int NumberOfOutcomesPerStake = 2, bool OrderOfOutcomesDoesNotMatter = true)
         {   //присваиваем значения свойствам игры/класса
             _NumberOfThrowings = NumberOfThrowings;
@@ -186,15 +178,10 @@ namespace DiceGameClassesLibrary
         }
     }
 
-    public struct Outcome
-    {
-        public int[] Events;
-        public double Bonus;
-    }
-
     public struct Combination
     {
         public int[] StakeOutcomes;
+        public int _ChoosenStake;
         public int AcutalOutcome;
         public bool SoEG;
     }

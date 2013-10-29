@@ -14,7 +14,7 @@ namespace DecisionSupportSystem.SolvingTree
 
         public IEnumerable<Event> events;
         public List<Action> acts;
-        public Main Main;
+        public Tree Main;
 
         public AddDepedence()
         {
@@ -24,7 +24,6 @@ namespace DecisionSupportSystem.SolvingTree
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
             MainAction.ItemsSource = acts;
-            
         }
 
         private void MainAction_SelectionChanged(object sender, SelectionChangedEventArgs e)

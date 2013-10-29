@@ -10,24 +10,24 @@ namespace DecisionSupportSystem.SolvingTree
 { 
     public partial class PageEvents
     {
-        private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
+        private SolvingLayer layer; // ссылка на шаблон, который хранит общие функции и поля,
                                                                 // которые могут использоваться любой страницей 
         private NavigationService navigation;  
-        private Event eEvent = new Event();
+        private EventOrigin eventOrigin = new EventOrigin();
 
         #region Конструкторы
 
         private void Init()
         {
-            gridEvent.DataContext = eEvent; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdEventsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Events.Local;
+            gridEvent.DataContext = eventOrigin; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
+            GrdEventsLst.ItemsSource = layer.EventOrigins;
                 // привязываем локальные данные таблицы Actions к датагриду
         }
 
-        public PageEvents(BaseTaskLayer taskLayer)
+        public PageEvents(SolvingLayer Layer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            layer = Layer;
             Init();
         }
 
@@ -38,56 +38,20 @@ namespace DecisionSupportSystem.SolvingTree
             navigation = NavigationService.GetNavigationService(this);
         }
 
-        private void EventAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void BtnNextClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.EntityAddCanExecute(e);
+            navigation.Navigate(new Tree(layer));
         }
 
-        private void EventAdd_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void BtnPrevClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddEvent(new Event
-                {
-                    Name = eEvent.Name,
-                    Probability = eEvent.Probability
-                });
+            navigation.Navigate(new PageActions(layer));
+        }
+
+        private void BtnAddClick(object sender, RoutedEventArgs e)
+        {
+            layer.EventOrigins.Add(new EventOrigin {Name = eventOrigin.Name, Probability = eventOrigin.Probability});
             GrdEventsLst.Items.Refresh();
-        }
-
-        private void EventValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.EntityValidationError(e);
-        }
-
-        private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.NavigatePageCanExecute(e);
-        }
-
-        private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer));
-        }
-
-        private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.NavigatePageCanExecute(e);
-        }
-
-        private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageActions(pagePattern.baseTaskLayer));
-        }
-
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.DatagridValidationError(e);
-        }
-
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
         }
     }
 

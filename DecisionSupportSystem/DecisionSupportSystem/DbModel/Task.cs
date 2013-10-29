@@ -12,7 +12,7 @@ namespace DecisionSupportSystem.DbModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class Task : BasePropertyChanged
     {
         public Task()
         {
@@ -23,7 +23,19 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public System.DateTime Date { get; set; }
         public string Comment { get; set; }
-        public string Recommendation { get; set; }
+        private string _recomendation;
+        public string Recommendation
+        {
+            get { return _recomendation; }
+            set
+            {
+                if (value != this._recomendation)
+                {
+                    this._recomendation = value;
+                    RaisePropertyChanged("Recommendation");
+                }
+            }
+        }
         public string TaskUniq { get; set; }
     
         public virtual ICollection<Combination> Combinations { get; set; }

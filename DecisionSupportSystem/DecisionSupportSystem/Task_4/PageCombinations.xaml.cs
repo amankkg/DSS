@@ -4,24 +4,26 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 
-namespace DecisionSupportSystem.Task_8
+namespace DecisionSupportSystem.Task_4
 {
     public partial class PageCombinations : Page
-    { 
+    {  
         private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
         // которые могут использоваться любой страницей 
-        private NavigationService navigation;  
-
-        public PageCombinations(BaseLayer taskLayer)
+        private NavigationService navigation;
+        private Task4CombinationsView localTaskLayer;
+        public PageCombinations(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
         {
             InitializeComponent();
             pagePattern.baseTaskLayer = taskLayer;
-            GrdCombinsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Combinations.Local;
+            localTaskLayer = task4CombinationsView;
+            GrdCombinsLst.ItemsSource = localTaskLayer.Temps;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
             pagePattern.baseTaskLayer.CreateCombinForFirstType();
+            localTaskLayer.AddCombinParams();
             GrdCombinsLst.Items.Refresh();
         }
 
@@ -38,7 +40,7 @@ namespace DecisionSupportSystem.Task_8
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseTaskLayer));
+            navigation.Navigate(new PageSolve(pagePattern.baseTaskLayer, localTaskLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -49,7 +51,7 @@ namespace DecisionSupportSystem.Task_8
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+            navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer, localTaskLayer));
         }
     }
 }

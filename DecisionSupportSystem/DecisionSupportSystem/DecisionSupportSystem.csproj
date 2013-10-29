@@ -131,9 +131,10 @@
       <DependentUpon>InputType2Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainClasses\ActionForSecondType.cs" />
-    <Compile Include="MainClasses\BaseTaskLayer.cs" />
+    <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />
+    <Compile Include="MainClasses\LoadLayer.cs" />
     <Compile Include="MainClasses\PagePattern.cs" />
     <Compile Include="SolvingTree\Action.cs" />
     <Compile Include="SolvingTree\ActionControl.xaml.cs">
@@ -141,6 +142,7 @@
     </Compile>
     <Compile Include="SolvingTree\AddDepedence.xaml.cs">
       <DependentUpon>AddDepedence.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="SolvingTree\DLine.cs" />
     <Compile Include="SolvingTree\DrawLine.cs" />
@@ -149,23 +151,21 @@
       <DependentUpon>EventControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SolvingTree\EventOrigin.cs" />
-    <Compile Include="SolvingTree\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
+    <Compile Include="SolvingTree\MainNavigation.xaml.cs">
+      <DependentUpon>MainNavigation.xaml</DependentUpon>
     </Compile>
     <Compile Include="SolvingTree\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
     <Compile Include="SolvingTree\PageEvents.xaml.cs">
       <DependentUpon>PageEvents.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="SolvingTree\SolvingLayer.cs" />
-    <Compile Include="TaskNo7\GameConditions.xaml.cs">
-      <DependentUpon>GameConditions.xaml</DependentUpon>
+    <Compile Include="SolvingTree\Tree.xaml.cs">
+      <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskNo7\TaskModel.cs" />
-    <Compile Include="Task_1\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="MainClasses\TaskView.cs" />
     <Compile Include="Task_1\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
@@ -178,13 +178,20 @@
     <Compile Include="Task_1\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Task_4\LocalTaskLayer.cs" />
+    <Compile Include="Task_4\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_4\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_4\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_4\PageSolve.xaml.cs">
+      <DependentUpon>PageSolve.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Task_5\LayerTask.cs" />
-    <Compile Include="Task_5\MainNavigationTask5.xaml.cs">
-      <DependentUpon>MainNavigationTask5.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_5\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Task_5\Page_1.xaml.cs">
       <DependentUpon>Page_1.xaml</DependentUpon>
     </Compile>
@@ -240,32 +247,28 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SolvingTree\AddDepedence.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SolvingTree\EventControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SolvingTree\Main.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="SolvingTree\MainNavigation.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SolvingTree\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SolvingTree\PageEvents.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TaskNo7\GameConditions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Task_1\Main.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="SolvingTree\Tree.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Task_1\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -283,11 +286,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Task_5\MainNavigationTask5.xaml">
+    <Page Include="Task_4\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Task_5\MainPage.xaml">
+    <Page Include="Task_4\PageCombinations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_4\PageEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_4\PageSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -34,12 +34,14 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название задачи" Width="175" IsReadOnly="True"
+                <DataGridTextColumn Header="Название задачи" Width="350" IsReadOnly="True"
                                     Binding="{Binding XPath=Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Тип задачи" IsReadOnly="True" 
                                     Binding="{Binding XPath=Type}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Window" IsReadOnly="True" 
-                                    Binding="{Binding XPath=NavigationWindow}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Collapsed"
+                                    Binding="{Binding XPath=Window}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Visible"
+                                    Binding="{Binding XPath=TaskUniq}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="SolveBtn" Content="Решить задачу" Margin="0,10,10,0" 
