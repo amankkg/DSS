@@ -18,23 +18,23 @@ namespace DecisionSupportSystem.Task_8
 
         private void Init()
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddActionParamName(actionParamName);
+            pagePattern.baseLayer.BaseMethods.AddActionParamName(actionParamName);
             param = new ActionParam{Action = action, ActionParamName = actionParamName};
             txtRequiredDefect.DataContext = param;
             gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdActionsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
+            GrdActionsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
         }
         
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            pagePattern.baseLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
         }
 
         public PageActions(BaseLayer taskLayer)
         { 
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            pagePattern.baseLayer = taskLayer;
         }
         #endregion
         
@@ -46,14 +46,14 @@ namespace DecisionSupportSystem.Task_8
 
         public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddAction(new Action {Name = action.Name});
+            pagePattern.baseLayer.BaseMethods.AddAction(new Action {Name = action.Name});
             GrdActionsLst.Items.Refresh();
         }
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageEvents(pagePattern.baseLayer));
         }
 
         private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace DecisionSupportSystem.Task_8
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
+            pagePattern.baseLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
             GrdActionsLst.Items.Refresh();
         }
     }

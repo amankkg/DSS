@@ -14,10 +14,6 @@ namespace DecisionSupportSystem.MainClasses
 
         public Task Task { get; set; }
         public TaskView TaskView { get; set; }
-        public List<CombinParamName> CombinParamNames { get; set; }
-        public List<ActionParamName> ActionParamNames { get; set; }
-        public List<EventParamName> EventParamNames { get; set; }
-        public List<TaskParamName> TaskParamNames { get; set; }
         public BaseMethods BaseMethods { get; set; }
         public IList<CpMax> CpMaxes { get; set; }
         public IList<ActionForSecondType> ActionsForSecondType { get; set; }
@@ -31,18 +27,6 @@ namespace DecisionSupportSystem.MainClasses
             TaskView = new TaskView();
             CpMaxes = new List<CpMax>();
             ActionsForSecondType = new List<ActionForSecondType>();
-            CombinParamNames = new List<CombinParamName>();
-            ActionParamNames = new List<ActionParamName>();
-            EventParamNames = new List<EventParamName>();
-            TaskParamNames = new List<TaskParamName>();
-        }
-        
-        public void Load()
-        {
-            var taskL = (from task in DssDbContext.Tasks
-                       where task.Id == 3
-                       select task).ToList();
-            DssDbContext.Tasks.Local.Add(taskL[0]);
         }
 
         #region Создание комбинаций
@@ -139,6 +123,16 @@ namespace DecisionSupportSystem.MainClasses
         public List<Action> GetActions()
         {
             return DssDbContext.Actions.Select(a => a).ToList();
+        }
+
+        public List<Action> GetLocalActionsList()
+        {
+            return DssDbContext.Actions.Local.ToList();
+        }
+
+        public List<Event> GetLocalEventsList()
+        {
+            return DssDbContext.Events.Local.ToList();
         }
     }
      

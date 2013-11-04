@@ -20,7 +20,7 @@ namespace DecisionSupportSystem.MainClasses
             dssDbContext.Tasks.Local.Add(task);
         }
 
-        public void AddTaskParam(TaskParam param, Task task, TaskParamName name)
+        public void AddTaskParam(Task task, TaskParam param, TaskParamName name, decimal value)
         {
             if (param == null || task == null || name == null) return;
             param.Task = task;
@@ -40,16 +40,7 @@ namespace DecisionSupportSystem.MainClasses
                 dssDbContext.ActionParamNames.Add(actionParamName);
         }
 
-        public void AddActionParam(ActionParam param)
-        {
-            if (param == null) return;
-            dssDbContext.ActionParams.Local.Add(new ActionParam
-                {
-                    Action = param.Action,
-                    ActionParamName = param.ActionParamName,
-                    Value = param.Value
-                });
-        }
+       
 
         public void AddEvent(Event eEvent)
         {
@@ -62,13 +53,23 @@ namespace DecisionSupportSystem.MainClasses
             if (eventParamName == null) return;
             dssDbContext.EventParamNames.Add(eventParamName);
         }
-
-        public void AddEventParam(EventParam param, Event eEvent, EventParamName name)
+        
+        public void AddActionParam(Action action, ActionParam param, ActionParamName name, decimal value)
         {
-            if (param == null || eEvent == null || name == null) return;
+            if (param == null || action == null) return;
+            param.Action = action;
+            param.Value = value;
+            param.ActionParamName = name;
+            dssDbContext.ActionParams.Local.Add(param);
+        }
+
+        public void AddEventParam( Event eEvent, EventParam param, EventParamName name, decimal value)
+        {
+            if (param == null || eEvent == null) return;
             param.Event = eEvent;
+            param.Value = value;
             param.EventParamName = name;
-            dssDbContext.Events.Local.Add(eEvent);
+            dssDbContext.EventParams.Local.Add(param);
         }
 
         public void AddCombination(Combination combination, Action action, Event eEvent, Task task, decimal cpValue)
@@ -78,6 +79,12 @@ namespace DecisionSupportSystem.MainClasses
             combination.Event = eEvent;
             combination.Task = task;
             dssDbContext.Combinations.Local.Add(combination);
+        }
+
+        public void AddCombination(Combination combination)
+        {
+            if (combination != null)
+                dssDbContext.Combinations.Local.Add(combination);
         }
 
         public void AddCombinParamNames(List<CombinParamName> combinParamNames)
@@ -98,6 +105,14 @@ namespace DecisionSupportSystem.MainClasses
             }
         }
 
+        public void AddCombinationParam(Combination combination, CombinParam param, CombinParamName name, decimal value)
+        {
+            if (param == null || combination == null) return;
+            param.Combination = combination;
+            param.Value = value;
+            param.CombinParamName = name;
+            dssDbContext.CombinParams.Local.Add(param);
+        }
         #endregion
 
         #region Функции удаления данных из локального DssDbContext
@@ -113,5 +128,6 @@ namespace DecisionSupportSystem.MainClasses
                 dssDbContext.Events.Local.Remove(eEvent);
         }
         #endregion
+
     }
 }

@@ -19,19 +19,19 @@ namespace DecisionSupportSystem.Task_1
         private void Init()
         {
             gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdActionsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
+            GrdActionsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
         }
 
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            pagePattern.baseLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
         }
 
         public PageActions(BaseLayer taskLayer)
         { 
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            pagePattern.baseLayer = taskLayer;
             Init();
         }
         #endregion
@@ -39,14 +39,11 @@ namespace DecisionSupportSystem.Task_1
         public void Show(object obj, string title, string taskuniq, BaseLayer baseLayer)
         {
             if (baseLayer != null)
-            pagePattern.baseTaskLayer = baseLayer;
-            pagePattern.baseTaskLayer.Task.TaskUniq = taskuniq;
+            pagePattern.baseLayer = baseLayer;
+            pagePattern.baseLayer.Task.TaskUniq = taskuniq;
             Init();
             var wind = new NavigationWindow();
-            wind.Content = obj;
-            wind.Title = title;
-            wind.Width = 800;
-            wind.Height = 600;
+            wind.Content = obj; wind.Title = title; wind.Width = 800; wind.Height = 600; // определяем свойства окна
             wind.Show();
         }
 
@@ -57,14 +54,14 @@ namespace DecisionSupportSystem.Task_1
 
         public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddAction(new Action {Name = action.Name});
+            pagePattern.baseLayer.BaseMethods.AddAction(new Action {Name = action.Name});
             GrdActionsLst.Items.Refresh();
         }
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageEvents(pagePattern.baseLayer));
         }
 
         private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -89,7 +86,7 @@ namespace DecisionSupportSystem.Task_1
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
+            pagePattern.baseLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
             GrdActionsLst.Items.Refresh();
         }
     }

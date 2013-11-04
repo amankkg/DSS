@@ -17,7 +17,7 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public decimal Value { get; set; }
         public int TaskId { get; set; }
-        public int NameId { get; set; }
+        public Nullable<int> NameId { get; set; }
     
         public virtual TaskParamName TaskParamName { get; set; }
         public virtual Task Task { get; set; }

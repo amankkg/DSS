@@ -6,13 +6,13 @@
     <edmx:Diagrams>
       <Diagram DiagramId="7b7cf2733d164fab8b31d0d508d5e0fa" Name="Диаграмма1">
         <EntityTypeShape EntityType="DssDbModel.ActionParamName" Width="1.75" PointX="0.875" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DssDbModel.ActionParam" Width="1.5" PointX="2.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="DssDbModel.ActionParam" Width="1.5" PointX="3.375" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.Action" Width="1.5" PointX="0.5" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.Combination" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.CombinParamName" Width="2" PointX="10.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.CombinParam" Width="1.5" PointX="7.875" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.EventParamName" Width="1.5" PointX="9.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DssDbModel.EventParam" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DssDbModel.EventParam" Width="1.5" PointX="7.25" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.Event" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.TaskParamName" Width="1.5" PointX="8" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.TaskParam" Width="1.5" PointX="5.75" PointY="6.5" IsExpanded="true" />

@@ -1,56 +1,64 @@
 ﻿ using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Reflection;
 using System.Windows;
-using System.Xml;
-using DecisionSupportSystem.Task_1;
+ using System.Windows.Navigation;
+ using System.Xml;
 
 
 namespace DecisionSupportSystem
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-
-
-    public class TaskExample
+    public partial class MainWindow
     {
-        public string Description { get; set; }
-        public string Type { get; set; }
-        public string Name { get; set; }
-    }
-    
-    public partial class MainWindow : Window
-    {
+        private NavigationService navigation;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
 
+        private XmlElement GetTaskType()
+        {
+            if (gridTasks.SelectedItem != null)
+            {
+                return (XmlElement)gridTasks.SelectedItem;
+            }
+            return null;
+        }
+
         private void downloadSolvedBtn_Click(object sender, RoutedEventArgs e)
         {
-            var solvedWindow = new SolvedTasksWindow();
-            solvedWindow.Show();
+            var element = GetTaskType();
+            if (element != null)
+            {
+                var taskEx = new TaskExample
+                    {
+                        Name = element.ChildNodes[0].InnerText, 
+                        TaskUniq = element.ChildNodes[3].InnerText, 
+                        Window = element.ChildNodes[4].InnerText
+                    };
+
+                navigation = NavigationService.GetNavigationService(this);
+                navigation.Navigate(new SolvedTasksWindow(taskEx));
+            }
         }
 
         private void SolveBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            if (gridTasks.SelectedItem != null)
+            var element = GetTaskType();
+            if (element != null)
             {
             var asm = Assembly.GetExecutingAssembly();
-            var d = (XmlElement)gridTasks.SelectedItem;
                 try
                 {
-                    var navigationwindow = asm.GetType(d.ChildNodes[4].InnerText.Trim());
+                    var navigationwindow = asm.GetType(element.ChildNodes[4].InnerText.Trim());
                     object obj = Activator.CreateInstance(navigationwindow);
                     MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-                    methodInfo.Invoke(obj, new[] { obj, d.ChildNodes[0].InnerText.Trim(), d.ChildNodes[3].InnerText.Trim(), null });
+                    methodInfo.Invoke(obj, new[] { obj, element.ChildNodes[0].InnerText.Trim(), element.ChildNodes[3].InnerText.Trim(), null });
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Указанный модуль " + d.LastChild.InnerText.Trim() + " не найден.");
+                    MessageBox.Show("Указанный модуль " + element.LastChild.InnerText.Trim() + " не найден.");
                 }
 
             } 

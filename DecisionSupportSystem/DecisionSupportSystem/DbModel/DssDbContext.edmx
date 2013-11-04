@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище DssDbModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище DssDbModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="Хранилище DssDbModelContainer">
           <EntitySet Name="ActionParamNames" EntityType="Хранилище DssDbModel.ActionParamNames" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ActionParams" EntityType="Хранилище DssDbModel.ActionParams" store:Type="Tables" Schema="dbo" />
@@ -77,7 +77,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="decimal" Nullable="false" Scale="3" />
           <Property Name="ActionId" Type="int" Nullable="false" />
-          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="NameId" Type="int" />
         </EntityType>
         <EntityType Name="Actions">
           <Key>
@@ -115,7 +115,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="decimal" Nullable="false" Scale="3" />
           <Property Name="CombinationId" Type="int" Nullable="false" />
-          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="NameId" Type="int" />
         </EntityType>
         <EntityType Name="EventParamNames">
           <Key>
@@ -131,7 +131,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="decimal" Nullable="false" Scale="3" />
           <Property Name="EventId" Type="int" Nullable="false" />
-          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="NameId" Type="int" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -155,7 +155,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="decimal" Nullable="false" Scale="3" />
           <Property Name="TaskId" Type="int" Nullable="false" />
-          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="NameId" Type="int" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -180,7 +180,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__ActionPar__NameI__21B6055D">
-          <End Role="ActionParamNames" Type="Хранилище DssDbModel.ActionParamNames" Multiplicity="1" />
+          <End Role="ActionParamNames" Type="Хранилище DssDbModel.ActionParamNames" Multiplicity="0..1" />
           <End Role="ActionParams" Type="Хранилище DssDbModel.ActionParams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionParamNames">
@@ -240,7 +240,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CombinPar__NameI__182C9B23">
-          <End Role="CombinParamNames" Type="Хранилище DssDbModel.CombinParamNames" Multiplicity="1" />
+          <End Role="CombinParamNames" Type="Хранилище DssDbModel.CombinParamNames" Multiplicity="0..1" />
           <End Role="CombinParams" Type="Хранилище DssDbModel.CombinParams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CombinParamNames">
@@ -264,7 +264,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__EventPara__NameI__2B3F6F97">
-          <End Role="EventParamNames" Type="Хранилище DssDbModel.EventParamNames" Multiplicity="1" />
+          <End Role="EventParamNames" Type="Хранилище DssDbModel.EventParamNames" Multiplicity="0..1" />
           <End Role="EventParams" Type="Хранилище DssDbModel.EventParams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EventParamNames">
@@ -276,7 +276,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__TaskParam__NameI__34C8D9D1">
-          <End Role="TaskParamNames" Type="Хранилище DssDbModel.TaskParamNames" Multiplicity="1" />
+          <End Role="TaskParamNames" Type="Хранилище DssDbModel.TaskParamNames" Multiplicity="0..1" />
           <End Role="TaskParams" Type="Хранилище DssDbModel.TaskParams" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskParamNames">
@@ -299,8 +299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DssDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -377,7 +376,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="ActionId" Type="Int32" Nullable="false" />
-          <Property Name="NameId" Type="Int32" Nullable="false" />
+          <Property Name="NameId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="ActionParamName" Relationship="DssDbModel.FK__ActionPar__NameI__21B6055D" FromRole="ActionParams" ToRole="ActionParamNames" />
           <NavigationProperty Name="Action" Relationship="DssDbModel.FK__ActionPar__Actio__20C1E124" FromRole="ActionParams" ToRole="Actions" />
         </EntityType>
@@ -424,7 +423,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="CombinationId" Type="Int32" Nullable="false" />
-          <Property Name="NameId" Type="Int32" Nullable="false" />
+          <Property Name="NameId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Combination" Relationship="DssDbModel.FK__CombinPar__Combi__173876EA" FromRole="CombinParams" ToRole="Combinations" />
           <NavigationProperty Name="CombinParamName" Relationship="DssDbModel.FK__CombinPar__NameI__182C9B23" FromRole="CombinParams" ToRole="CombinParamNames" />
         </EntityType>
@@ -443,7 +442,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
-          <Property Name="NameId" Type="Int32" Nullable="false" />
+          <Property Name="NameId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="EventParamName" Relationship="DssDbModel.FK__EventPara__NameI__2B3F6F97" FromRole="EventParams" ToRole="EventParamNames" />
           <NavigationProperty Name="Event" Relationship="DssDbModel.FK__EventPara__Event__2A4B4B5E" FromRole="EventParams" ToRole="Events" />
         </EntityType>
@@ -472,7 +471,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
-          <Property Name="NameId" Type="Int32" Nullable="false" />
+          <Property Name="NameId" Type="Int32" Nullable="true" />
           <NavigationProperty Name="TaskParamName" Relationship="DssDbModel.FK__TaskParam__NameI__34C8D9D1" FromRole="TaskParams" ToRole="TaskParamNames" />
           <NavigationProperty Name="Task" Relationship="DssDbModel.FK__TaskParam__TaskI__33D4B598" FromRole="TaskParams" ToRole="Tasks" />
         </EntityType>
@@ -489,7 +488,7 @@
           <NavigationProperty Name="TaskParams" Relationship="DssDbModel.FK__TaskParam__TaskI__33D4B598" FromRole="Tasks" ToRole="TaskParams" />
         </EntityType>
         <Association Name="FK__ActionPar__NameI__21B6055D">
-          <End Role="ActionParamNames" Type="DssDbModel.ActionParamName" Multiplicity="1" />
+          <End Role="ActionParamNames" Type="DssDbModel.ActionParamName" Multiplicity="0..1" />
           <End Role="ActionParams" Type="DssDbModel.ActionParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionParamNames">
@@ -561,7 +560,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CombinPar__NameI__182C9B23">
-          <End Role="CombinParamNames" Type="DssDbModel.CombinParamName" Multiplicity="1" />
+          <End Role="CombinParamNames" Type="DssDbModel.CombinParamName" Multiplicity="0..1" />
           <End Role="CombinParams" Type="DssDbModel.CombinParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CombinParamNames">
@@ -573,7 +572,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__EventPara__NameI__2B3F6F97">
-          <End Role="EventParamNames" Type="DssDbModel.EventParamName" Multiplicity="1" />
+          <End Role="EventParamNames" Type="DssDbModel.EventParamName" Multiplicity="0..1" />
           <End Role="EventParams" Type="DssDbModel.EventParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EventParamNames">
@@ -597,7 +596,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__TaskParam__NameI__34C8D9D1">
-          <End Role="TaskParamNames" Type="DssDbModel.TaskParamName" Multiplicity="1" />
+          <End Role="TaskParamNames" Type="DssDbModel.TaskParamName" Multiplicity="0..1" />
           <End Role="TaskParams" Type="DssDbModel.TaskParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskParamNames">

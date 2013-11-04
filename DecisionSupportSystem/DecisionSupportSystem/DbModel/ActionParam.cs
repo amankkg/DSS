@@ -17,7 +17,7 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public decimal Value { get; set; }
         public int ActionId { get; set; }
-        public int NameId { get; set; }
+        public Nullable<int> NameId { get; set; }
     
         public virtual ActionParamName ActionParamName { get; set; }
         public virtual Action Action { get; set; }

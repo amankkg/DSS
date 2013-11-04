@@ -134,8 +134,12 @@
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />
-    <Compile Include="MainClasses\LoadLayer.cs" />
+    <Compile Include="MainClasses\Load.cs" />
+    <Compile Include="MainClasses\LoadTasksView.cs" />
     <Compile Include="MainClasses\PagePattern.cs" />
+    <Compile Include="MainNavWindow.xaml.cs">
+      <DependentUpon>MainNavWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SolvingTree\Action.cs" />
     <Compile Include="SolvingTree\ActionControl.xaml.cs">
       <DependentUpon>ActionControl.xaml</DependentUpon>
@@ -166,6 +170,7 @@
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainClasses\TaskView.cs" />
+    <Compile Include="MainClasses\TaskExample.cs" />
     <Compile Include="Task_1\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
@@ -208,7 +213,7 @@
     <Compile Include="Interfaces\SolutionPage.xaml.cs">
       <DependentUpon>SolutionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\SolvedTasksWindow.xaml.cs">
+    <Compile Include="SolvedTasksWindow.xaml.cs">
       <DependentUpon>SolvedTasksWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task_8\Main.xaml.cs">
@@ -241,6 +246,10 @@
     <Page Include="Interfaces\InputType2Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainNavWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SolvingTree\ActionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -334,7 +343,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Interfaces\SolvedTasksWindow.xaml">
+    <Page Include="SolvedTasksWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

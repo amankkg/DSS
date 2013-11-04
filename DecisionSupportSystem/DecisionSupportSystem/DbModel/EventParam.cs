@@ -17,7 +17,7 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public decimal Value { get; set; }
         public int EventId { get; set; }
-        public int NameId { get; set; }
+        public Nullable<int> NameId { get; set; }
     
         public virtual EventParamName EventParamName { get; set; }
         public virtual Event Event { get; set; }

@@ -20,14 +20,14 @@ namespace DecisionSupportSystem.Task_1
         private void Init()
         {
             gridEvent.DataContext = eEvent; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdEventsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Events.Local;
+            GrdEventsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Events.Local;
                 // привязываем локальные данные таблицы Actions к датагриду
         }
 
         public PageEvents(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            pagePattern.baseLayer = taskLayer;
             Init();
         }
 
@@ -45,7 +45,7 @@ namespace DecisionSupportSystem.Task_1
 
         private void EventAdd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddEvent(new Event
+            pagePattern.baseLayer.BaseMethods.AddEvent(new Event
                 {
                     Name = eEvent.Name,
                     Probability = eEvent.Probability
@@ -66,7 +66,7 @@ namespace DecisionSupportSystem.Task_1
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace DecisionSupportSystem.Task_1
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageActions(pagePattern.baseTaskLayer));
+                navigation.Navigate(new PageActions(pagePattern.baseLayer));
         }
 
         private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
@@ -87,7 +87,7 @@ namespace DecisionSupportSystem.Task_1
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
+            pagePattern.baseLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
         }
     }
 

@@ -17,7 +17,7 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public decimal Value { get; set; }
         public int CombinationId { get; set; }
-        public int NameId { get; set; }
+        public Nullable<int> NameId { get; set; }
     
         public virtual Combination Combination { get; set; }
         public virtual CombinParamName CombinParamName { get; set; }

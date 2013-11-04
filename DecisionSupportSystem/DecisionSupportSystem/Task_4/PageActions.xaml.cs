@@ -12,41 +12,34 @@ namespace DecisionSupportSystem.Task_4
         private PagePattern pagePattern = new PagePattern();  // ссылка на шаблон, который хранит общие функции и поля,
         private NavigationService navigation;                 // которые могут использоваться любой страницей 
         private Action action = new Action();
-        private Task4CombinationsView localTaskLayer;
+        
         #region Конструкторы
 
         private void Init()
         {
-            gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdActionsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
+            gridAct.DataContext = action;                                                  // указываем датаконтекст гриду, который содержит текстбокс и кнопку
+            GrdActionsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
         }
 
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
-            localTaskLayer = new Task4CombinationsView (pagePattern.baseTaskLayer);
+            pagePattern.baseLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
         }
 
         public PageActions(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
-            localTaskLayer = new Task4CombinationsView (taskLayer);
-            
-        }
-
-        public PageActions(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
-        { 
-            InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
-            localTaskLayer = task4CombinationsView;
+            pagePattern.baseLayer = taskLayer;
         }
         #endregion
 
-        public void Show(object obj, string title, string taskuniq)
+        public void Show(object obj, string title, string taskuniq, BaseLayer baseLayer)
         {
-            pagePattern.baseTaskLayer.Task.TaskUniq = taskuniq;
+            if (baseLayer != null)
+            pagePattern.baseLayer = baseLayer;
+            pagePattern.baseLayer.Task.TaskUniq = taskuniq;
+            Init();
             var wind = new NavigationWindow();
             wind.Content = obj;
             wind.Title = title;
@@ -64,14 +57,14 @@ namespace DecisionSupportSystem.Task_4
 
         public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddAction(new Action {Name = action.Name});
+            pagePattern.baseLayer.BaseMethods.AddAction(new Action {Name = action.Name});
             GrdActionsLst.Items.Refresh();
         }
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer, localTaskLayer));
+                navigation.Navigate(new PageEvents(pagePattern.baseLayer));
         }
 
         private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -96,7 +89,7 @@ namespace DecisionSupportSystem.Task_4
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
+            pagePattern.baseLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
             GrdActionsLst.Items.Refresh();
         }
     }

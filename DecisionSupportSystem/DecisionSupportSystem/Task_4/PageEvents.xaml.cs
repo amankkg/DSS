@@ -12,7 +12,6 @@ namespace DecisionSupportSystem.Task_4
     {
         private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
                                                                 // которые могут использоваться любой страницей 
-        private Task4CombinationsView localTaskLayer;
         private NavigationService navigation;  
         private Event eEvent = new Event();
 
@@ -21,15 +20,14 @@ namespace DecisionSupportSystem.Task_4
         private void Init()
         {
             gridEvent.DataContext = eEvent; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdEventsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Events.Local;
+            GrdEventsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Events.Local;
                                         // привязываем локальные данные таблицы Actions к датагриду
         }
 
-        public PageEvents(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
+        public PageEvents(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
-            localTaskLayer = task4CombinationsView;
+            pagePattern.baseLayer = taskLayer;
             Init();
         }
 
@@ -47,7 +45,7 @@ namespace DecisionSupportSystem.Task_4
 
         private void EventAdd_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.AddEvent(new Event
+            pagePattern.baseLayer.BaseMethods.AddEvent(new Event
                 {
                     Name = eEvent.Name,
                     Probability = eEvent.Probability
@@ -78,7 +76,7 @@ namespace DecisionSupportSystem.Task_4
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer, localTaskLayer));
+                navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -89,14 +87,14 @@ namespace DecisionSupportSystem.Task_4
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageActions(pagePattern.baseTaskLayer, localTaskLayer));
+                navigation.Navigate(new PageActions(pagePattern.baseLayer));
         }
 
         #endregion
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
+            pagePattern.baseLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
         }
     }
 

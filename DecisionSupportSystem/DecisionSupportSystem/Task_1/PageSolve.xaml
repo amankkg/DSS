@@ -37,11 +37,11 @@
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Действие"  Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Name, StringFormat=f2}"/>
+        			Binding="{Binding Path= Name, StringFormat=f3}"/>
                 <DataGridTextColumn Header="EMV" Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Emv, StringFormat=f2}" />
+        			Binding="{Binding Path= Emv, StringFormat=f3}" />
                 <DataGridTextColumn Header="EOL"  Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Eol, StringFormat=f2}"/>
+        			Binding="{Binding Path= Eol, StringFormat=f3}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Name="GrdTask" Grid.Row="1" Margin="0,1,0,0">

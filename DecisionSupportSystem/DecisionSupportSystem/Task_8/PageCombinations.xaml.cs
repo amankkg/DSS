@@ -15,13 +15,13 @@ namespace DecisionSupportSystem.Task_8
         public PageCombinations(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
-            GrdCombinsLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Combinations.Local;
+            pagePattern.baseLayer = taskLayer;
+            GrdCombinsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Combinations.Local;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.CreateCombinForFirstType();
+            pagePattern.baseLayer.CreateCombinForFirstType();
             GrdCombinsLst.Items.Refresh();
         }
 
@@ -38,7 +38,7 @@ namespace DecisionSupportSystem.Task_8
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseTaskLayer));
+            navigation.Navigate(new PageSolve(pagePattern.baseLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace DecisionSupportSystem.Task_8
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer));
+            navigation.Navigate(new PageEvents(pagePattern.baseLayer));
         }
     }
 }

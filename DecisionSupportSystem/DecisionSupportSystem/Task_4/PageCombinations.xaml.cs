@@ -12,18 +12,18 @@ namespace DecisionSupportSystem.Task_4
         // которые могут использоваться любой страницей 
         private NavigationService navigation;
         private Task4CombinationsView localTaskLayer;
-        public PageCombinations(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
+
+        public PageCombinations(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
-            localTaskLayer = task4CombinationsView;
+            pagePattern.baseLayer = taskLayer;
+            localTaskLayer = new Task4CombinationsView(taskLayer);
+            localTaskLayer.CreateCombinations();
             GrdCombinsLst.ItemsSource = localTaskLayer.Temps;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.CreateCombinForFirstType();
-            localTaskLayer.AddCombinParams();
             GrdCombinsLst.Items.Refresh();
         }
 
@@ -40,7 +40,7 @@ namespace DecisionSupportSystem.Task_4
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseTaskLayer, localTaskLayer));
+            navigation.Navigate(new PageSolve(pagePattern.baseLayer, localTaskLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace DecisionSupportSystem.Task_4
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseTaskLayer, localTaskLayer));
+            navigation.Navigate(new PageEvents(pagePattern.baseLayer));
         }
     }
 }

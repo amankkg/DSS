@@ -17,22 +17,22 @@ namespace DecisionSupportSystem.Task_8
 
         private void Init()
         {
-            GrdSolutionLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;
+            GrdSolutionLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;
         }
 
         public PageSolve(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            pagePattern.baseLayer = taskLayer;
             Init();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseTaskLayer.SolveWpColWol();
-            pagePattern.baseTaskLayer.SolveEmvEol();
-            var k = Convert.ToDecimal(Convert.ToDouble(pagePattern.baseTaskLayer.DssDbContext.Actions.Local.Max(a => a.Emv)));
-            var optimAct = pagePattern.baseTaskLayer.DssDbContext.Actions.Local.FirstOrDefault(a => a.Emv == k).Name;
+            pagePattern.baseLayer.SolveWpColWol();
+            pagePattern.baseLayer.SolveEmvEol();
+            var k = Convert.ToDecimal(Convert.ToDouble(pagePattern.baseLayer.DssDbContext.Actions.Local.Max(a => a.Emv)));
+            var optimAct = pagePattern.baseLayer.DssDbContext.Actions.Local.FirstOrDefault(a => a.Emv == k).Name;
             SolveTextBlock.Text =
             string.Format(
                 "Рекомендуется выбрать действие '{0}'. Такое решение принесет максимальное значение средней ожидаемой прибыли равное {1} $. Такое значение средней ожидаемой прибыли ожидается, если многогратно в пределе после бесчисленного множества раз будет выбрано это действие при условии, что вероятности событий будут неизменны.",
@@ -44,7 +44,7 @@ namespace DecisionSupportSystem.Task_8
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer));
+            navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
         }
     }
 }

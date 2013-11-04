@@ -8,12 +8,12 @@ namespace DecisionSupportSystem.MainClasses
         #region Поля
         public int _entityErrorCount = 0;    // количество ошибок связанных с вводом данных в элементах упраления
         public int _dataGridErrorCount = 0;  // количество ошибок связанных с вводом данных в datagrid
-        public BaseLayer baseTaskLayer;  
+        public BaseLayer baseLayer;  
         #endregion
 
         public PagePattern()
         {
-            baseTaskLayer = new BaseLayer();
+            baseLayer = new BaseLayer();
         }
 
         public void EntityValidationError(ValidationErrorEventArgs e)

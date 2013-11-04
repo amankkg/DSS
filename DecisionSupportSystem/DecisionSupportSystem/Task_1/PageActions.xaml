@@ -41,7 +41,7 @@
                 Command="NextPage" Margin="0,10,35,0" Width="75" HorizontalAlignment="Right"   />
         <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,10,0,220" Width="233" FontSize="14"/>
         <DataGrid x:Name="GrdActionsLst" Margin="10,46,10,20"  Background="White" BorderBrush="Black" FontSize="14"
-                  AutoGenerateColumns="False" CanUserAddRows="False"  >
+                  AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <ContextMenu.ContextMenu>

@@ -18,13 +18,14 @@ namespace DecisionSupportSystem.Task_4
 
         private void Init()
         {
-            GrdSolutionLst.ItemsSource = pagePattern.baseTaskLayer.DssDbContext.Actions.Local;
+            GrdSolutionLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;
+            GrdTask.DataContext = pagePattern.baseLayer.TaskView;
         }
 
         public PageSolve(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
         {
             InitializeComponent();
-            pagePattern.baseTaskLayer = taskLayer;
+            pagePattern.baseLayer = taskLayer;
             localTaskLayuer = task4CombinationsView;
             Init();
         }
@@ -32,22 +33,20 @@ namespace DecisionSupportSystem.Task_4
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
             localTaskLayuer.SolveCp();
-            pagePattern.baseTaskLayer.SolveWpColWol();
-            pagePattern.baseTaskLayer.SolveEmvEol();
-            var k = Convert.ToDecimal(Convert.ToDouble(pagePattern.baseTaskLayer.DssDbContext.Actions.Local.Max(a => a.Emv)));
-            var optimAct = pagePattern.baseTaskLayer.DssDbContext.Actions.Local.FirstOrDefault(a => a.Emv == k).Name;
-            SolveTextBlock.Text =
-            string.Format(
-                "Рекомендуется выбрать действие '{0}'. Такое решение принесет максимальное значение средней ожидаемой прибыли равное {1} $. Такое значение средней ожидаемой прибыли ожидается, если многогратно в пределе после бесчисленного множества раз будет выбрано это действие при условии, что вероятности событий будут неизменны.",
-                optimAct, k);
-            MaxEMV.Content = k;
+            pagePattern.baseLayer.SolveWpColWol();
+            pagePattern.baseLayer.SolveEmvEol();
             GrdSolutionLst.Items.Refresh();
         }
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageCombinations(pagePattern.baseTaskLayer, localTaskLayuer));
+            navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            pagePattern.baseLayer.Save();
         }
     }
 }
