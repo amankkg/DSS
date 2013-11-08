@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BaseModel">
+      <HintPath>C:\Users\nurbek\Documents\Visual Studio 2012\Projects\BaseModel\BaseModel\bin\Debug\BaseModel.dll</HintPath>
+    </Reference>
     <Reference Include="CoinGameClassesLibrary">
       <HintPath>Libraries\CoinGameClassesLibrary.dll</HintPath>
     </Reference>
@@ -48,8 +51,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -118,18 +123,6 @@
     <Compile Include="DbModel\TaskParamName.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\ConclusionPage.xaml.cs">
-      <DependentUpon>ConclusionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\GenericPage.xaml.cs">
-      <DependentUpon>GenericPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\InputType1Page.xaml.cs">
-      <DependentUpon>InputType1Page.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\InputType2Page.xaml.cs">
-      <DependentUpon>InputType2Page.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainClasses\ActionForSecondType.cs" />
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
@@ -196,7 +189,14 @@
     <Compile Include="Task_4\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Task_5\EventsListControl.xaml.cs">
+      <DependentUpon>EventsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_5\EvetListViewModal.cs" />
     <Compile Include="Task_5\LayerTask.cs" />
+    <Compile Include="Task_5\MainEventListControl.xaml.cs">
+      <DependentUpon>MainEventListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Task_5\Page_1.xaml.cs">
       <DependentUpon>Page_1.xaml</DependentUpon>
     </Compile>
@@ -209,10 +209,13 @@
     <Compile Include="Task_5\Page_4.xaml.cs">
       <DependentUpon>Page_4.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task_8\InterfaceData.cs" />
-    <Compile Include="Interfaces\SolutionPage.xaml.cs">
-      <DependentUpon>SolutionPage.xaml</DependentUpon>
+    <Compile Include="Task_5\ProbabilitySumControl.xaml.cs">
+      <DependentUpon>ProbabilitySumControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\InterfaceData.cs" />
     <Compile Include="SolvedTasksWindow.xaml.cs">
       <DependentUpon>SolvedTasksWindow.xaml</DependentUpon>
     </Compile>
@@ -231,22 +234,6 @@
     <Compile Include="Task_8\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Page Include="Interfaces\ConclusionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\GenericPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\InputType1Page.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Interfaces\InputType2Page.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainNavWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -311,6 +298,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Task_5\EventsListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Task_5\MainEventListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Task_5\Page_1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -339,11 +334,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Interfaces\SolutionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SolvedTasksWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Task_5\ProbabilitySumControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,7 +406,9 @@
       <DependentUpon>DssDbContext.edmx</DependentUpon>
       <LastGenOutput>DssDbContext.cs</LastGenOutput>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

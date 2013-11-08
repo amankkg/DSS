@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
+/*using Action = BaseModel.Action;*/
 using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.Task_1

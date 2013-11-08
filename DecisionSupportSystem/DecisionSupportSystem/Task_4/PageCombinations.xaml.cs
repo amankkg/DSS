@@ -19,7 +19,7 @@ namespace DecisionSupportSystem.Task_4
             pagePattern.baseLayer = taskLayer;
             localTaskLayer = new Task4CombinationsView(taskLayer);
             localTaskLayer.CreateCombinations();
-            GrdCombinsLst.ItemsSource = localTaskLayer.Temps;
+            GrdCombinsLst.ItemsSource = localTaskLayer.CombinationWithParamViews;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
+//using BaseModel;
+//using Action = BaseModel.Action;
+
 
 namespace DecisionSupportSystem.Task_4
 {
@@ -15,7 +18,7 @@ namespace DecisionSupportSystem.Task_4
 
     public class Task4CombinationsView
     {
-        public List<CombinationWithParamView> Temps = new List<CombinationWithParamView>();
+        public List<CombinationWithParamView> CombinationWithParamViews = new List<CombinationWithParamView>();
         public BaseLayer BaseLayer  = new BaseLayer();
 
         public Task4CombinationsView(BaseLayer baseLayer)
@@ -39,7 +42,7 @@ namespace DecisionSupportSystem.Task_4
                         var nominalprice = new CombinParam { Combination = combination, };
                         BaseLayer.BaseMethods.AddCombinationParams(new List<CombinParam> { procent, nominalprice });
 
-                        Temps.Add(new CombinationWithParamView
+                        CombinationWithParamViews.Add(new CombinationWithParamView
                         {
                             Combination = combination,
                             Procent = procent, 
@@ -50,14 +53,14 @@ namespace DecisionSupportSystem.Task_4
 
         private void LoadCombinations()
         {
-            Temps.Clear();
+            CombinationWithParamViews.Clear();
             var combins = BaseLayer.DssDbContext.Combinations.Local;
             foreach (var combin in combins)
             {
                 var procent = combin.CombinParams.ToList()[0];
                 var nominalprice = combin.CombinParams.ToList()[1];
 
-                Temps.Add(new CombinationWithParamView
+                CombinationWithParamViews.Add(new CombinationWithParamView
                 {
                     Combination = combin,
                     Procent = procent,
@@ -87,7 +90,7 @@ namespace DecisionSupportSystem.Task_4
         
         public void SolveCp()
         {
-            foreach (var temp in Temps)
+            foreach (var temp in CombinationWithParamViews)
             {
                 temp.Combination.Cp = temp.Procent.Value*(temp.NominalPrice.Value + 100)/100;
             }
