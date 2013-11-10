@@ -6,38 +6,38 @@ namespace DecisionSupportSystem.Task_1
 {
     public partial class PageSolve
     {
-        private PagePattern pagePattern = new PagePattern(); 
+        private BaseLayer _baseLayer;
         private NavigationService navigation;
 
         private void Init()
         {
-            GrdSolutionLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;
-            GrdTask.DataContext = pagePattern.baseLayer.TaskView;
+            GrdSolutionLst.ItemsSource = _baseLayer.DssDbContext.Actions.Local;
+            GrdTask.DataContext = _baseLayer.SolvedTaskView;
         }
 
         public PageSolve(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
+            _baseLayer = taskLayer;
             Init();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseLayer.SolveWpColWol();
-            pagePattern.baseLayer.SolveEmvEol();
+            _baseLayer.SolveWpColWol();
+            _baseLayer.SolveEmvEol();
             GrdSolutionLst.Items.Refresh();
         }
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
+            navigation.Navigate(new PageCombinations(_baseLayer));
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseLayer.Save();
+            _baseLayer.Save();
         }
     }
 }

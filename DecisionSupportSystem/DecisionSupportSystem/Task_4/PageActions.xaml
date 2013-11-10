@@ -7,13 +7,13 @@
       d:DesignHeight="400" d:DesignWidth="500"
 	Title="Действия" Loaded="PageActionsOnLoaded" ShowsNavigationUI="False">
     <Page.Resources>
-       
+
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <Grid Name="gridAct" Height="140" VerticalAlignment="Top">
             <Grid.CommandBindings>
                 <CommandBinding Command="New" CanExecute="ActionAdd_CanExecute" Executed="ActionAdd_Executed" />
@@ -26,8 +26,8 @@
                      Validation.Error="ActionValidationError"/>
             <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"
                 Command="New" Margin="0,0,35,10" Height="35" VerticalAlignment="Bottom" />
-            </Grid>
-        
+        </Grid>
+
         <Grid Margin="0,141,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -37,19 +37,19 @@
                     <CommandBinding.Command>NextPage</CommandBinding.Command>
                 </CommandBinding>
             </Grid.CommandBindings>
-         <Button Name="BtnNext" Content="далее >>" Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top"
+            <Button Name="BtnNext" Content="далее >>" Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top"
                 Command="NextPage" Margin="0,10,35,0" Width="75" HorizontalAlignment="Right"   />
-        <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,10,0,220" Width="233" FontSize="14"/>
-        <DataGrid x:Name="GrdActionsLst" Margin="10,46,10,20"  Background="White" BorderBrush="Black" FontSize="14"
-                  AutoGenerateColumns="False" CanUserAddRows="False"  >
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <ContextMenu.ContextMenu>
-                        <ContextMenu/>
-                    </ContextMenu.ContextMenu>
-                    <MenuItem Header="Удалить" Click="MenuItem_OnClick"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+            <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,10,0,220" Width="233" FontSize="14"/>
+            <DataGrid x:Name="GrdActionsLst" Margin="10,46,10,20"  Background="White" BorderBrush="Black" FontSize="14"
+                  AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <ContextMenu.ContextMenu>
+                            <ContextMenu/>
+                        </ContextMenu.ContextMenu>
+                        <MenuItem Header="Удалить" Click="MenuItem_OnClick"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="DataGridRowHeader">
                         <Setter Property="Width" Value="25" />
@@ -64,16 +64,16 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Действие" Width="270">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}" 
+                    <DataGridTemplateColumn Header="Действие" Width="270">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}" 
                                      Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"></TextBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
 
     </Grid>

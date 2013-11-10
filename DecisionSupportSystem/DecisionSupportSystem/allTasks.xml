@@ -7,7 +7,7 @@
    Вас пригласили на телевизионную игру "Колесо фортуны". Колесо управляется электронным образом с помощью двух кнопок, которые сообщают колесу сильное (Strong) или слабое (Weak) вращение. Само колесо разделено  на равные  области - белую (White) и красную (Red). Вам сообщили, что в белой области колесо останавливается с вероятностью 0.3, а в красной – 0.7. Прибыль, которую вы получаете за игру, равна в следующему: При сильном вращении, если колесо остановиться в белой области 800$, если в красной 200$; При слабом вращении, если колесо остановиться в белой области -2500$, если в красной 1000$.
  </Description>
    <TaskUniq>task1</TaskUniq>
- <Window>DecisionSupportSystem.Task_1.PageActions</Window>
+ <Window>DecisionSupportSystem.Task_.PageActions</Window>
  </Task>
   <Task>
     <Name>Задача №2. Вложение денег в фондовой бирже</Name>
@@ -22,7 +22,7 @@
 
     </Description>
     <TaskUniq>task2</TaskUniq>
-    <Window>DecisionSupportSystem.Task_1.PageActions</Window>
+    <Window>DecisionSupportSystem.Task_.PageActions</Window>
   </Task>
   <Task>
     <Name>Задача №3: Для бизнеса требуются компьютеры</Name>
@@ -36,7 +36,7 @@
 
     </Description>
     <TaskUniq>task3</TaskUniq>
-    <Window>DecisionSupportSystem.Task_1.PageActions</Window>
+    <Window>DecisionSupportSystem.Task_.PageActions</Window>
   </Task>
   <Task>
     <Name>Задача №4: Вложение денежных средств либо в 7,5%-ные облигации, либо 1% – специальный фонд</Name>

@@ -3,21 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" d:DesignWidth="415" d:DesignHeight="100">
         <Grid>
-        <DataGrid ItemsSource="{Binding Path=EvetListViewModals}" Background="White" BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="14">
+        <DataGrid ItemsSource="{Binding Path=EventListViewModels}" Background="White" BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="14">
+            
+            <interactivity:Interaction.Triggers>
+                <interactivity:EventTrigger EventName="SelectionChanged">
+                    <i:CallMethodAction TargetObject="{Binding}"  MethodName="SelectEvent"/>
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
+            
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.ContextMenu>
+                        <ContextMenu/>
+                    </ContextMenu.ContextMenu>
+                        <MenuItem Header="Удалить">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="Click">
+                                <i:CallMethodAction TargetObject="{Binding}"  MethodName="DeleteEvent"/>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="DataGridRowHeader">
+                    <Setter Property="Width" Value="25" />
+                    <Setter Property="Background" Value="#FF6C9EC1"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+            
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Padding" Value="10,5,5,5"></Setter>
+                    <Setter Property="Background" Value="#FF6C9EC1"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Событие" Width="170">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
+                                NotifyOnValidationError=True}" Validation.Error="EventValidationError"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Вероятность" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Probability, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Probability, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F3}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

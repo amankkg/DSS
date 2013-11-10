@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
  using System.Windows.Navigation;
  using System.Xml;
+ using DecisionSupportSystem.MainClasses;
 
 
 namespace DecisionSupportSystem
@@ -31,7 +32,7 @@ namespace DecisionSupportSystem
             var element = GetTaskType();
             if (element != null)
             {
-                var taskEx = new TaskExample
+                var taskEx = new TaskViewForMainWindows
                     {
                         Name = element.ChildNodes[0].InnerText, 
                         TaskUniq = element.ChildNodes[3].InnerText, 

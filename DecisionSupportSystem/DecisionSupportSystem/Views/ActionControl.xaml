@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="DecisionSupportSystem.Views.ActionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="120" d:DesignWidth="472">
+    <Grid>
+        <Rectangle Fill="#FF6C9EC1" />
+        <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"
+                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,10" Height="35" VerticalAlignment="Bottom" />
+        
+        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="29" FontWeight="Bold" Margin="20,10,0,0"/>
+        
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="48" Margin="160,10,35,0"  VerticalAlignment="Top" 
+                     Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                     Validation.Error="ActionValidationError"/>
+        
+        
+    </Grid>
+</UserControl>

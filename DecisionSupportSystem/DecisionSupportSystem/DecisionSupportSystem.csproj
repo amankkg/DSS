@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseModel">
-      <HintPath>C:\Users\nurbek\Documents\Visual Studio 2012\Projects\BaseModel\BaseModel\bin\Debug\BaseModel.dll</HintPath>
-    </Reference>
     <Reference Include="CoinGameClassesLibrary">
       <HintPath>Libraries\CoinGameClassesLibrary.dll</HintPath>
     </Reference>
@@ -47,6 +44,18 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions">
+      <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Interactivity">
+      <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -55,6 +64,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,6 +83,9 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="ActionsListControl.xaml.cs">
+      <DependentUpon>ActionsListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DbModel\Action.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
@@ -123,47 +138,57 @@
     <Compile Include="DbModel\TaskParamName.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainClasses\ActionForSecondType.cs" />
+    <Compile Include="ErrorCount.cs" />
+    <Compile Include="DbModel\ActionForSecondType.cs" />
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />
     <Compile Include="MainClasses\Load.cs" />
-    <Compile Include="MainClasses\LoadTasksView.cs" />
     <Compile Include="MainClasses\PagePattern.cs" />
     <Compile Include="MainNavWindow.xaml.cs">
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\Action.cs" />
-    <Compile Include="SolvingTree\ActionControl.xaml.cs">
+    <Compile Include="MainClasses\TaskViewForMainWindows.cs" />
+    <Compile Include="NavigationWindowShower.cs" />
+    <Compile Include="Task_\Task_SolvingLayer.cs" />
+    <Compile Include="ViewModels\ActionListViewModel.cs" />
+    <Compile Include="ViewModels\ActionViewModel.cs" />
+    <Compile Include="ViewModels\CombinationListViewModel.cs" />
+    <Compile Include="ViewModels\CombinationViewModel.cs" />
+    <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\ProbabilitySumViewModel.cs" />
+    <Compile Include="Views\ActionControl.xaml.cs">
       <DependentUpon>ActionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\AddDepedence.xaml.cs">
-      <DependentUpon>AddDepedence.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Views\CombinationsListControl.xaml.cs">
+      <DependentUpon>CombinationsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\DLine.cs" />
-    <Compile Include="SolvingTree\DrawLine.cs" />
-    <Compile Include="SolvingTree\Event.cs" />
-    <Compile Include="SolvingTree\EventControl.xaml.cs">
+    <Compile Include="Views\EventControl.xaml.cs">
       <DependentUpon>EventControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\EventOrigin.cs" />
-    <Compile Include="SolvingTree\MainNavigation.xaml.cs">
-      <DependentUpon>MainNavigation.xaml</DependentUpon>
+    <Compile Include="Views\ActionsListControl.xaml.cs">
+      <DependentUpon>ActionsListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\PageActions.xaml.cs">
+    <Compile Include="Views\EventsListControl.xaml.cs">
+      <DependentUpon>EventsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="Views\MainEventListControl.xaml.cs">
+      <DependentUpon>MainEventListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolvingTree\PageEvents.xaml.cs">
+    <Compile Include="Task_\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_\PageEvents.xaml.cs">
       <DependentUpon>PageEvents.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SolvingTree\SolvingLayer.cs" />
-    <Compile Include="SolvingTree\Tree.xaml.cs">
-      <DependentUpon>Tree.xaml</DependentUpon>
+    <Compile Include="Task_\PageSolve.xaml.cs">
+      <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainClasses\TaskView.cs" />
-    <Compile Include="MainClasses\TaskExample.cs" />
+    <Compile Include="MainClasses\SolvedTaskView.cs" />
     <Compile Include="Task_1\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
@@ -212,6 +237,9 @@
     <Compile Include="Task_5\ProbabilitySumControl.xaml.cs">
       <DependentUpon>ProbabilitySumControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProbabilitySumControl.xaml.cs">
+      <DependentUpon>ProbabilitySumControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -234,37 +262,56 @@
     <Compile Include="Task_8\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window2.xaml.cs">
+      <DependentUpon>Window2.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ActionsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainNavWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SolvingTree\ActionControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolvingTree\AddDepedence.xaml">
+    <Page Include="Views\ActionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SolvingTree\EventControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolvingTree\MainNavigation.xaml">
+    <Page Include="Views\CombinationsListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SolvingTree\PageActions.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolvingTree\PageEvents.xaml">
+    <Page Include="Views\EventControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SolvingTree\Tree.xaml">
+    <Page Include="Views\ActionsListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventsListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainEventListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_\PageActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_\PageCombinations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_\PageEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_\PageSolve.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Task_1\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -342,6 +389,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProbabilitySumControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -369,6 +420,10 @@
     <Page Include="Themes\StyleDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

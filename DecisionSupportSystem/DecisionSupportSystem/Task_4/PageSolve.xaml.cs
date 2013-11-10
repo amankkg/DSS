@@ -5,46 +5,43 @@ using DecisionSupportSystem.MainClasses;
 
 namespace DecisionSupportSystem.Task_4
 {
-    /// <summary>
-    /// Логика взаимодействия для PageSolve.xaml
-    /// </summary>
-    public partial class PageSolve : Page
+    public partial class PageSolve
     {
-        private PagePattern pagePattern = new PagePattern(); 
+        private BaseLayer _baseLayer; 
         private NavigationService navigation;
-        private Task4CombinationsView localTaskLayuer;
+        private Task4CombinationsView localTaskLayer;
 
         private void Init()
         {
-            GrdSolutionLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;
-            GrdTask.DataContext = pagePattern.baseLayer.TaskView;
+            GrdSolutionLst.ItemsSource = _baseLayer.DssDbContext.Actions.Local;
+            GrdTask.DataContext = _baseLayer.SolvedTaskView;
         }
 
-        public PageSolve(BaseLayer taskLayer, Task4CombinationsView task4CombinationsView)
+        public PageSolve(BaseLayer baseLayer, Task4CombinationsView task4CombinationsView)
         {
             InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
-            localTaskLayuer = task4CombinationsView;
+            _baseLayer = baseLayer;
+            localTaskLayer = task4CombinationsView;
             Init();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            localTaskLayuer.SolveCp();
-            pagePattern.baseLayer.SolveWpColWol();
-            pagePattern.baseLayer.SolveEmvEol();
+            localTaskLayer.SolveCp();
+            _baseLayer.SolveWpColWol();
+            _baseLayer.SolveEmvEol();
             GrdSolutionLst.Items.Refresh();
         }
 
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
+            navigation.Navigate(new PageCombinations(_baseLayer));
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseLayer.Save();
+            _baseLayer.Save();
         }
     }
 }

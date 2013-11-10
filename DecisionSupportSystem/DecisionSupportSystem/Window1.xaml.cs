@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.Task_5;
 
 namespace DecisionSupportSystem
@@ -26,12 +27,17 @@ namespace DecisionSupportSystem
             InitializeComponent();
         }
 
-        public ObservableCollection<MainEvetListViewModal> EvetList { get; set; }
+        public ObservableCollection<MainEvetListViewModel> EvetList { get; set; }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            EvetList = new ObservableCollection<MainEvetListViewModal>();
-            EvetList.Add(new MainEvetListViewModal(1));
-            EvetList.Add(new MainEvetListViewModal(2));
+            EvetList = new ObservableCollection<MainEvetListViewModel>();
+            var Events = new List<Event>
+                {
+                    new Event {Name = "Событие 1", Probability = Convert.ToDecimal(0.5)},
+                    new Event {Name = "Событие 2", Probability = Convert.ToDecimal(0.5)}
+                };
+            //EvetList.Add(new MainEvetListViewModal(Events));
+            var h = Events;
             grid.ItemsSource = EvetList;
         }
     }

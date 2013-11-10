@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
-/*using BaseModel;
-using Action = BaseModel.Action;*/
 
 namespace DecisionSupportSystem.MainClasses
 {
@@ -130,16 +128,21 @@ namespace DecisionSupportSystem.MainClasses
                     Recommendation = Task.Recommendation,
                     TaskUniq = Task.TaskUniq
                 };
-            LoadTaskParams(Task, task);
             BaseLayer.Task = task;
-            BaseLayer.TaskView.Recommendation = task.Recommendation;
-            var maxEmv = Convert.ToDecimal(Convert.ToDouble(Actions.Max(a => a.Emv)));
-            var minEol = Convert.ToDecimal(Convert.ToDouble(Actions.Min(a => a.Eol)));
-            BaseLayer.TaskView.MaxEmv = maxEmv;
-            BaseLayer.TaskView.MinEol = minEol;
-            BaseLayer.TaskView.Comment = task.Comment;
+            LoadTaskParams(Task, task);
+            SolvedTaskViewInit(task);
             BaseLayer.BaseMethods.AddTask(task);
             return task;
+        }
+
+        private void SolvedTaskViewInit(Task task)
+        {
+            BaseLayer.SolvedTaskView.Recommendation = task.Recommendation;
+            var maxEmv = Convert.ToDecimal(Convert.ToDouble(Actions.Max(a => a.Emv)));
+            var minEol = Convert.ToDecimal(Convert.ToDouble(Actions.Min(a => a.Eol)));
+            BaseLayer.SolvedTaskView.MaxEmv = maxEmv;
+            BaseLayer.SolvedTaskView.MinEol = minEol;
+            BaseLayer.SolvedTaskView.Comment = task.Comment;
         }
 
         private void LoadTaskParams(Task olTask, Task newTask)

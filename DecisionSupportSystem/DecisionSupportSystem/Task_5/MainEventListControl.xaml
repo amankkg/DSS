@@ -7,6 +7,6 @@
              xmlns:v="clr-namespace:DecisionSupportSystem.Task_5" d:DesignWidth="300" d:DesignHeight="100">
      <Grid>
         <v:EventsListControl DataContext="{Binding}" Margin="0,0,0,25"/>
-        <v:ProbabilitySumControl DataContext="{Binding Path=ProbabilitySumViewModal}" VerticalAlignment="Bottom" Height="25"/>
+        <v:ProbabilitySumControl DataContext="{Binding Path=ProbabilitySumViewModel}" VerticalAlignment="Bottom" Height="25"/>
     </Grid>
 </UserControl>

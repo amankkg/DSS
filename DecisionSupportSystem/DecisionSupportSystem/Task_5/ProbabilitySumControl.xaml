@@ -10,9 +10,9 @@
         </Grid.Resources>
         <Rectangle Fill="#FF6C9EC1" Stroke="Black"/>
         <Label Content="Сумма вероятностей:" HorizontalAlignment="Left" Width="128" Foreground="White" FontFamily="Calibri" Margin="0,-1,0,0"/>
-        <TextBox Margin="133,0,0,0" Style="{StaticResource TextBoxInGridStyle}"  TextWrapping="Wrap" 
+        <TextBox Margin="133,0,0,0" Style="{StaticResource TextBoxInGridStyle}"  TextWrapping="Wrap" IsReadOnly="True" 
                  Text="{Binding Path=Sum, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
-                 BorderBrush="Black" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Width="167"
+                 BorderBrush="Black" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Width="167" Validation.Error="ProbabilityValidationError"
                 />
     </Grid>
 </UserControl>

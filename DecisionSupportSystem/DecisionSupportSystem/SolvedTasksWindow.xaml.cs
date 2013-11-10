@@ -1,33 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using DecisionSupportSystem.DbModel;
-//using BaseModel;
 using DecisionSupportSystem.MainClasses;
 
 namespace DecisionSupportSystem
 {
-    /// <summary>
-    /// Логика взаимодействия для SolvedTasksWindow.xaml
-    /// </summary>
+    public class LoadedTask
+    {
+        public List<Task> Tasks { get; set; }
+
+        public void LoadTasks(string taskUniq)
+        {
+            Tasks = new List<Task>();
+            using (var dssDbContext = new DssDbEntities())
+            {
+                var tasks = (from task in dssDbContext.Tasks
+                             where task.TaskUniq == taskUniq
+                             select task).ToList();
+                foreach (var t in tasks)
+                {
+                    Tasks.Add(new Task { Comment = t.Comment, TaskUniq = t.TaskUniq, Id = t.Id, Recommendation = t.Recommendation, Date = t.Date });
+                }
+            }
+        }
+    }
+
     public partial class SolvedTasksWindow
     {
         public Load Layer { get; set; }
-        public TaskExample TaskExample { get; set; }
+        public TaskViewForMainWindows TaskViewForSolvedTaskWindow { get; set; }
 
-        public SolvedTasksWindow(TaskExample taskExample)
+        public SolvedTasksWindow(TaskViewForMainWindows taskViewForSolvedTaskWindow)
         {
             InitializeComponent();
-            TaskExample = taskExample;
+            TaskViewForSolvedTaskWindow = taskViewForSolvedTaskWindow;
+            txtbTaskName.Text = taskViewForSolvedTaskWindow.Name;
             RefreshTable();
-            txtbTaskName.Text = taskExample.Name;
-        }
-
-        private void RefreshTable()
-        {
-            var loadTasksView = new LoadTasksView();
-            loadTasksView.LoadTasks(TaskExample.TaskUniq);
-            gridTasks.ItemsSource = loadTasksView.Tasks;
         }
 
         private void Download_Click(object sender, RoutedEventArgs e)
@@ -37,16 +48,23 @@ namespace DecisionSupportSystem
                 Layer = new Load((Task)gridTasks.SelectedItem);
                 Layer.LoadCombinations();
                 var asm = Assembly.GetExecutingAssembly();
-                var navigationwindow = asm.GetType(TaskExample.Window);
+                var navigationwindow = asm.GetType(TaskViewForSolvedTaskWindow.Window);
                 object obj = Activator.CreateInstance(navigationwindow);
                 MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-                methodInfo.Invoke(obj, new[] { obj, TaskExample.Name,TaskExample.TaskUniq, Layer.BaseLayer});
+                methodInfo.Invoke(obj, new[] { obj, TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
             }
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshTable();
+        }  
+        
+        private void RefreshTable()
+        {
+            var loadedTask = new LoadedTask();
+            loadedTask.LoadTasks(TaskViewForSolvedTaskWindow.TaskUniq);
+            gridTasks.ItemsSource = loadedTask.Tasks;
         }
     }
 }

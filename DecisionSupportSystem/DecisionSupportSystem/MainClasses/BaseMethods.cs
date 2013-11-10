@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 //using BaseModel;
+using System.Linq;
 using DecisionSupportSystem.DbModel;
 
 namespace DecisionSupportSystem.MainClasses
@@ -40,8 +41,6 @@ namespace DecisionSupportSystem.MainClasses
             if (actionParamName == null) return;
                 dssDbContext.ActionParamNames.Add(actionParamName);
         }
-
-       
 
         public void AddEvent(Event eEvent)
         {
@@ -117,18 +116,40 @@ namespace DecisionSupportSystem.MainClasses
         #endregion
 
         #region Функции удаления данных из локального DssDbContext
-        public void DeleteAction(Action action)
+        public void DeleteAction(Action act)
         {
-            if (action != null)
-                dssDbContext.Actions.Local.Remove(action);
+            if (act != null)
+            {
+                if (dssDbContext.Combinations.Local.Count > 0)
+                {
+                    var combinations = dssDbContext.Combinations.Local.ToList();
+                    var removingCombinations =
+                        combinations.Where(combination => combination.Action.Name == act.Name).ToList();
+
+                    foreach (var removedCombination in removingCombinations)
+                        dssDbContext.Combinations.Local.Remove(removedCombination);
+                }
+                dssDbContext.Actions.Local.Remove(act);
+            }
         }
 
-        public void DeleteEvent(Event eEvent)
+        public void DeleteEvent(Event ev)
         {
-            if (eEvent != null)
-                dssDbContext.Events.Local.Remove(eEvent);
+            if (ev != null)
+            {
+                if (dssDbContext.Combinations.Local.Count > 0)
+                {
+                    var combinations = dssDbContext.Combinations.Local.ToList();
+                    var removingCombinations =
+                        combinations.Where(combination => combination.Event.Name == ev.Name).ToList();
+
+                    foreach (var removedCombination in removingCombinations)
+                        dssDbContext.Combinations.Local.Remove(removedCombination);
+                }
+                dssDbContext.Events.Local.Remove(ev);
+            }
         }
-        #endregion
+        #endregion 
 
     }
 }

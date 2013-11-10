@@ -39,7 +39,7 @@ namespace DecisionSupportSystem.DbModel
                 }
             }
         }
-        public Nullable<decimal> Probability
+        public decimal Probability
         {
             get { return _probability; }
             set

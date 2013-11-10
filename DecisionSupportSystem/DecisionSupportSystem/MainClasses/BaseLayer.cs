@@ -4,9 +4,6 @@ using System.Linq;
 using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
 using Task = DecisionSupportSystem.DbModel.Task;
-//using BaseModel;
-/*using Action = BaseModel.Action;
-using Task = BaseModel.Task;*/
 
 namespace DecisionSupportSystem.MainClasses
 {
@@ -16,7 +13,7 @@ namespace DecisionSupportSystem.MainClasses
         public DssDbEntities DssDbContext { get; set; }
 
         public Task Task { get; set; }
-        public TaskView TaskView { get; set; }
+        public SolvedTaskView SolvedTaskView { get; set; }
         public BaseMethods BaseMethods { get; set; }
         public IList<CpMax> CpMaxes { get; set; }
         public IList<ActionForSecondType> ActionsForSecondType { get; set; }
@@ -27,7 +24,7 @@ namespace DecisionSupportSystem.MainClasses
             DssDbContext = new DssDbEntities();
             BaseMethods = new BaseMethods(DssDbContext);
             Task = new Task();
-            TaskView = new TaskView();
+            SolvedTaskView = new SolvedTaskView();
             CpMaxes = new List<CpMax>();
             ActionsForSecondType = new List<ActionForSecondType>();
         }
@@ -55,6 +52,7 @@ namespace DecisionSupportSystem.MainClasses
 
         private void SolveCpMaxes()
         {
+            CpMaxes.Clear();
             var events = DssDbContext.Events.Local.ToList();
             var combins = DssDbContext.Combinations.Local.ToList();
             foreach (var eEvent in events)
@@ -107,9 +105,9 @@ namespace DecisionSupportSystem.MainClasses
                 "если многократно (бесчисленное множество раз) будет выбрано это действие при условии, " +
                 "что вероятности событий будут неизменны.",
                 optimalActName, maxEmv);
-            TaskView.Recommendation = Task.Recommendation;
-            TaskView.MaxEmv = maxEmv;
-            TaskView.MinEol = minEol;
+            SolvedTaskView.Recommendation = Task.Recommendation;
+            SolvedTaskView.MaxEmv = maxEmv;
+            SolvedTaskView.MinEol = minEol;
             BaseMethods.AddTask(Task);
         }
 
@@ -118,12 +116,12 @@ namespace DecisionSupportSystem.MainClasses
             DssDbContext.SaveChanges();
         }
 
-        public List<Task> GetSolvedTasks(string taskUniq)
+        public List<Task> GetSolvedTasksFromDb(string taskUniq)
         {
             return DssDbContext.Tasks.Where(x => x.TaskUniq == taskUniq).ToList();
         }
 
-        public List<Action> GetActions()
+        public List<Action> GetActionsFromDb()
         {
             return DssDbContext.Actions.Select(a => a).ToList();
         }

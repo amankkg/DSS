@@ -18,29 +18,23 @@ namespace DecisionSupportSystem.MainClasses
 
         public void EntityValidationError(ValidationErrorEventArgs e)
         {
-            if (e.Action == ValidationErrorEventAction.Added)
-                _entityErrorCount++;
-            else
-                _entityErrorCount--;
+            ErrorCount.CheckEntityError(e);
         }
          
         public void DatagridValidationError(ValidationErrorEventArgs e)
         {
-            if (e.Action == ValidationErrorEventAction.Added)
-                _dataGridErrorCount++;
-            else
-                _dataGridErrorCount--;
+            ErrorCount.CheckEntityListError(e);
         }
         // разрешает (не разрешает) нажатие кнопки "Добавить"
         public void EntityAddCanExecute(CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _entityErrorCount == 0;
+            e.CanExecute = ErrorCount.EntityErrorCount == 0;
             e.Handled = true;
         }
         // разрешает (не разрешает) нажатие кнопок "<< назад" и "далее >>"
         public void NavigatePageCanExecute(CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _dataGridErrorCount == 0;
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
             e.Handled = true;
         }
     }

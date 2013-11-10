@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="DecisionSupportSystem.Views.EventControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+             mc:Ignorable="d" d:DesignHeight="120" d:DesignWidth="465">
+    <Grid>
+        <Rectangle Fill="#FF6C9EC1"/>
+        <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"  Margin="0,0,35,10" VerticalAlignment="Bottom" 
+                Command="{Binding Path=AddEventCommand}"/>
+        
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="48" Margin="163,10,35,0" VerticalAlignment="Top"
+                     Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                 Validation.Error="EventControlValidationError"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="163,65,0,0"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" 
+                     Text="{Binding Path=Probability, StringFormat=f3, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                 Validation.Error="EventControlValidationError"/>
+        
+        <Label Content="Вероятность:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="25" Foreground="Black"/>
+        <Label Content="Событие:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold"/>
+    </Grid>
+</UserControl>

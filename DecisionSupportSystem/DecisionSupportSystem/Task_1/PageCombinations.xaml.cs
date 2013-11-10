@@ -8,48 +8,51 @@ namespace DecisionSupportSystem.Task_1
 {
     public partial class PageCombinations : Page
     { 
-        private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
-                                                             // которые могут использоваться любой страницей 
-        private NavigationService navigation;  
+        private BaseLayer _baseLayer;
+        private NavigationService navigation;
 
         public PageCombinations(BaseLayer taskLayer)
         {
             InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
-            GrdCombinsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Combinations.Local;
+            _baseLayer = taskLayer;
+            GrdCombinsLst.ItemsSource = _baseLayer.DssDbContext.Combinations.Local;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseLayer.CreateCombinForFirstType();
+            _baseLayer.CreateCombinForFirstType();
             GrdCombinsLst.Items.Refresh();
         }
 
+        #region Обработка событий Validation.Error
         private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
         {
-            pagePattern.DatagridValidationError(e);
+            ErrorCount.CheckEntityListError(e);
         }
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.NavigatePageCanExecute(e);
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
+            e.Handled = true;
         }
 
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseLayer));
+            navigation.Navigate(new PageSolve(_baseLayer));
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.NavigatePageCanExecute(e);
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
+            e.Handled = true;
         }
 
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseLayer));
+            navigation.Navigate(new PageEvents(_baseLayer));
         }
+        #endregion
     }
 }
