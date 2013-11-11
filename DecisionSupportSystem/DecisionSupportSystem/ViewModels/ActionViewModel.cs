@@ -18,6 +18,14 @@ namespace DecisionSupportSystem.ViewModels
             this.AddActionCommand = new DelegateCommand<object>(this.OnAddAction,this.CanAddAction);
         }
 
+        public ActionViewModel(ActionListViewModel actionListViewModel)
+        {
+            var action = new Action();
+            this.ActionListViewModel = actionListViewModel;
+            this.Name = action.Name;
+            this.AddActionCommand = new DelegateCommand<object>(this.OnAddAction, this.CanAddAction);
+        }
+
         #region Свойства
 
         public ActionListViewModel ActionListViewModel { get; set; }

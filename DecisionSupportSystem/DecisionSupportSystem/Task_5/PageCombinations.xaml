@@ -1,5 +1,5 @@
-﻿<Page x:Class="DecisionSupportSystem.Task_4.PageCombinations"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Page x:Class="DecisionSupportSystem.Task_5.PageCombinations"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -49,12 +49,12 @@
                 <DataGridTemplateColumn Header="Событие" Width="170">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}" 
+                            <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}"  IsReadOnly="True"
                                      Text="{Binding Path=Combination.Event.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Увел. проц. ставки" Width="150">
+                <DataGridTemplateColumn Header="Доход" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}" 
@@ -62,7 +62,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Увел. ном. цены" Width="150">
+                <DataGridTemplateColumn Header="Расход" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Validation.Error="DataGridValidationError" Style="{StaticResource TextBoxInGridStyle}" 
@@ -80,3 +80,4 @@
         	Click="BtnPrev_OnClick" Margin="0,134,115,0"/>
     </Grid>
 </Page>
+

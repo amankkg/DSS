@@ -2,9 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using DecisionSupportSystem.DbModel;
-//using BaseModel;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.ViewModels;
 
 namespace DecisionSupportSystem.Task_4
 {
@@ -12,14 +11,22 @@ namespace DecisionSupportSystem.Task_4
     {
         private BaseLayer _baseLayer;
         private NavigationService _navigation;
-        private readonly Action _action = new Action();
+        private ActionListViewModel _actionListViewModel;
 
         #region Конструкторы
+
+        private void BindElements()
+        {
+            _actionListViewModel = new ActionListViewModel(_baseLayer);
+            ActionListControl.DataContext = _actionListViewModel;
+            ActionControl.DataContext = new ActionViewModel(_actionListViewModel);
+        }
 
         public PageActions()
         {
             InitializeComponent();
             _baseLayer = new BaseLayer();
+            ErrorCount.Reset();
         }
 
         public PageActions(BaseLayer baseLayer)
@@ -27,6 +34,7 @@ namespace DecisionSupportSystem.Task_4
             InitializeComponent();
             _baseLayer = baseLayer;
             BindElements();
+            ErrorCount.Reset();
         }
 
         public void Show(object pageAction, string title, string taskuniq, BaseLayer baseLayer)
@@ -36,13 +44,6 @@ namespace DecisionSupportSystem.Task_4
             BindElements();
             NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title);
         }
-
-        private void BindElements()
-        {
-            gridAct.DataContext = _action;
-            GrdActionsLst.ItemsSource = _baseLayer.DssDbContext.Actions.Local;
-        }
-
         #endregion
 
         private void PageActionsOnLoaded(object sender, RoutedEventArgs e)
@@ -50,30 +51,15 @@ namespace DecisionSupportSystem.Task_4
             _navigation = NavigationService.GetNavigationService(this);
         }
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            _baseLayer.BaseMethods.DeleteAction((Action)GrdActionsLst.SelectedItem);
-            GrdActionsLst.Items.Refresh();
-        }
-
         #region Обработка событий Validation.Error
-
-        public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            _baseLayer.BaseMethods.AddAction(new Action { Name = _action.Name });
-            GrdActionsLst.Items.Refresh();
-        }
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (GrdActionsLst.Items.Count > 0)
+            if (_actionListViewModel.ActionViewModels.Count > 0)
+            {
                 _navigation.Navigate(new PageEvents(_baseLayer));
-        }
-
-        private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ErrorCount.EntityErrorCount == 0;
-            e.Handled = true;
+                ErrorCount.EntityErrorCount = 0;
+            }
         }
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -81,18 +67,8 @@ namespace DecisionSupportSystem.Task_4
             e.CanExecute = ErrorCount.EntityListErrorCount == 0;
             e.Handled = true;
         }
-
-        private void ActionValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            ErrorCount.CheckEntityError(e);
-        }
-
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            ErrorCount.CheckEntityListError(e);
-        }
-         
         #endregion
+
 
     }
 }

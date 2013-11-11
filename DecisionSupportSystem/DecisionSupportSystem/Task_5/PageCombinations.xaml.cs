@@ -1,24 +1,28 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.ViewModels;
 
-namespace DecisionSupportSystem.Task_4
+namespace DecisionSupportSystem.Task_5
 {
-    public partial class PageCombinations : Page
+    public partial class PageCombinations
     {
         private BaseLayer _baseLayer;
         private NavigationService _navigation;
-        private TaskCombinationsView localTaskLayer;
+        private LocalTaskLayer _localTaskLayer;
+        private EventsDependingActionListViewModel _eventsDependingActionListViewModel;
 
-        public PageCombinations(BaseLayer baseLayer)
+        public PageCombinations(BaseLayer baseLayer, EventsDependingActionListViewModel eventsDependingActionListViewModel)
         {
             InitializeComponent();
             _baseLayer = baseLayer;
-            localTaskLayer = new TaskCombinationsView(baseLayer);
-            localTaskLayer.CreateCombinations();
-            GrdCombinsLst.ItemsSource = localTaskLayer.CombinationWithParamViews;
+            _eventsDependingActionListViewModel = eventsDependingActionListViewModel;
+            _localTaskLayer = new LocalTaskLayer(baseLayer, _eventsDependingActionListViewModel);
+            _localTaskLayer.CreateCombinations();
+            GrdCombinsLst.ItemsSource = _localTaskLayer.CombinationWithParamViews;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
@@ -28,8 +32,8 @@ namespace DecisionSupportSystem.Task_4
 
         private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
         {
-           ErrorCount.CheckEntityListError(e);
-        } 
+            ErrorCount.CheckEntityListError(e);
+        }
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -40,13 +44,13 @@ namespace DecisionSupportSystem.Task_4
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _navigation = NavigationService.GetNavigationService(this);
-            _navigation.Navigate(new PageSolve(_baseLayer, localTaskLayer));
+            _navigation.Navigate(new PageSolve(_baseLayer));
         }
 
-       private void BtnPrev_OnClick(object sender, RoutedEventArgs e)
+        private void BtnPrev_OnClick(object sender, RoutedEventArgs e)
         {
             _navigation = NavigationService.GetNavigationService(this);
-            _navigation.Navigate(new PageEvents(_baseLayer));
+            _navigation.Navigate(new PageEvents(_baseLayer, _eventsDependingActionListViewModel));
         }
     }
 }

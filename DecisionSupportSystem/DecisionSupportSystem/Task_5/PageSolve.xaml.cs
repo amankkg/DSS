@@ -3,13 +3,12 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 
-namespace DecisionSupportSystem.Task_4
+namespace DecisionSupportSystem.Task_5
 {
     public partial class PageSolve
     {
         private BaseLayer _baseLayer; 
         private NavigationService navigation;
-        private TaskCombinationsView localTaskLayer;
 
         private void Init()
         {
@@ -17,17 +16,15 @@ namespace DecisionSupportSystem.Task_4
             GrdTask.DataContext = _baseLayer.SolvedTaskView;
         }
 
-        public PageSolve(BaseLayer baseLayer, TaskCombinationsView task4CombinationsView)
+        public PageSolve(BaseLayer baseLayer)
         {
             InitializeComponent();
             _baseLayer = baseLayer;
-            localTaskLayer = task4CombinationsView;
             Init();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            localTaskLayer.SolveCp();
             _baseLayer.SolveWpColWol();
             _baseLayer.SolveEmvEol();
             GrdSolutionLst.Items.Refresh();
@@ -36,7 +33,7 @@ namespace DecisionSupportSystem.Task_4
         private void BtnPrev_Click(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageCombinations(_baseLayer));
+            navigation.Navigate(new PageCombinations(_baseLayer, null));
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)

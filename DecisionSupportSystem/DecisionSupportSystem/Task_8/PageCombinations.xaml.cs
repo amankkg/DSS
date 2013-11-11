@@ -8,48 +8,48 @@ namespace DecisionSupportSystem.Task_8
 {
     public partial class PageCombinations : Page
     { 
-        private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
+       /* private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
         // которые могут использоваться любой страницей 
-        private NavigationService navigation;  
+        private NavigationService navigation;  */
 
         public PageCombinations(BaseLayer taskLayer)
         {
-            InitializeComponent();
+           /* InitializeComponent();
             pagePattern.baseLayer = taskLayer;
-            GrdCombinsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Combinations.Local;
+            GrdCombinsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Combinations.Local;*/
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.baseLayer.CreateCombinForFirstType();
-            GrdCombinsLst.Items.Refresh();
+           /* pagePattern.baseLayer.CreateCombinForFirstType();
+            GrdCombinsLst.Items.Refresh();*/
         }
 
         private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
         {
-            pagePattern.DatagridValidationError(e);
+           /* pagePattern.DatagridValidationError(e);*/
         }
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.NavigatePageCanExecute(e);
+           /* pagePattern.NavigatePageCanExecute(e);*/
         }
 
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseLayer));
+            /*navigation = NavigationService.GetNavigationService(this);
+            navigation.Navigate(new PageSolve(pagePattern.baseLayer));*/
         }
 
         private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.NavigatePageCanExecute(e);
+           /* pagePattern.NavigatePageCanExecute(e);*/
         }
 
         private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseLayer));
+          /*  navigation = NavigationService.GetNavigationService(this);
+            navigation.Navigate(new PageEvents(pagePattern.baseLayer));*/
         }
     }
 }

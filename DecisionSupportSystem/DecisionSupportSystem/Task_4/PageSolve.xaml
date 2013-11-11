@@ -36,8 +36,13 @@
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Действие"  Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Name, StringFormat=f3}"/>
+                <DataGridTemplateColumn Header="Действие" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="EMV" Width="150" IsReadOnly="True"
         			Binding="{Binding Path= Emv, StringFormat=f3}" />
                 <DataGridTextColumn Header="EOL"  Width="150" IsReadOnly="True"

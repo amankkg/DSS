@@ -27,6 +27,7 @@
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="FontFamily" Value="Calibri"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
@@ -62,6 +63,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
     </Style>
 
     <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">

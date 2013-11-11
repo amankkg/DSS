@@ -1,102 +1,65 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using DecisionSupportSystem.DbModel;
-//using BaseModel;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.ViewModels;
 
 
 namespace DecisionSupportSystem.Task_4
-{ 
+{
     public partial class PageEvents
     {
-        private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
-                                                                // которые могут использоваться любой страницей 
-        private NavigationService navigation;  
-        private Event eEvent = new Event();
+        private BaseLayer _baseLayer;
+        private NavigationService _navigation;
+        private EventListViewModel _eventListViewModel;
 
-        #region Конструкторы
+        #region Конструктор
 
-        private void Init()
+        private void BindElements()
         {
-            gridEvent.DataContext = eEvent; // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdEventsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Events.Local;
-                                        // привязываем локальные данные таблицы Actions к датагриду
+            _eventListViewModel = new EventListViewModel(_baseLayer);
+            EventListControl.DataContext = _eventListViewModel;
+            EventControl.DataContext = new EventViewModel(_eventListViewModel);
         }
 
-        public PageEvents(BaseLayer taskLayer)
+        public PageEvents(BaseLayer baseLayer)
         {
             InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
-            Init();
+            _baseLayer = baseLayer;
+            BindElements();
         }
 
         #endregion
 
         private void PageEventsOnLoaded(object sender, RoutedEventArgs e)
         {
-            navigation = NavigationService.GetNavigationService(this);
+            _navigation = NavigationService.GetNavigationService(this);
         }
 
-        private void EventAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void BtnPrev_OnClick(object sender, RoutedEventArgs e)
         {
-            pagePattern.EntityAddCanExecute(e);
+            _navigation.Navigate(new PageActions(_baseLayer));
         }
 
-        private void EventAdd_Executed(object sender, ExecutedRoutedEventArgs e)
+        #region Обработка события Validation.Error
+
+        private void NavigatePage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.baseLayer.BaseMethods.AddEvent(new Event
-                {
-                    Name = eEvent.Name,
-                    Probability = eEvent.Probability
-                });
-            GrdEventsLst.Items.Refresh();
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
+            e.Handled = true;
         }
-
-        #region Валидаторы
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.DatagridValidationError(e);
-        }
-
-        private void EventValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.EntityValidationError(e);
-        }
-        
-        #endregion
-
-        #region Навигация
-        
-        private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.NavigatePageCanExecute(e);
-        }
-
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageCombinations(pagePattern.baseLayer));
-        }
-
-        private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.NavigatePageCanExecute(e);
-        }
-
-        private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (GrdEventsLst.Items.Count > 0)
-                navigation.Navigate(new PageActions(pagePattern.baseLayer));
+            if (_eventListViewModel.EventViewModels.Count > 0)
+            {
+                _navigation.Navigate(new PageCombinations(_baseLayer));
+                ErrorCount.EntityErrorCount = 0;
+            }
         }
 
         #endregion
 
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            pagePattern.baseLayer.BaseMethods.DeleteEvent((Event)GrdEventsLst.SelectedItem);
-        }
+
     }
 
 }

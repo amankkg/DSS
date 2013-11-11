@@ -4,40 +4,25 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:v="clr-namespace:DecisionSupportSystem.Views"
-      mc:Ignorable="d" 
-  d:DesignHeight="400" d:DesignWidth="500"
-	Title="События" Loaded="PageEventsOnLoaded">
+      mc:Ignorable="d"
+	  Title="События" Loaded="PageEventsOnLoaded" d:DesignWidth="500" d:DesignHeight="332">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Name="gridEvent" Height="140" VerticalAlignment="Top">
-            <Grid.CommandBindings>
-                <CommandBinding Command="New" CanExecute="EventAdd_CanExecute" Executed="EventAdd_Executed"></CommandBinding>
-            </Grid.CommandBindings>
-            <Rectangle Fill="#FF6C9EC1"/>
-            <Button x:Name="BtnAdd" Content="Добавить" 
-                Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"
-                Command="New" Margin="0,0,35,10" Height="35" VerticalAlignment="Bottom"  />
-            <TextBox Style="{StaticResource TextBoxStyle}" Height="48" Margin="163,10,35,0" VerticalAlignment="Top"
-                     Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                     Validation.Error="EventValidationError"/>
-            <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="163,65,0,0"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" 
-                     Text="{Binding Path=Probability, StringFormat=f3, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                     Validation.Error="EventValidationError"/>
-            <Label Content="Вероятность:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Height="25" Foreground="Black"/>
-            <Label Content="Событие:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold"/>
+        <Grid Height="140" VerticalAlignment="Top">
+            <v:EventControl x:Name="EventControl"/>
         </Grid>
 
         <Grid Margin="0,140,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.CommandBindings>
                 <CommandBinding CanExecute="NavigatePage_CanExecute" Executed="NextPage_Executed">
                     <CommandBinding.Command>NextPage</CommandBinding.Command>
-                </CommandBinding>
-                <CommandBinding CanExecute="NavigatePage_CanExecute" Executed="PrevPage_Executed">
-                    <CommandBinding.Command>PreviousPage</CommandBinding.Command>
                 </CommandBinding>
             </Grid.CommandBindings>
             <Button Name="BtnNext" Content="далее &gt;&gt;" 
@@ -45,9 +30,9 @@
                 Command="NextPage"  Margin="0,10,35,0" Height="25" VerticalAlignment="Top"/>
             <Button x:Name="BtnPrev" Content="&lt;&lt; назад"
                     Style="{StaticResource NavigationButtonStyle}" HorizontalAlignment="Right"
-        	        Command="PreviousPage" Margin="0,10,115,0" Height="25" VerticalAlignment="Top"/>
-            <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="233" Height="29" FontSize="14"/>
-            <v:MainEventListControl x:Name="EventC" Margin="10,50,10,10"/>
+        	         Margin="0,10,115,0" Height="25" VerticalAlignment="Top" Click="BtnPrev_OnClick"/>
+            <Label  Content="Список возможных событий:" Margin="10,10,0,0" VerticalAlignment="Top" Height="29" FontSize="14" HorizontalAlignment="Left" Width="233"/>
+            <v:MainEventListControl x:Name="EventListControl" Margin="0,50,0,25"/>
         </Grid>
     </Grid>
 </Page>

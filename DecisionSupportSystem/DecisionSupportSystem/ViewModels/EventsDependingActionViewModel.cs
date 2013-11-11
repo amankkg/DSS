@@ -1,35 +1,82 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Controls;
+using System.Linq;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
+using DecisionSupportSystem.MainClasses;
 using Microsoft.Practices.Prism.Commands;
+using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.ViewModels
 {
-    public class EventViewModel : BasePropertyChanged, IDataErrorInfo
+    public class EventsDependingActionViewModel : BasePropertyChanged, IDataErrorInfo
     {
-        public EventViewModel(Event ev, EventListViewModel eventListViewModel)
-        {
-            this.EventListViewModel = eventListViewModel;
-            this.Name = ev.Name;
-            this.Probability = ev.Probability;
-            this.AddEventCommand = new DelegateCommand<object>(this.OnAddEvent, this.CanAddEvent);
-        }
-
-        public EventViewModel(EventListViewModel eventListViewModel)
+        public EventsDependingActionViewModel(BaseLayer baseLayer, EventsDependingActionListViewModel eventsWithActionListViewModel)
         {
             var ev = new Event();
-            this.EventListViewModel = eventListViewModel;
             this.Name = ev.Name;
             this.Probability = ev.Probability;
-            this.AddEventCommand = new DelegateCommand<object>(this.OnAddEvent, this.CanAddEvent);
+            Actions = baseLayer.DssDbContext.Actions.Local.ToList();
+            EventsWithActionListViewModel = eventsWithActionListViewModel;
+            AddEventCommand = new DelegateCommand<object>(this.OnAddEvent, this.CanAddEvent);
         }
-        #region Свойства
-        
+
+        public EventsDependingActionListViewModel EventsWithActionListViewModel { get; set; }
+
         public ICommand AddEventCommand { get; private set; }
+
+        private void OnAddEvent(object obj)
+        {
+            this.EventsWithActionListViewModel.AddEvent(
+                Actions[ActionSelectedIndex], 
+                new Event
+                    {
+                        Name = this.Name, Probability = this.Probability
+                    });
+        }
+
+        private bool CanAddEvent(object obj)
+        {
+            return ErrorCount.EntityErrorCount == 0;
+        }
         
-        public EventListViewModel EventListViewModel { get; set; }
+
+        private int _actionSelectedIndex;
+        public int ActionSelectedIndex
+        {
+            get
+            {
+                return _actionSelectedIndex;
+            }
+            set
+            {
+                if (value != this._actionSelectedIndex)
+                {
+                    this._actionSelectedIndex = value;
+                    RaisePropertyChanged("ActionSelectedIndex");
+                }
+            }
+        }
+        
+        private List<Action> _actions;
+        public List<Action> Actions
+        {
+            get
+            {
+                return _actions;
+            }
+            set
+            {
+                if (value != this._actions)
+                {
+                    this._actions = value;
+                    RaisePropertyChanged("Actions");
+                }
+            }
+        }
+
+        public Event Event { get; set; }
 
         private string _name;
         public string Name
@@ -44,7 +91,6 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._name = value;
                     RaisePropertyChanged("Name");
-                    EventListViewModel.UpdateEvents();
                 }
             }
         }
@@ -62,26 +108,9 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._probability = value;
                     RaisePropertyChanged("Probability");
-                    EventListViewModel.UpdateEvents();
-                    EventListViewModel.Sum();
                 }
             }
         }
-        #endregion
-
-        #region Методы
-        private void OnAddEvent(object obj)
-        {
-            this.EventListViewModel.AddEvent(new Event{Name = this.Name, Probability = this.Probability});
-        }
-
-        private bool CanAddEvent(object obj)
-        {
-            return ErrorCount.EntityErrorCount == 0;
-        }
-        
-        #endregion
-
         #region Реализация интерфейса IDataErrorInfo
         public string Error { get { throw new NotImplementedException(); } }
 

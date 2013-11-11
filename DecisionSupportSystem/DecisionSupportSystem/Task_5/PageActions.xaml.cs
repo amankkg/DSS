@@ -5,13 +5,14 @@ using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.ViewModels;
 
-namespace DecisionSupportSystem.Task_1
-{
+namespace DecisionSupportSystem.Task_5
+{ 
     public partial class PageActions : Page
     {
         private BaseLayer _baseLayer;
         private NavigationService _navigation;
         private ActionListViewModel _actionListViewModel;
+        private EventsDependingActionListViewModel _eventsDependingActionListViewModel;
 
         #region Конструкторы
 
@@ -29,10 +30,11 @@ namespace DecisionSupportSystem.Task_1
             ErrorCount.Reset();
         }
 
-        public PageActions(BaseLayer baseLayer)
+        public PageActions(BaseLayer baseLayer, EventsDependingActionListViewModel eventsDependingActionListViewModel)
         {
             InitializeComponent();
             _baseLayer = baseLayer;
+            _eventsDependingActionListViewModel = eventsDependingActionListViewModel;
             BindElements();
             ErrorCount.Reset();
         }
@@ -57,7 +59,11 @@ namespace DecisionSupportSystem.Task_1
         {
             if (_actionListViewModel.ActionViewModels.Count > 0)
             {
-                _navigation.Navigate(new PageEvents(_baseLayer));
+                if (_eventsDependingActionListViewModel == null)
+                    _eventsDependingActionListViewModel = new EventsDependingActionListViewModel(_baseLayer);
+                else
+                    _eventsDependingActionListViewModel.CheckOnNewActions(_baseLayer);
+                _navigation.Navigate(new PageEvents(_baseLayer, _eventsDependingActionListViewModel));
                 ErrorCount.EntityErrorCount = 0;
             }
         }

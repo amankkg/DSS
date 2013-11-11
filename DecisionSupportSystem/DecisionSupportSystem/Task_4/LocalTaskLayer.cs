@@ -3,30 +3,44 @@ using System.Linq;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
-//using BaseModel;
-//using Action = BaseModel.Action;
-
 
 namespace DecisionSupportSystem.Task_4
 {
-    public class CombinationWithParamView
+    public class CombinationWithParamView : BasePropertyChanged
     {
-        public Combination Combination { get; set; }
+        private Combination _combination;
+        public Combination Combination
+        {
+            get
+            {
+                return _combination;
+            }
+            set
+            {
+                if (value != this._combination)
+                {
+                    this._combination = value;
+                    RaisePropertyChanged("Combination");
+                }
+            }
+        }
         public CombinParam Procent { get; set; }
         public CombinParam NominalPrice { get; set; } 
     }
 
-    public class Task4CombinationsView
+    public class TaskCombinationsView
     {
         public List<CombinationWithParamView> CombinationWithParamViews = new List<CombinationWithParamView>();
         public BaseLayer BaseLayer  = new BaseLayer();
 
-        public Task4CombinationsView(BaseLayer baseLayer)
+        public TaskCombinationsView(){}
+
+        public TaskCombinationsView(BaseLayer baseLayer)
         {
             BaseLayer = baseLayer;
         }
         
-        public void CreateCombinations()
+        public virtual void CreateCombinations()
         {
             LoadCombinations();
             var lastCombList = CreateLastCombinationList();
@@ -51,7 +65,7 @@ namespace DecisionSupportSystem.Task_4
                     }
         }
 
-        private void LoadCombinations()
+        protected void LoadCombinations()
         {
             CombinationWithParamViews.Clear();
             var combins = BaseLayer.DssDbContext.Combinations.Local;
@@ -69,7 +83,7 @@ namespace DecisionSupportSystem.Task_4
             }
         }
         
-        private List<Combination> CreateLastCombinationList()
+        protected List<Combination> CreateLastCombinationList()
         {
             var comb = BaseLayer.DssDbContext.Combinations.Local.ToList();
             return comb.Select(c => new Combination
@@ -78,17 +92,17 @@ namespace DecisionSupportSystem.Task_4
                 }).ToList();
         }
 
-        private bool HaveAction(Action act, List<Combination> lastCombList)
+        protected bool HaveAction(Action act, List<Combination> lastCombList)
         {
             return lastCombList.Any(combination => combination.Action == act);
         }
 
-        private bool HaveEvent(Event eEvent, List<Combination> lastCombList)
+        protected bool HaveEvent(Event eEvent, List<Combination> lastCombList)
         {
             return lastCombList.Any(combination => combination.Event == eEvent);
         }
         
-        public void SolveCp()
+        public virtual void SolveCp()
         {
             foreach (var temp in CombinationWithParamViews)
             {

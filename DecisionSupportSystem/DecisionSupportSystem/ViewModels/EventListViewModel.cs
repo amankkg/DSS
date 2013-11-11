@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,9 +11,22 @@ namespace DecisionSupportSystem.ViewModels
 {
     public class EventListViewModel : BasePropertyChanged
     {
+        public EventListViewModel(List<Event> events, BaseLayer baseLayer)
+        {
+            Events = events;
+            _baseLayer = baseLayer;
+            ProbabilitySumViewModel = new ProbabilitySumViewModel();
+            EventViewModels = new ObservableCollection<EventViewModel>();
+            foreach (var ev in Events)
+            {
+                EventViewModels.Add(new EventViewModel(ev, this));
+            }
+            Sum();
+        }
+
         public EventListViewModel(BaseLayer baseLayer)
         {
-            Events = baseLayer.DssDbContext.Events.Local;
+            Events = baseLayer.DssDbContext.Events.Local.ToList();
             _baseLayer = baseLayer;
             ProbabilitySumViewModel = new ProbabilitySumViewModel();
             EventViewModels = new ObservableCollection<EventViewModel>();
@@ -24,7 +39,7 @@ namespace DecisionSupportSystem.ViewModels
         
         #region Свойства
         
-        public ObservableCollection<Event> Events { get; set; }
+        public List<Event> Events { get; set; }
         private BaseLayer _baseLayer;
 
         public ProbabilitySumViewModel ProbabilitySumViewModel
@@ -76,7 +91,14 @@ namespace DecisionSupportSystem.ViewModels
         public void SelectEvent(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
-                _selectedItem = FindIndexInEventListViewModels((EventViewModel)e.AddedItems[0]);
+            try
+            {
+                _selectedItem = FindIndexInEventListViewModels((EventViewModel) e.AddedItems[0]);
+            }
+            catch
+            {
+                // не обработано
+            }
         }
 
         public void AddEvent(Event ev)
