@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
 using Microsoft.Practices.Prism.Commands;
@@ -53,12 +51,12 @@ namespace DecisionSupportSystem.ViewModels
         #endregion
 
         #region Методы
-        private void OnAddAction(object obj)
+        public void OnAddAction(object obj)
         {
             this.ActionListViewModel.AddAction(new Action{Name = this.Name});
         }
 
-        private bool CanAddAction(object obj)
+        public bool CanAddAction(object obj)
         {
             return ErrorCount.EntityErrorCount == 0;
         }

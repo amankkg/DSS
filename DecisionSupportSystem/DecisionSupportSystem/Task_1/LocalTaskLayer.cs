@@ -9,7 +9,7 @@ namespace DecisionSupportSystem.Task_1
 {
     public static class LocalTaskLayer
     {
-        public static ObservableCollection<Combination> Combinations = new ObservableCollection<Combination>();
+        public static ObservableCollection<Combination> CombinationsList = new ObservableCollection<Combination>();
         public static void CreateCombinations(BaseLayer baseLayer)
         {
             LoadCombinations(baseLayer);
@@ -24,22 +24,22 @@ namespace DecisionSupportSystem.Task_1
                     }
         }
 
-        private static void LoadCombinations(BaseLayer baseLayer)
+        public static void LoadCombinations(BaseLayer baseLayer)
         {
-            Combinations = baseLayer.DssDbContext.Combinations.Local;
+            CombinationsList = baseLayer.DssDbContext.Combinations.Local;
         }
 
-        private static List<Combination> CreateLastCombinationList(BaseLayer baseLayer)
+        public static List<Combination> CreateLastCombinationList(BaseLayer baseLayer)
         {
             return baseLayer.DssDbContext.Combinations.Local.ToList();
         }
 
-        private static bool HaveAction(Action act, IEnumerable<Combination> lastCombList)
+        public static bool HaveAction(Action act, IEnumerable<Combination> lastCombList)
         {
             return lastCombList.Any(combination => combination.Action == act);
         }
 
-        private static bool HaveEvent(Event eEvent, IEnumerable<Combination> lastCombList)
+        public static bool HaveEvent(Event eEvent, IEnumerable<Combination> lastCombList)
         {
             return lastCombList.Any(combination => combination.Event == eEvent);
         }
