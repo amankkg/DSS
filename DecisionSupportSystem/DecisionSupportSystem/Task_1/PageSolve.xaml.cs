@@ -15,17 +15,16 @@ namespace DecisionSupportSystem.Task_1
             GrdTask.DataContext = _baseLayer.SolvedTaskView;
         }
 
-        public PageSolve(BaseLayer taskLayer)
+        public PageSolve(BaseLayer baseLayer)
         {
             InitializeComponent();
-            _baseLayer = taskLayer;
+            _baseLayer = baseLayer;
             Init();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            _baseLayer.SolveWpColWol();
-            _baseLayer.SolveEmvEol();
+            _baseLayer.SolveThisTask();
             GrdSolutionLst.Items.Refresh();
         }
 

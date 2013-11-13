@@ -123,11 +123,20 @@ namespace DecisionSupportSystem.MainClasses
                 if (dssDbContext.Combinations.Local.Count > 0)
                 {
                     var combinations = dssDbContext.Combinations.Local.ToList();
+                    var removedEvents = new List<Event>();
                     var removingCombinations =
                         combinations.Where(combination => combination.Action.Name == act.Name).ToList();
 
                     foreach (var removedCombination in removingCombinations)
+                    {
+                        var countRemovedEvents = combinations.Where(c => c.Event == removedCombination.Event).Select(c=>c).ToList();
+                        if (countRemovedEvents.Count != 0 && countRemovedEvents.Count < dssDbContext.Actions.Local.Count)
+                        {
+                             removedEvents.Add(removedCombination.Event);
+                        }
                         dssDbContext.Combinations.Local.Remove(removedCombination);
+                    }
+                    DeleteEventsByInList(removedEvents);
                 }
                 dssDbContext.Actions.Local.Remove(act);
             }
@@ -147,6 +156,17 @@ namespace DecisionSupportSystem.MainClasses
                         dssDbContext.Combinations.Local.Remove(removedCombination);
                 }
                 dssDbContext.Events.Local.Remove(ev);
+            }
+        }
+
+        public void DeleteEventsByInList(List<Event> removedEvents)
+        {
+            if (removedEvents.Count > 0)
+            {
+                foreach (var removedEvent in removedEvents)
+                {
+                    DeleteEvent(removedEvent);
+                }
             }
         }
         #endregion 

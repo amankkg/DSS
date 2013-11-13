@@ -20,7 +20,7 @@ namespace DecisionSupportSystem.Task_5
             InitializeComponent();
             _baseLayer = baseLayer;
             _eventsDependingActionListViewModel = eventsDependingActionListViewModel;
-            _localTaskLayer = new LocalTaskLayer(baseLayer, _eventsDependingActionListViewModel);
+            _localTaskLayer = new LocalTaskLayer(baseLayer, eventsDependingActionListViewModel);
             _localTaskLayer.CreateCombinations();
             GrdCombinsLst.ItemsSource = _localTaskLayer.CombinationWithParamViews;
         }
@@ -44,7 +44,8 @@ namespace DecisionSupportSystem.Task_5
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             _navigation = NavigationService.GetNavigationService(this);
-            _navigation.Navigate(new PageSolve(_baseLayer));
+            _navigation.Navigate(new PageSolve(_baseLayer, _localTaskLayer, 
+                new EventsDependingActionListViewModel(_baseLayer)));
         }
 
         private void BtnPrev_OnClick(object sender, RoutedEventArgs e)

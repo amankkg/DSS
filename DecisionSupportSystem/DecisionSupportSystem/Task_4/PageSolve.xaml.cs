@@ -11,7 +11,7 @@ namespace DecisionSupportSystem.Task_4
         private NavigationService navigation;
         private TaskCombinationsView localTaskLayer;
 
-        private void Init()
+        private void BindElements()
         {
             GrdSolutionLst.ItemsSource = _baseLayer.DssDbContext.Actions.Local;
             GrdTask.DataContext = _baseLayer.SolvedTaskView;
@@ -22,14 +22,13 @@ namespace DecisionSupportSystem.Task_4
             InitializeComponent();
             _baseLayer = baseLayer;
             localTaskLayer = task4CombinationsView;
-            Init();
+            BindElements();
         }
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
             localTaskLayer.SolveCp();
-            _baseLayer.SolveWpColWol();
-            _baseLayer.SolveEmvEol();
+            _baseLayer.SolveThisTask();
             GrdSolutionLst.Items.Refresh();
         }
 

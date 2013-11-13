@@ -9,30 +9,17 @@ using DecisionSupportSystem.MainClasses;
 
 namespace DecisionSupportSystem.ViewModels
 {
-    public class EventListViewModel : BasePropertyChanged
+    public class EventListSTypeViewModel : BasePropertyChanged
     {
-        public EventListViewModel(ObservableCollection<Event> events, BaseLayer baseLayer)
+        public EventListSTypeViewModel(ActionEvents actionEvents)
         {
-            Events = events;
-            _baseLayer = baseLayer;
+            ActionEvents = actionEvents;
+            Events = actionEvents.Events;
             ProbabilitySumViewModel = new ProbabilitySumViewModel();
-            EventViewModels = new ObservableCollection<EventViewModel>();
+            EventSTypeViewModels = new ObservableCollection<EventSTypeViewModel>();
             foreach (var ev in Events)
             {
-                EventViewModels.Add(new EventViewModel(ev, this));
-            }
-            Sum();
-        }
-
-        public EventListViewModel(BaseLayer baseLayer)
-        {
-            Events = baseLayer.DssDbContext.Events.Local;
-            _baseLayer = baseLayer;
-            ProbabilitySumViewModel = new ProbabilitySumViewModel();
-            EventViewModels = new ObservableCollection<EventViewModel>();
-            foreach (var ev in Events)
-            {
-                EventViewModels.Add(new EventViewModel(ev, this));
+                EventSTypeViewModels.Add(new EventSTypeViewModel(ev, this));
             }
             Sum();
         }
@@ -41,11 +28,7 @@ namespace DecisionSupportSystem.ViewModels
         
         public ObservableCollection<Event> Events { get; set; }
         
-        public BaseLayer BaseLayer {
-            get { return _baseLayer; }
-            set { _baseLayer = value; }
-        }
-        private BaseLayer _baseLayer;
+        public ActionEvents ActionEvents { get; set; }
 
         public ProbabilitySumViewModel ProbabilitySumViewModel
         {
@@ -66,31 +49,31 @@ namespace DecisionSupportSystem.ViewModels
         private ProbabilitySumViewModel _probabilitySumViewModel;
 
        
-        public ObservableCollection<EventViewModel> EventViewModels
+        public ObservableCollection<EventSTypeViewModel> EventSTypeViewModels
         {
             get
             {
-                return _eventViewModels;
+                return _eventSTypeViewModels;
             }
             set
             {
-                if (value != this._eventViewModels)
+                if (value != this._eventSTypeViewModels)
                 {
-                    this._eventViewModels = value;
+                    this._eventSTypeViewModels = value;
                     RaisePropertyChanged("EventViewModels");
                 }
             }
         } 
 
-        private ObservableCollection<EventViewModel> _eventViewModels;
+        private ObservableCollection<EventSTypeViewModel> _eventSTypeViewModels;
         #endregion
 
         #region Методы
         public void Sum()
         {
-            if (_eventViewModels != null)
+            if (_eventSTypeViewModels != null)
             {
-                ProbabilitySumViewModel.ChangeSum(_eventViewModels.Select(ev => ev.Probability).ToList().Sum());
+                ProbabilitySumViewModel.ChangeSum(_eventSTypeViewModels.Select(ev => ev.Probability).ToList().Sum());
             }
         }
         public void SelectEvent(object sender, SelectionChangedEventArgs e)
@@ -98,7 +81,7 @@ namespace DecisionSupportSystem.ViewModels
             if (e.AddedItems.Count > 0)
             try
             {
-                _selectedItem = FindIndexInEventListViewModels((EventViewModel) e.AddedItems[0]);
+                _selectedItem = FindIndexInEventListViewModels((EventSTypeViewModel) e.AddedItems[0]);
             }
             catch
             {
@@ -108,19 +91,19 @@ namespace DecisionSupportSystem.ViewModels
 
         public void AddEvent(Event ev)
         {
-            EventViewModels.Add(new EventViewModel(ev, this));
+            EventSTypeViewModels.Add(new EventSTypeViewModel(ev, this));
             Events.Add(ev);
-            _baseLayer.DssDbContext.Events.Local.Add(ev);
+            ActionEvents.Events.Add(ev);
             Sum();
         }
 
         public void UpdateEvents()
         {
-            if (EventViewModels.Count == Events.Count)
+            if (EventSTypeViewModels.Count == Events.Count)
                 for (int i = 0; i < Events.Count; i++)
                 {
-                    Events[i].Name = EventViewModels[i].Name;
-                    Events[i].Probability = EventViewModels[i].Probability;
+                    Events[i].Name = EventSTypeViewModels[i].Name;
+                    Events[i].Probability = EventSTypeViewModels[i].Probability;
                 }
         }
 
@@ -130,8 +113,8 @@ namespace DecisionSupportSystem.ViewModels
         {
             if (_selectedItem > -1)
             {
-                EventViewModels.RemoveAt(_selectedItem);
-                _baseLayer.BaseMethods.DeleteEvent(Events[_selectedItem]);
+                EventSTypeViewModels.RemoveAt(_selectedItem);
+                ActionEvents.Events.RemoveAt(_selectedItem);
                 UpdateEvents();
                 Sum();
             }
@@ -142,10 +125,10 @@ namespace DecisionSupportSystem.ViewModels
             ErrorCount.CheckEntityListError(e);
         }
 
-        private int FindIndexInEventListViewModels(EventViewModel element)
+        private int FindIndexInEventListViewModels(EventSTypeViewModel element)
         {
-            for (int i = 0; i < EventViewModels.Count; i++)
-                if (EventViewModels[i] == element)
+            for (int i = 0; i < EventSTypeViewModels.Count; i++)
+                if (EventSTypeViewModels[i] == element)
                     return i;
             return -1;
         }

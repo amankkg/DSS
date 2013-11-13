@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
+using System.Collections.Generic;
 using DecisionSupportSystem.DbModel;
+using System.Collections.ObjectModel;
 using DecisionSupportSystem.MainClasses;
 
 namespace DecisionSupportSystem.ViewModels
 {
     public class EventsDependingActionListViewModel
-    {
+    {        
+        public ObservableCollection<EventsDependingAction> EventsDependingActions { get; set; }
+
         public EventsDependingActionListViewModel(BaseLayer baseLayer)
         {
             EventsDependingActions = new ObservableCollection<EventsDependingAction>();
@@ -15,8 +17,12 @@ namespace DecisionSupportSystem.ViewModels
             var combins = baseLayer.DssDbContext.Combinations.Local.ToList();
             foreach (var action in actions)
             {
-                    var eventsDepThisAction = combins.Where(c => c.Action == action).Select(c => c.Event).ToList();
-                    EventsDependingActions.Add(new EventsDependingAction
+                var eventsDepThisAct = combins.Where(c => c.Action == action).Select(c => c.Event);
+                var eventsDepThisAction = new ObservableCollection<Event>();
+                foreach (var ev in eventsDepThisAct)
+                    eventsDepThisAction.Add(ev);
+
+                EventsDependingActions.Add(new EventsDependingAction
                         {
                             Action = action,
                             EventListViewModel = new EventListViewModel(eventsDepThisAction, baseLayer)
@@ -24,11 +30,69 @@ namespace DecisionSupportSystem.ViewModels
             }
         }
 
+        public void CheckUpdatingData(BaseLayer baseLayer)
+        {
+            CheckDeletedActions(baseLayer);
+            CheckOnNewActions(baseLayer);
+            CheckDeletedEvents(baseLayer);
+        }
+
         public void CheckOnNewActions(BaseLayer baseLayer)
         {
             var actions = baseLayer.DssDbContext.Actions.Local.ToList();
             if (EventsDependingActions.Count < actions.Count)
                 AddNewAction(actions, baseLayer);
+        }
+
+        public void CheckDeletedActions(BaseLayer baseLayer)
+        {
+            var actions = baseLayer.DssDbContext.Actions.Local.ToList();
+            var deletingActions = new List<EventsDependingAction>();
+            foreach (var eventsDependingAction in EventsDependingActions)
+            {
+                if (!actions.Contains(eventsDependingAction.Action))
+                    deletingActions.Add(eventsDependingAction);
+            }
+            DeleteEventsDependingAction(deletingActions, baseLayer);
+        }
+
+        public void DeleteEventsDependingAction(List<EventsDependingAction> deletingActions, BaseLayer baseLayer)
+        {
+            foreach (var removingAction in deletingActions)
+            {
+                baseLayer.BaseMethods.DeleteAction(removingAction.Action);
+                EventsDependingActions.Remove(removingAction);
+            }
+        }
+
+        public void CheckDeletedEvents(BaseLayer baseLayer)
+        {
+            var events = baseLayer.DssDbContext.Events.Local.ToList(); 
+            var deletingEvents = (from eventsDependingAction in EventsDependingActions 
+                                  from ev in eventsDependingAction.EventListViewModel.Events 
+                                  where !events.Contains(ev) 
+                                  select ev).ToList();
+            foreach (var deletingEvent in deletingEvents)
+            {
+                DeleteEvent(deletingEvent);
+            }
+        }
+
+        public void DeleteEvent(Event eEvent)
+        {
+            EventsDependingAction eventsDependingAction = null;
+            foreach (var eDepA in EventsDependingActions)
+            {
+                if (eDepA.EventListViewModel.Events.Any(ev => ev == eEvent))
+                {
+                    eventsDependingAction = eDepA;
+                    break;
+                }
+            }
+            /*if (eventsDependingAction != null)
+            {
+                eventsDependingAction.EventListViewModel.DeleteEvent(eEvent);
+            }*/
         }
 
         private void AddNewAction(List<Action> actions, BaseLayer baseLayer)
@@ -39,12 +103,10 @@ namespace DecisionSupportSystem.ViewModels
                     EventsDependingActions.Add(new EventsDependingAction
                     {
                         Action = action,
-                        EventListViewModel = new EventListViewModel(new List<Event>(), baseLayer)
+                        EventListViewModel = new EventListViewModel(new ObservableCollection<Event>(), baseLayer)
                     });
         }
-
-        public ObservableCollection<EventsDependingAction> EventsDependingActions { get; set; }
-         
+        
         public void AddEvent(Action act, Event ev)
         {
             foreach (var eventDepAction in EventsDependingActions)

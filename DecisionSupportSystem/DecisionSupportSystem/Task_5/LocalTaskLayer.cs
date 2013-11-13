@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.Task_4;
@@ -9,6 +10,8 @@ namespace DecisionSupportSystem.Task_5
     public class LocalTaskLayer : TaskCombinationsView
     {
         public EventsDependingActionListViewModel EventsDependingActionListViewModel { get; set; }
+        public List<Combination> FictiveCombinationsList { get; set; }
+
         public LocalTaskLayer(BaseLayer baseLayer, EventsDependingActionListViewModel eventsDependingActionListViewModel)
         {
             EventsDependingActionListViewModel = eventsDependingActionListViewModel;
@@ -42,6 +45,27 @@ namespace DecisionSupportSystem.Task_5
                     }
                 }
             }
+            CreateFictiveCombinationsList();
+        }
+
+        public void CreateFictiveCombinationsList()
+        {
+            FictiveCombinationsList = new List<Combination>();
+            var combins = BaseLayer.DssDbContext.Combinations.Local.ToList();
+            foreach (var act in BaseLayer.DssDbContext.Actions.Local)
+                foreach (var ev in BaseLayer.DssDbContext.Events.Local)
+                {
+                    var combination = combins.Select(c => c).Where(c => c.Action == act && c.Event == ev).ToList();
+                    if (combination.Count == 0)
+                        FictiveCombinationsList.Add(new Combination
+                            {
+                                Action = act,
+                                Event = ev,
+                                Cp = 0
+                            });
+                    else
+                        FictiveCombinationsList.Add(combination[0]);
+                }
         }
 
         public override void SolveCp()

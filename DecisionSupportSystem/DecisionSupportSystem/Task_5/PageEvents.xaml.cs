@@ -42,12 +42,14 @@ namespace DecisionSupportSystem.Task_5
 
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _eventsDependingActionListViewModel.CheckUpdatingData(_baseLayer);
             _navigation.Navigate(new PageCombinations(_baseLayer, _eventsDependingActionListViewModel));
             ErrorCount.EntityErrorCount = 0;
         }
 
         private void BtnPrev_OnClick(object sender, RoutedEventArgs e)
         {
+            _eventsDependingActionListViewModel.CheckUpdatingData(_baseLayer);
             _navigation.Navigate(new PageActions(_baseLayer, _eventsDependingActionListViewModel));
         }
     }

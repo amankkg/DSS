@@ -31,7 +31,7 @@ namespace DecisionSupportSystem.MainClasses
 
         #region Создание комбинаций
         // Создание комбинации действие-событие для задач 1-го типа (события не зависят от действий)
-        public void CreateCombinForFirstType()
+        /*public void CreateCombinForFirstType()
         {
             DssDbContext.Combinations.Local.Clear();
             var acts = DssDbContext.Actions.Local.ToList();
@@ -39,15 +39,15 @@ namespace DecisionSupportSystem.MainClasses
             foreach (var action in acts)
                 foreach (var eEvent in even)
                     BaseMethods.AddCombination(new Combination(), action, eEvent, Task, 0);
-        }
+        }*/
 
         // Создание комбинации действие-событие для задач 2-го типа (события зависят от действий)
-        public void CreateCombinForSecondType()
+       /* public void CreateCombinForSecondType()
         {
             foreach (var action in ActionsForSecondType)
                 foreach (var eEvent in action.Events)
                     BaseMethods.AddCombination(new Combination(), action, eEvent, Task, 0);
-        }
+        }*/
         #endregion
 
         private void SolveCpMaxes()
@@ -69,20 +69,46 @@ namespace DecisionSupportSystem.MainClasses
             }
         }
 
-        public void SolveWpColWol()
+        public void SolveThisTask()
         {
-            SolveCpMaxes();
+            SolveWp();
+            SolveColWol(null);
+            SolveEmv();
+            SolveEol(null);
+        }
+
+        public void SolveThisTask(List<Combination> fictiveCombinations)
+        {
+            SolveWp();
+            SolveColWol(fictiveCombinations);
+            SolveEmv();
+            SolveEol(fictiveCombinations);
+        }
+        
+        private void SolveWp()
+        {
             var combins = DssDbContext.Combinations.Local.ToList();
             foreach (var combination in combins)
-            {
                 combination.Wp = combination.Cp*combination.Event.Probability;
+        }
+
+        private void SolveColWol(List<Combination> fictiveCombinations)
+        {
+            SolveCpMaxes();
+            List<Combination> combins;
+            if (fictiveCombinations != null)
+                combins = fictiveCombinations;
+            else
+                combins = DssDbContext.Combinations.Local.ToList();
+            foreach (var combination in combins)
+            {
                 var cpMax = CpMaxes.First(i => i.Event == combination.Event).Value;
                 combination.Col = cpMax - combination.Cp;
                 combination.Wol = combination.Col * combination.Event.Probability;
             }
         }
-
-        public void SolveEmvEol()
+        
+        public void SolveEmv()
         {
             var combins = DssDbContext.Combinations.Local.ToList();
             var actions = DssDbContext.Actions.Local.ToList();
@@ -90,12 +116,8 @@ namespace DecisionSupportSystem.MainClasses
             {
                 var wps = (combins.Where(c => c.Action == a).Select(c => c.Wp)).ToList();
                 a.Emv = wps.Sum();
-
-                var wols = (combins.Where(c => c.Action == a).Select(c => c.Wol)).ToList();
-                a.Eol = wols.Sum();
             }
             var maxEmv = Convert.ToDecimal(Convert.ToDouble(DssDbContext.Actions.Local.Max(a => a.Emv)));
-            var minEol = Convert.ToDecimal(Convert.ToDouble(DssDbContext.Actions.Local.Min(a => a.Eol)));
             var optimalActName = DssDbContext.Actions.Local.FirstOrDefault(a => a.Emv == maxEmv).Name;
             Task.Date = DateTime.Now;
             Task.Recommendation = string.Format(
@@ -107,6 +129,22 @@ namespace DecisionSupportSystem.MainClasses
                 optimalActName, maxEmv);
             SolvedTaskView.Recommendation = Task.Recommendation;
             SolvedTaskView.MaxEmv = maxEmv;
+        }
+
+        public void SolveEol(List<Combination> fictiveCombinations)
+        {
+            List<Combination> combins;
+            if (fictiveCombinations == null)
+                combins = DssDbContext.Combinations.Local.ToList();
+            else
+                combins = fictiveCombinations;
+            var actions = DssDbContext.Actions.Local.ToList();
+            foreach (var a in actions)
+            {
+                var wols = (combins.Where(c => c.Action == a).Select(c => c.Wol)).ToList();
+                a.Eol = wols.Sum();
+            }
+            var minEol = Convert.ToDecimal(Convert.ToDouble(DssDbContext.Actions.Local.Min(a => a.Eol)));
             SolvedTaskView.MinEol = minEol;
             BaseMethods.AddTask(Task);
         }

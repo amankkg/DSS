@@ -62,12 +62,12 @@ namespace DecisionSupportSystem.Task_5
                 if (_eventsDependingActionListViewModel == null)
                     _eventsDependingActionListViewModel = new EventsDependingActionListViewModel(_baseLayer);
                 else
-                    _eventsDependingActionListViewModel.CheckOnNewActions(_baseLayer);
+                    _eventsDependingActionListViewModel.CheckUpdatingData(_baseLayer);
                 _navigation.Navigate(new PageEvents(_baseLayer, _eventsDependingActionListViewModel));
                 ErrorCount.EntityErrorCount = 0;
             }
         }
-
+        
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ErrorCount.EntityListErrorCount == 0;

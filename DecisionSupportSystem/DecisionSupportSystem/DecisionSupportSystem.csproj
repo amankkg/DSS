@@ -86,6 +86,7 @@
     <Compile Include="DbModel\Action.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbModel\ActionEvents.cs" />
     <Compile Include="DbModel\ActionParam.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
@@ -178,6 +179,8 @@
     <Compile Include="Tree\Tree.xaml.cs">
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\EventListSTypeViewModel.cs" />
+    <Compile Include="ViewModels\EventsDepActionListViewModel.cs" />
     <Compile Include="ViewModels\EventsDependingActionListViewModel.cs" />
     <Compile Include="ViewModels\EventsDependingActionViewModel.cs" />
     <Compile Include="Task_5\PageActions.xaml.cs">
@@ -191,6 +194,7 @@
     <Compile Include="ViewModels\ActionViewModel.cs" />
     <Compile Include="ViewModels\CombinationListViewModel.cs" />
     <Compile Include="ViewModels\CombinationViewModel.cs" />
+    <Compile Include="ViewModels\EventSTypeViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\ProbabilitySumViewModel.cs" />
     <Compile Include="Views\ActionControl.xaml.cs">
