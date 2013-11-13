@@ -18,7 +18,7 @@
             <Button Style="{StaticResource HeadButtonStyle}" x:Name="BtnShowSolution" Content="Показать решение" 
             	Margin="10,50,10,0" VerticalAlignment="Top" Click="BtnShowSolution_OnClick" Grid.Column="1" Width="Auto"/>
         </Grid>
-<Grid Margin="0,140,0,0">
+    <Grid Margin="0,140,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="29*"/>
             <RowDefinition Height="43*"/>
@@ -26,7 +26,7 @@
             <Label  Content="Решение:" HorizontalAlignment="Left" 
                 Margin="10,10,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
 
-        <DataGrid x:Name="GrdSolutionLst" Margin="10,50,10,10"  Background="White" 
+        <DataGrid x:Name="GrdSolutionLst" Margin="0,50,0,10"  Background="White" 
                   BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" 
                   FontSize="14">
             <DataGrid.RowHeaderStyle>

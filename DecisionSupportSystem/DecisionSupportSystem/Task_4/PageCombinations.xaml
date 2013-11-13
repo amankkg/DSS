@@ -15,13 +15,22 @@
                 <CommandBinding.Command>NextPage</CommandBinding.Command>
             </CommandBinding>
         </Grid.CommandBindings>
-        <Rectangle Fill="#FF6C9EC1" Height="125" VerticalAlignment="Top"/>
-        <Button x:Name="BtnShowCombination" Content="Показать комбинацию Действие-Событие" 
-                Margin="137,45,113,0" VerticalAlignment="Top" Height="27" Click="BtnShowCombination_OnClick"/>
-        <Label  Content="Список комбинаций действие-событие:" HorizontalAlignment="Left" 
-                Margin="10,134,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
 
-        <DataGrid x:Name="GrdCombinsLst" Margin="10,168,10,20"  Background="White" 
+        <Grid Height="140" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="#FF6C9EC1" Grid.ColumnSpan="3"/>
+            <Button x:Name="BtnShowCombination" Content="Показать комбинации Действие-Событие" 
+                Margin="10,50,10,0" Style="{StaticResource HeadButtonStyle}" VerticalAlignment="Top" Click="BtnShowCombination_OnClick" Grid.Column="1" Width="Auto" />
+        </Grid>
+        <Grid Margin="0,140,0,0">
+        <Label  Content="Список комбинаций действие-событие:" HorizontalAlignment="Left" 
+                Margin="10,10,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
+
+        <DataGrid x:Name="GrdCombinsLst" Margin="0,50,0,20"  Background="White" 
                   BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" 
                   FontSize="14">
             <DataGrid.RowHeaderStyle>
@@ -73,10 +82,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="BtnNext" Content="далее &gt;&gt;"  Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Margin="0,134,35,0" 
-                Command="NextPage"/>
+                Margin="0,10,35,0" 
+                Command="NextPage" RenderTransformOrigin="0.373,0.6"/>
         <Button x:Name="BtnPrev" Content="&lt;&lt; назад"
         	Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right"
-        	Click="BtnPrev_OnClick" Margin="0,134,115,0"/>
+        	Click="BtnPrev_OnClick" Margin="0,10,115,0"/>
+            </Grid>
     </Grid>
 </Page>

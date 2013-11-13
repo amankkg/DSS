@@ -132,6 +132,7 @@ namespace DecisionSupportSystem.ViewModels
             {
                 EventViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteEvent(Events[_selectedItem]);
+                Events.RemoveAt(_selectedItem);
                 UpdateEvents();
                 Sum();
             }
