@@ -86,7 +86,6 @@
     <Compile Include="DbModel\Action.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbModel\ActionEvents.cs" />
     <Compile Include="DbModel\ActionParam.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
@@ -137,7 +136,6 @@
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorCount.cs" />
-    <Compile Include="DbModel\ActionForSecondType.cs" />
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />

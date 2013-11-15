@@ -123,22 +123,28 @@ namespace DecisionSupportSystem.MainClasses
                 if (dssDbContext.Combinations.Local.Count > 0)
                 {
                     var combinations = dssDbContext.Combinations.Local.ToList();
-                    var removedEvents = new List<Event>();
                     var removingCombinations =
                         combinations.Where(combination => combination.Action.Name == act.Name).ToList();
 
-                    foreach (var removedCombination in removingCombinations)
-                    {
-                        var countRemovedEvents = combinations.Where(c => c.Event == removedCombination.Event).Select(c=>c).ToList();
-                        if (countRemovedEvents.Count != 0 && countRemovedEvents.Count < dssDbContext.Actions.Local.Count)
-                        {
-                             removedEvents.Add(removedCombination.Event);
-                        }
-                        dssDbContext.Combinations.Local.Remove(removedCombination);
-                    }
+                    var removedEvents = removingCombinations.Select(removedCombination => removedCombination.Event).ToList(); 
                     DeleteEventsByInList(removedEvents);
+                    foreach (var removingCombination in removingCombinations)
+                        dssDbContext.Combinations.Local.Remove(removingCombination);
                 }
                 dssDbContext.Actions.Local.Remove(act);
+            }
+        }
+
+        public void DeleteEventsByInList(List<Event> removedEvents)
+        {
+            if (removedEvents.Count > 0)
+            {
+                foreach (var removedEvent in removedEvents)
+                {
+                    var evCount = (dssDbContext.Combinations.Local.Where(comb => comb.Event == removedEvent)).Count();
+                    if(evCount == 1)
+                    DeleteEvent(removedEvent);
+                }
             }
         }
 
@@ -159,16 +165,7 @@ namespace DecisionSupportSystem.MainClasses
             }
         }
 
-        public void DeleteEventsByInList(List<Event> removedEvents)
-        {
-            if (removedEvents.Count > 0)
-            {
-                foreach (var removedEvent in removedEvents)
-                {
-                    DeleteEvent(removedEvent);
-                }
-            }
-        }
+
         #endregion 
 
     }

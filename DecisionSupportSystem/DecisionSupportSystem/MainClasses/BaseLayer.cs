@@ -16,7 +16,6 @@ namespace DecisionSupportSystem.MainClasses
         public SolvedTaskView SolvedTaskView { get; set; }
         public BaseMethods BaseMethods { get; set; }
         public IList<CpMax> CpMaxes { get; set; }
-        public IList<ActionForSecondType> ActionsForSecondType { get; set; }
         #endregion
 
         public BaseLayer()
@@ -26,29 +25,7 @@ namespace DecisionSupportSystem.MainClasses
             Task = new Task();
             SolvedTaskView = new SolvedTaskView();
             CpMaxes = new List<CpMax>();
-            ActionsForSecondType = new List<ActionForSecondType>();
         }
-
-        #region Создание комбинаций
-        // Создание комбинации действие-событие для задач 1-го типа (события не зависят от действий)
-        /*public void CreateCombinForFirstType()
-        {
-            DssDbContext.Combinations.Local.Clear();
-            var acts = DssDbContext.Actions.Local.ToList();
-            var even = DssDbContext.Events.Local.ToList();
-            foreach (var action in acts)
-                foreach (var eEvent in even)
-                    BaseMethods.AddCombination(new Combination(), action, eEvent, Task, 0);
-        }*/
-
-        // Создание комбинации действие-событие для задач 2-го типа (события зависят от действий)
-       /* public void CreateCombinForSecondType()
-        {
-            foreach (var action in ActionsForSecondType)
-                foreach (var eEvent in action.Events)
-                    BaseMethods.AddCombination(new Combination(), action, eEvent, Task, 0);
-        }*/
-        #endregion
 
         private void SolveCpMaxes()
         {

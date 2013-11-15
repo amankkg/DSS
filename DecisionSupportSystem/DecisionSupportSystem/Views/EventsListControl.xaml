@@ -44,7 +44,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Probability, UpdateSourceTrigger=PropertyChanged, 
-                                ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F3}"/>
+                                ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F10}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

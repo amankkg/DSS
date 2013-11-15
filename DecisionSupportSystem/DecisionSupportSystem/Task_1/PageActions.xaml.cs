@@ -68,7 +68,5 @@ namespace DecisionSupportSystem.Task_1
             e.Handled = true;
         }
         #endregion
-
-
     }
 }
