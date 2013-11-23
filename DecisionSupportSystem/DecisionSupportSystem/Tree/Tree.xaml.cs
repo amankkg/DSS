@@ -24,26 +24,30 @@ namespace DecisionSupportSystem.Tree
             layer = Layer;
             InitializeComponent();
         }
-        
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+
+        public void ShowElements()
         {
             ActionControl actC;
             int x = 0;
+            int X0 = 10;
+            int Y0 = 10;
             foreach (var act in layer.Actions)
             {
                 x++;
 
                 actC = new ActionControl
-                    {
-                        Name = "act" + x.ToString(),
-                        DataContext = act,
-                        Margin = new Thickness(10, 10, 0, 0)
-                    };
+                {
+                    Name = "act" + x.ToString(),
+                    DataContext = act,
+                    Margin = new Thickness(X0, Y0, 0, 0)
+                };
                 actC.MouseDown += Control_MouseDown;
                 actC.MouseUp += Control_MouseUp;
+                Y0 += 250;
                 actionControls.Add(actC);
             }
-
+            X0 = 200;
+            Y0 = 10;
             eventControls = new List<EventControl>();
             foreach (var action in layer.Actions)
                 foreach (var eventOrigin in layer.EventOrigins)
@@ -55,13 +59,20 @@ namespace DecisionSupportSystem.Tree
                     eEvent.ParentAction = action;
                     eEvent.EventOrigin = eventOrigin;
                     eventControl.DataContext = eEvent;
+                    eventControl.Margin = new Thickness(X0, Y0, 0, 0);
                     layer.Events.Add(eEvent);
                     action.ChildEvents.Add(eEvent);
                     eventControls.Add(eventControl);
+                    Y0 += 200;
                 }
             Addlines();
             AddeventsControl();
             AddactionControl();
+        }
+        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ShowElements();
         }
 
         private void AddactionControl()
@@ -153,6 +164,7 @@ namespace DecisionSupportSystem.Tree
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
             navigation = NavigationService.GetNavigationService(this);
+            ShowElements();
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

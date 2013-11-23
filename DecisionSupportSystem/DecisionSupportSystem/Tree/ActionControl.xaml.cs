@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 
 namespace DecisionSupportSystem.Tree
@@ -9,6 +10,15 @@ namespace DecisionSupportSystem.Tree
         {
             InitializeComponent();
         }
-        
+
+        private void Expander_OnExpanded(object sender, RoutedEventArgs e)
+        {
+            this.Height = 145;
+        }
+
+        private void expander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            this.Height = 86;
+        }
     }
 }

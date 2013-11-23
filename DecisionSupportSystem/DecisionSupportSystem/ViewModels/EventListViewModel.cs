@@ -108,13 +108,42 @@ namespace DecisionSupportSystem.ViewModels
 
         public void AddEvent(Event ev)
         {
+            var haveThisEvInEvents = Events.Any(e => e.Name.Trim() == ev.Name.Trim());
+            if (haveThisEvInEvents) return;
             EventViewModels.Add(new EventViewModel(ev, this));
             Events.Add(ev);
             _baseLayer.DssDbContext.Events.Local.Add(ev);
             Sum();
         }
 
-        public void UpdateEvents()
+        public void UpdateEvent(EventViewModel callEventViewModel)
+        {
+            if (EventViewModels.Count != Events.Count || !EventViewModels.Contains(callEventViewModel)) return;
+            int index = EventViewModels.IndexOf(callEventViewModel);
+            RenameSimilarEvents(callEventViewModel);
+            Events[index].Name = callEventViewModel.Name;
+            Events[index].Probability = callEventViewModel.Probability;
+        }
+
+        void RenameSimilarEvents(EventViewModel callEventViewModel)
+        {
+            var simeventslist = SearchSimilarEvents(callEventViewModel.Name.Trim()).ToList();
+            foreach (var ev in simeventslist)
+            {
+                if (EventViewModels[Events.IndexOf(ev)] == callEventViewModel) continue;
+                string name = callEventViewModel.Name;
+                EventViewModels[Events.IndexOf(ev)].Name = name + "*";
+                ev.Name = name + "*";
+            }
+        }
+
+        IEnumerable<Event> SearchSimilarEvents(string eventname)
+        {
+            return Events.Where(ev => ev.Name.Trim() == eventname).Select(ev => ev).ToList();
+        }
+
+
+        public void UpdateAllEvents()
         {
             if (EventViewModels.Count == Events.Count)
                 for (int i = 0; i < Events.Count; i++)
@@ -133,7 +162,7 @@ namespace DecisionSupportSystem.ViewModels
                 EventViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteEvent(Events[_selectedItem]);
                 Events.RemoveAt(_selectedItem);
-                UpdateEvents();
+                UpdateAllEvents();
                 Sum();
             }
         }

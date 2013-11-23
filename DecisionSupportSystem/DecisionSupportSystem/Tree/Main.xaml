@@ -4,11 +4,11 @@
         Title="MainWindow" Height="350" Width="739"
         Loaded="Window_Loaded_1">
     <Grid>
-        <Rectangle Fill="White" Stroke="#FF7DB480" Margin="0,0,0,42"/> 
-        <Canvas x:Name="Gridt" Margin="0,0,0,0" MouseMove="Grid_MouseMove" >
-            
-
-        </Canvas>
+        
+        <Canvas x:Name="Gridt" Margin="0,0,0,167" MouseMove="Grid_MouseMove" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" 
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+              >
+          </Canvas>
         <Rectangle Fill="#FF2FA0C1" Stroke="#FF7DB480" Canvas.Top="280" Canvas.Left="10" Margin="0,0,0,-3" Height="45" VerticalAlignment="Bottom"/>
         <Button Content="Вычислить" Margin="0,0,32,10" Click="Button_Click_1" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
         <Button Content="Действия" Margin="0,0,192,10" Click="Button_Click" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
@@ -16,6 +16,9 @@
         <Button Content="Линии" Margin="0,0,112,10" Click="Button_Click_3" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
         <Button Content="Добавить зависимость" Margin="0,0,368,10" HorizontalAlignment="Right" Width="145" Height="22" VerticalAlignment="Bottom" Click="ButtonBase_OnClick"/>
         <Button Content="Solve" Margin="0,0,518,10" Click="Solve_Click" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
+        <ScrollViewer x:Name="scroll" HorizontalAlignment="Left" Height="125" Margin="0,153,0,0" VerticalAlignment="Top" Width="731" VerticalScrollBarVisibility="Visible" 
+                      HorizontalScrollBarVisibility="Visible"/>
+
 
 
     </Grid>

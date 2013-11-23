@@ -147,6 +147,9 @@
     <Compile Include="NavigationWindowShower.cs" />
     <Compile Include="Task_1\LocalTaskLayer.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
+    <Compile Include="Task_1\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tree\Action.cs" />
     <Compile Include="Tree\ActionControl.xaml.cs">
       <DependentUpon>ActionControl.xaml</DependentUpon>
@@ -273,6 +276,10 @@
       <DependentUpon>PageCombinations.xaml</DependentUpon>
     </Compile>
     <Page Include="MainNavWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Task_1\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -488,7 +495,9 @@
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Task_9\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

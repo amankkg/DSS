@@ -43,7 +43,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._name = value;
                     RaisePropertyChanged("Name");
-                    ActionListViewModel.UpdateActions();
+                    ActionListViewModel.UpdateAction(this);
                 }
             }
         }

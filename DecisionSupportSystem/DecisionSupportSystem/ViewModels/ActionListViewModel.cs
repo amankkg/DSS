@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using DecisionSupportSystem.DbModel;
@@ -54,11 +56,38 @@ namespace DecisionSupportSystem.ViewModels
 
         public void AddAction(Action act)
         {
+            var haveThisActInActions = Actions.Any(a => a.Name.Trim() == act.Name.Trim());
+            if (haveThisActInActions) return;
             ActionViewModels.Add(new ActionViewModel(act, this));
             Actions.Add(act);
+            
         }
 
-        public void UpdateActions()
+        public void UpdateAction(ActionViewModel callActionViewModel)
+        {
+            if (ActionViewModels.Count != Actions.Count || !ActionViewModels.Contains(callActionViewModel)) return;
+            int index = ActionViewModels.IndexOf(callActionViewModel);
+            RenameSimilarActs(callActionViewModel);
+            Actions[index].Name = callActionViewModel.Name;
+        }
+
+        void RenameSimilarActs(ActionViewModel callActionViewModel)
+        {
+            var simactslist = SearchSimilarActs(callActionViewModel.Name.Trim()).ToList();
+            foreach (var action in simactslist)
+            {
+                string name = callActionViewModel.Name;
+                ActionViewModels[Actions.IndexOf(action)].Name = name + "*";
+                action.Name = name + "*";
+            }
+        }
+
+        IEnumerable<Action> SearchSimilarActs(string actname)
+        {
+            return Actions.Where(a => a.Name.Trim() == actname).Select(a => a).ToList();
+        }
+
+        public void UpdateAllActions()
         {
             if (ActionViewModels.Count == Actions.Count)
                 for (int i = 0; i < Actions.Count; i++)
@@ -73,7 +102,7 @@ namespace DecisionSupportSystem.ViewModels
             {
                 ActionViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteAction(Actions[_selectedItem]);
-                UpdateActions();
+                UpdateAllActions();
             }
         }
 
