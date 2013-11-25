@@ -44,7 +44,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._name = value;
                     RaisePropertyChanged("Name");
-                    EventListViewModel.UpdateEvents();
+                    EventListViewModel.UpdateEvent(this);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._probability = value;
                     RaisePropertyChanged("Probability");
-                    EventListViewModel.UpdateEvents();
+                    EventListViewModel.UpdateEvent(this);
                     EventListViewModel.Sum();
                 }
             }

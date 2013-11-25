@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DecisionSupportSystem.Tree
 {
@@ -25,6 +22,7 @@ namespace DecisionSupportSystem.Tree
                 }
             }
         }
+
         public decimal Wp 
         {
             get { return _wp; } 
@@ -37,6 +35,7 @@ namespace DecisionSupportSystem.Tree
                 }
             } 
         } 
+
         public decimal YearCount { get; set; }
         public Action ParentAction { get; set; }
         public List<Action> ChildActions { get; set; }

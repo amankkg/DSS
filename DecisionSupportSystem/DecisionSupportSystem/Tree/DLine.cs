@@ -21,7 +21,7 @@ namespace DecisionSupportSystem.Tree
             if (ActionIsMain)
                 Line = new Line
                     {
-                        X1 = ActionControl.Margin.Left + 138,
+                        X1 = ActionControl.Margin.Left + 155,
                         Y1 = ActionControl.Margin.Top + 70,
                         X2 = EventControl.Margin.Left + 2,
                         Y2 = EventControl.Margin.Top + 70,
@@ -45,7 +45,7 @@ namespace DecisionSupportSystem.Tree
         {
             if (ActionIsMain)
             {
-                Line.X1 = ActionControl.Margin.Left + 138;
+                Line.X1 = ActionControl.Margin.Left + 155;
                 Line.Y1 = ActionControl.Margin.Top + 70;
                 Line.X2 = EventControl.Margin.Left + 2;
                 Line.Y2 = EventControl.Margin.Top + 70;

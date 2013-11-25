@@ -12,46 +12,29 @@ namespace DesicionSupportSystemTest
     [TestClass]
     public class TestAllTasks
     {
+        public BaseLayer BaseLayer { get; set; }
+        
         [TestMethod]
-        public void TestTask_1()
+        public void TestCreateCombinationsMethod()
         {
-            var baseLayer = new BaseLayer();
-
+            BaseLayer = new BaseLayer();
+            
             var task1 = new Task();
-            baseLayer.Task = task1;
+            BaseLayer.Task = task1;
 
             var act1 = new Action {Name = "A1"};
             var act2 = new Action {Name = "A2"};
             var event1 = new Event {Name = "E1", Probability = Convert.ToDecimal(0.3)};
             var event2 = new Event {Name = "E2", Probability = Convert.ToDecimal(0.7)};
-            baseLayer.DssDbContext.Actions.Local.Add(act1);
-            baseLayer.DssDbContext.Actions.Local.Add(act2);
-            baseLayer.DssDbContext.Events.Local.Add(event1);
-            baseLayer.DssDbContext.Events.Local.Add(event2);
+            BaseLayer.DssDbContext.Actions.Local.Add(act1);
+            BaseLayer.DssDbContext.Actions.Local.Add(act2);
+            BaseLayer.DssDbContext.Events.Local.Add(event1);
+            BaseLayer.DssDbContext.Events.Local.Add(event2);
 
-            DecisionSupportSystem.Task_1.LocalTaskLayer.CreateCombinations(baseLayer);
+            DecisionSupportSystem.Task_1.LocalTaskLayer.CreateCombinations(BaseLayer);
 
-            var combins = baseLayer.DssDbContext.Combinations.Local.ToList();
-            Assert.AreEqual("A1",combins[0].Action.Name, "A1-E1"); Assert.AreEqual("E1",combins[0].Event.Name, "A1-E1");
-            Assert.AreEqual("A1",combins[1].Action.Name, "A1-E2"); Assert.AreEqual("E2",combins[1].Event.Name, "A1-E2");
-            Assert.AreEqual("A2",combins[2].Action.Name, "A2-E1"); Assert.AreEqual("E1",combins[2].Event.Name, "A2-E1");
-            Assert.AreEqual("A2",combins[3].Action.Name, "A2-E2"); Assert.AreEqual("E2",combins[3].Event.Name, "A2-E2");
-
-            combins[0].Cp = 800;
-            combins[1].Cp = 200;
-            combins[2].Cp = -2500;
-            combins[3].Cp = 1000;
-
-            baseLayer.SolveThisTask();
-
-            Assert.AreEqual(240, combins[0].Wp); Assert.AreEqual(0, combins[0].Col); Assert.AreEqual(0, combins[0].Wol);
-            Assert.AreEqual(140, combins[1].Wp); Assert.AreEqual(800, combins[1].Col); Assert.AreEqual(560, combins[1].Wol);
-            Assert.AreEqual(-750, combins[2].Wp); Assert.AreEqual(3300, combins[2].Col); Assert.AreEqual(990, combins[2].Wol);
-            Assert.AreEqual(700, combins[3].Wp); Assert.AreEqual(0, combins[3].Col); Assert.AreEqual(0, combins[3].Wol);
-
-            var actions = baseLayer.DssDbContext.Actions.Local.ToList();
-            Assert.AreEqual(380, actions[0].Emv); Assert.AreEqual(-50, actions[1].Emv);
-            Assert.AreEqual(560, actions[0].Eol); Assert.AreEqual(990, actions[1].Eol);
+            var combins = BaseLayer.DssDbContext.Combinations.Local.ToList();
+            Assert.AreEqual("A1", combins[0].Action.Name); 
         }
 
         [TestMethod]
