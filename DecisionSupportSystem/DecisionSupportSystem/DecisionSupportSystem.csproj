@@ -148,6 +148,34 @@
     <Compile Include="NavigationWindowShower.cs" />
     <Compile Include="Task_1\LocalTaskLayer.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
+    <Compile Include="ViewModels\CombinationWithParamListViewModel.cs" />
+    <Compile Include="ViewModels\CombinationWithParamViewModel.cs" />
+    <Compile Include="Views\CombinationsListControlWithParam.xaml.cs">
+      <DependentUpon>CombinationsListControlWithParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EventWithParamViewModel.cs" />
+    <Compile Include="ViewModels\EventWithParamListViewModel.cs" />
+    <Compile Include="Views\MainEventWithParamListControl.xaml.cs">
+      <DependentUpon>MainEventWithParamListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventsListControlWithParam.xaml.cs">
+      <DependentUpon>EventsListControlWithParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventWithParamControl.xaml.cs">
+      <DependentUpon>EventWithParamControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\LocalTaskLayer.cs" />
+    <Compile Include="Task_8\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_8\PageSolve.xaml.cs">
+      <DependentUpon>PageSolve.xaml</DependentUpon>
     <Compile Include="Task_1\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -161,6 +189,11 @@
     <Compile Include="Tree\ActionControl.xaml.cs">
       <DependentUpon>ActionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ActionWithParamControl.xaml.cs">
+      <DependentUpon>ActionWithParamControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ActionWithParamListViewModel.cs" />
+    <Compile Include="ViewModels\ActionWithParamViewModel.cs" />
     <Compile Include="Tree\AddDepedence.xaml.cs">
       <DependentUpon>AddDepedence.xaml</DependentUpon>
     </Compile>
@@ -171,6 +204,9 @@
       <DependentUpon>EventControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tree\EventOrigin.cs" />
+    <Compile Include="Views\ActionListControlWithParam.xaml.cs">
+      <DependentUpon>ActionListControlWithParam.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tree\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -272,15 +308,8 @@
     <Compile Include="Views\ProbabilitySumControl.xaml.cs">
       <DependentUpon>ProbabilitySumControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task_8\InterfaceData.cs" />
     <Compile Include="SolvedTasksWindow.xaml.cs">
       <DependentUpon>SolvedTasksWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_8\Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_8\PageCombinations.xaml.cs">
-      <DependentUpon>PageCombinations.xaml</DependentUpon>
     </Compile>
     <Page Include="MainNavWindow.xaml">
       <SubType>Designer</SubType>
@@ -305,6 +334,37 @@
     <Page Include="Task_9\PageMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\CombinationsListControlWithParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainEventWithParamListControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EventsListControlWithParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EventWithParamControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_8\PageActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_8\PageCombinations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_8\PageEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_8\PageSolve.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tree\ActionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -315,6 +375,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Tree\EventControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ActionWithParamControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ActionListControlWithParam.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -439,14 +507,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProbabilitySumControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_8\Main.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_8\PageCombinations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

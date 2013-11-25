@@ -3,58 +3,72 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="463.014" d:DesignWidth="400"
-	Title="Page_4">
+      mc:Ignorable="d"
+       d:DesignHeight="500"
+	Title="Page_4" d:Width="500" d:Height="450">
 
     <Grid>
+        <Grid Height="140" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="#FF6C9EC1" Grid.ColumnSpan="3"/>
+            <Button Style="{StaticResource HeadButtonStyle}" x:Name="BtnShowSolution" Content="Показать решение" 
+            	Margin="10,50,10,0" VerticalAlignment="Top" Click="BtnShowSolution_OnClick" Grid.Column="1" Width="Auto"/>
+        </Grid>
+    <Grid Margin="0,140,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="265*"/>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="157*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="43*"/>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#FF6C9EC1" Height="125" VerticalAlignment="Top"/>
-        <Button x:Name="BtnShowSolution" Content="Решить" 
-                Margin="72,45,72,0" VerticalAlignment="Top" Height="33" 
-                Click="BtnShowSolution_OnClick"/>
-        <Label  Content="Решение:" HorizontalAlignment="Left" 
-                Margin="10,130,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
+            <Label  Content="Решение:" HorizontalAlignment="Left" 
+                Margin="10,10,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
 
-        <DataGrid x:Name="GrdSolutionLst" Margin="10,164,10,10"  Background="White" 
+        <DataGrid x:Name="GrdSolutionLst" Margin="0,50,0,10"  Background="White" 
                   BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" 
                   FontSize="14">
             <DataGrid.RowHeaderStyle>
-                <Style TargetType="DataGridRowHeader">
-                    <Setter Property="Width" Value="25" />
-                    <Setter Property="Background" Value="#FF6C9EC1"/>
-                </Style>
+                <StaticResource ResourceKey="DataGridRowHeaderStyle"/>
             </DataGrid.RowHeaderStyle>
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Padding" Value="10,5,5,5"></Setter>
-                    <Setter Property="Background" Value="#FF6C9EC1"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
+                <StaticResource ResourceKey="DataGridColumnHeaderStyle"/>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Действие"  Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Name, StringFormat=f2}"/>
+                    <DataGridTemplateColumn Header="Действие" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}" TextWrapping="Wrap"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 <DataGridTextColumn Header="EMV" Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Emv, StringFormat=f2}" />
+        			Binding="{Binding Path= Emv, StringFormat=f3}" />
                 <DataGridTextColumn Header="EOL"  Width="150" IsReadOnly="True"
-        			Binding="{Binding Path= Eol, StringFormat=f2}"/>
+        			Binding="{Binding Path= Eol, StringFormat=f3}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label  Content="Рекомендация:" HorizontalAlignment="Left" 
-        	Margin="10,9,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14" Grid.Row="2"/>
-        <TextBlock x:Name="SolveTextBlock" Margin="19,38,21,20" TextWrapping="Wrap" Text="" Grid.Row="2" FontFamily="Calibri" FontSize="16" FontWeight="Bold"
-                   ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Label  Content="Max EMV:" 
-        	Margin="10,5,0,0" VerticalAlignment="Top" Height="29" FontSize="14" Grid.Row="1" HorizontalAlignment="Left" Width="102"/>
-        <Label x:Name="MaxEMV" Content="____"
-        	Margin="117,5,10,0" VerticalAlignment="Top" Height="29" FontSize="14" Grid.Row="1"/>
+        <Grid Name="GrdTask" Grid.Row="1" Margin="0,1,0,0">
+            <Label  Content="Макс. значение средней ожидаемой прибыли:" HorizontalAlignment="Left" 
+        	Margin="10,10,0,0" VerticalAlignment="Top" Width="339" Height="29" FontSize="14"/>
+            <Label  Content="Рекомендация:" HorizontalAlignment="Left" 
+        	Margin="10,78,0,0" VerticalAlignment="Top" Width="263" Height="29" FontSize="14"/>
+            <Label  Content="Мин. значение средней ожидаемой потери:" HorizontalAlignment="Left" 
+        	Margin="10,44,0,0" VerticalAlignment="Top" Width="339" Height="29" FontSize="14"/>
+            <TextBox Margin="10,112,10,10" Text="{Binding Path=Recommendation}" FontFamily="Calibri" FontSize="16" FontWeight="Bold" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Visible" TextAlignment="Justify"></TextBox>
+            <Label  Content="{Binding Path=MaxEmv}" HorizontalAlignment="Left" 
+            	Margin="354,10,0,0" VerticalAlignment="Top" Width="136" Height="29" FontSize="14" FontWeight="Bold"/>
+            <Label  Content="{Binding Path=MinEol}" HorizontalAlignment="Left" 
+            	Margin="354,44,0,0" VerticalAlignment="Top" Width="136" Height="29" FontSize="14" FontWeight="Bold"/>
+        </Grid>
         <Button x:Name="BtnPrev" Content="&lt;&lt; назад"
         	Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right"
-        	Click="BtnPrev_Click" Margin="0,130,35,0"/>
+        	Click="BtnPrev_Click" Margin="0,10,115,0" Width="75"/>
+        <Button x:Name="SaveBtn" Content="Сохранить"
+        	Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right"
+        	Click="BtnSave_Click" Margin="0,10,35,0" Width="75"/>
+    </Grid>
     </Grid>
 </Page>

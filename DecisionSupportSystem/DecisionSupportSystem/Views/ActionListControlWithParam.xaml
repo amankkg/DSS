@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="DecisionSupportSystem.Views.ActionListControlWithParam"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" d:DesignWidth="415" d:DesignHeight="100">
+        <Grid>
+        <DataGrid ItemsSource="{Binding Path=ActionWithParamViewModels}" Background="White" 
+                  BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="14">
+            
+            <interactivity:Interaction.Triggers>
+                <interactivity:EventTrigger EventName="SelectionChanged">
+                    <i:CallMethodAction TargetObject="{Binding}"  MethodName="SelectAction"/>
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
+            
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.ContextMenu>
+                        <ContextMenu/>
+                    </ContextMenu.ContextMenu>
+                        <MenuItem Header="Удалить">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="Click">
+                                <i:CallMethodAction TargetObject="{Binding}"  MethodName="DeleteAction"/>
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Действие" Width="170">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
+                                NotifyOnValidationError=True}" Validation.Error="EventListControlValidationError"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Треб. брак" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=ActionParam.Value, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F10}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            
+            <DataGrid.RowHeaderStyle>
+                <StaticResource ResourceKey="DataGridRowHeaderStyle"/>
+            </DataGrid.RowHeaderStyle>
+
+            <DataGrid.ColumnHeaderStyle>
+                <StaticResource ResourceKey="DataGridColumnHeaderStyle"/>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        </Grid>
+</UserControl>
