@@ -22,6 +22,11 @@ namespace DecisionSupportSystem.MainClasses
             Task = task;
             Combinations = (dssDbContext.Combinations.Where(c => c.TaskId == task.Id)).ToList();
             Actions = (Combinations.Select(c => c.Action)).Distinct().ToList();
+            var nullableCombinations = Combinations.Where(combination => combination.Event == null).ToList();
+            foreach (var nullableCombination in nullableCombinations)
+            {
+                Combinations.Remove(nullableCombination);
+            }
             Events = (Combinations.Select(c => c.Event)).Distinct().ToList();
         }
 
@@ -53,13 +58,16 @@ namespace DecisionSupportSystem.MainClasses
         {
             foreach (var ev in Events)
             {
-                var eEvent = new Event
+                if (ev != null)
                 {
-                    Name = ev.Name,
-                    Probability = ev.Probability
-                };
-                LoadEventParams(ev, eEvent);
-                BaseLayer.BaseMethods.AddEvent(eEvent);
+                    var eEvent = new Event
+                        {
+                            Name = ev.Name,
+                            Probability = ev.Probability
+                        };
+                    LoadEventParams(ev, eEvent);
+                    BaseLayer.BaseMethods.AddEvent(eEvent);
+                }
             }
         }
         
@@ -92,7 +100,7 @@ namespace DecisionSupportSystem.MainClasses
             }
         }
 
-        private Action GetActionById(int id)
+        private Action GetActionById(int? id)
         {
             var localActions = BaseLayer.GetLocalActionsList();
             for (int i = 0; i < Actions.Count; i++)
@@ -101,12 +109,17 @@ namespace DecisionSupportSystem.MainClasses
             return null;
         }
         
-        private Event GetEventById(int id)
+        private Event GetEventById(int? id)
         {
-            var localEvents = BaseLayer.GetLocalEventsList();
-            for (int i = 0; i < Events.Count; i++)
-                if (Events[i].Id == id)
-                    return localEvents[i];
+            if (id != null)
+            {
+                var localEvents = BaseLayer.GetLocalEventsList();
+                for (int i = 0; i < Events.Count; i++)
+                {
+                    if (Events[i].Id == id)
+                        return localEvents[i];
+                }
+            }
             return null;
         }
 

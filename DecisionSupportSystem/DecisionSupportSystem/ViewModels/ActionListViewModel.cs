@@ -69,6 +69,7 @@ namespace DecisionSupportSystem.ViewModels
             int index = ActionViewModels.IndexOf(callActionViewModel);
             RenameSimilarActs(callActionViewModel);
             Actions[index].Name = callActionViewModel.Name;
+            NavigationWindowShower.IsSaved = false;
         }
 
         void RenameSimilarActs(ActionViewModel callActionViewModel)
@@ -103,6 +104,7 @@ namespace DecisionSupportSystem.ViewModels
                 ActionViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteAction(Actions[_selectedItem]);
                 UpdateAllActions();
+                NavigationWindowShower.IsSaved = false;
             }
         }
 

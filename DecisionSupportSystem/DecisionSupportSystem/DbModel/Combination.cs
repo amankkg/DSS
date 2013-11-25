@@ -23,7 +23,7 @@ namespace DecisionSupportSystem.DbModel
     
         public int Id { get; set; }
         public int ActionId { get; set; }
-        public int EventId { get; set; }
+        public int? EventId { get; set; }
         public int TaskId { get; set; }
         private decimal _cp;
         public Nullable<decimal> Cp
@@ -41,7 +41,7 @@ namespace DecisionSupportSystem.DbModel
         public Nullable<decimal> Wp { get; set; }
         public Nullable<decimal> Col { get; set; }
         public Nullable<decimal> Wol { get; set; }
-    
+        
         public virtual Action Action { get; set; }
         public virtual Event Event { get; set; }
         public virtual Task Task { get; set; }

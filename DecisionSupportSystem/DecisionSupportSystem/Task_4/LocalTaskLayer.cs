@@ -28,7 +28,7 @@ namespace DecisionSupportSystem.Task_4
         public CombinParam NominalPrice { get; set; } 
     }
 
-    public class TaskCombinationsView
+    public class TaskCombinationsView : ITaskLayer
     {
         public List<CombinationWithParamView> CombinationWithParamViews = new List<CombinationWithParamView>();
         public BaseLayer BaseLayer  = new BaseLayer();
@@ -65,22 +65,38 @@ namespace DecisionSupportSystem.Task_4
                     }
         }
 
+        //*******
         protected void LoadCombinations()
         {
-            CombinationWithParamViews.Clear();
             var combins = BaseLayer.DssDbContext.Combinations.Local;
-            foreach (var combin in combins)
-            {
-                var procent = combin.CombinParams.ToList()[0];
-                var nominalprice = combin.CombinParams.ToList()[1];
-
-                CombinationWithParamViews.Add(new CombinationWithParamView
+            CombinParam procent, nominalprice;
+            CombinationWithParamViews.Clear();
+           
+                foreach (var combin in combins)
                 {
-                    Combination = combin,
-                    Procent = procent,
-                    NominalPrice = nominalprice
-                });
-            }
+                    if (combin.CombinParams.Count > 0)
+                    {
+                        //******+
+                        procent = combin.CombinParams.ToList()[0];
+                        nominalprice = combin.CombinParams.ToList()[1];
+                        //******-
+                    }
+                    else
+                    {
+                        procent = new CombinParam{Combination = combin};
+                        nominalprice = new CombinParam { Combination = combin };
+                        BaseLayer.BaseMethods.AddCombinationParam(combin, procent, null, 0);
+                        BaseLayer.BaseMethods.AddCombinationParam(combin, nominalprice, null, 0);
+                    }
+                    //******+
+                    CombinationWithParamViews.Add(new CombinationWithParamView
+                        {
+                            Combination = combin,
+                            Procent = procent,
+                            NominalPrice = nominalprice
+                        });
+                    //******-
+                }
         }
         
         protected List<Combination> CreateLastCombinationList()

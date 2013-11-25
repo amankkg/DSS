@@ -12,6 +12,11 @@ namespace DecisionSupportSystem.ViewModels
 
         public EventsDependingActionListViewModel(BaseLayer baseLayer)
         {
+            DependingActionListViewModel(baseLayer);
+        }
+
+        public void DependingActionListViewModel(BaseLayer baseLayer)
+        {
             EventsDependingActions = new ObservableCollection<EventsDependingAction>();
             var actions = baseLayer.DssDbContext.Actions.Local.ToList();
             var combins = baseLayer.DssDbContext.Combinations.Local.ToList();
@@ -23,10 +28,10 @@ namespace DecisionSupportSystem.ViewModels
                     eventsDepThisAction.Add(ev);
 
                 EventsDependingActions.Add(new EventsDependingAction
-                        {
-                            Action = action,
-                            EventListViewModel = new EventListViewModel(eventsDepThisAction, baseLayer)
-                        });
+                {
+                    Action = action,
+                    EventListViewModel = new EventListViewModel(eventsDepThisAction, baseLayer)
+                });
             }
         }
 

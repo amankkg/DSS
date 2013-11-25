@@ -19,6 +19,7 @@ namespace DecisionSupportSystem.ViewModels
             EventViewModels = new ObservableCollection<EventViewModel>();
             foreach (var ev in Events)
             {
+                if (ev != null)
                 EventViewModels.Add(new EventViewModel(ev, this));
             }
             Sum();
@@ -32,6 +33,7 @@ namespace DecisionSupportSystem.ViewModels
             EventViewModels = new ObservableCollection<EventViewModel>();
             foreach (var ev in Events)
             {
+                if(ev != null)
                 EventViewModels.Add(new EventViewModel(ev, this));
             }
             Sum();
@@ -113,6 +115,7 @@ namespace DecisionSupportSystem.ViewModels
             EventViewModels.Add(new EventViewModel(ev, this));
             Events.Add(ev);
             _baseLayer.DssDbContext.Events.Local.Add(ev);
+            NavigationWindowShower.IsSaved = false;
             Sum();
         }
 
@@ -123,6 +126,7 @@ namespace DecisionSupportSystem.ViewModels
             RenameSimilarEvents(callEventViewModel);
             Events[index].Name = callEventViewModel.Name;
             Events[index].Probability = callEventViewModel.Probability;
+            NavigationWindowShower.IsSaved = false;
         }
 
         void RenameSimilarEvents(EventViewModel callEventViewModel)
@@ -158,11 +162,13 @@ namespace DecisionSupportSystem.ViewModels
         public void DeleteEvent(object sender, RoutedEventArgs e)
         {
             if (_selectedItem > -1)
-            {
+            { 
+                
                 EventViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteEvent(Events[_selectedItem]);
                 Events.RemoveAt(_selectedItem);
                 UpdateAllEvents();
+                NavigationWindowShower.IsSaved = false;
                 Sum();
             }
         }

@@ -3,10 +3,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.Task_4;
 using DecisionSupportSystem.ViewModels;
 
 namespace DecisionSupportSystem.Task_5
-{ 
+{
     public partial class PageActions : Page
     {
         private BaseLayer _baseLayer;
@@ -27,6 +28,7 @@ namespace DecisionSupportSystem.Task_5
         {
             InitializeComponent();
             _baseLayer = new BaseLayer();
+            _eventsDependingActionListViewModel = new EventsDependingActionListViewModel(_baseLayer);
             ErrorCount.Reset();
         }
 
@@ -44,7 +46,9 @@ namespace DecisionSupportSystem.Task_5
             if (baseLayer != null) _baseLayer = baseLayer;
             _baseLayer.Task.TaskUniq = taskuniq;
             BindElements();
-            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title);
+            _eventsDependingActionListViewModel.DependingActionListViewModel(_baseLayer);
+            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title, _baseLayer,
+                new LocalTaskLayer(_baseLayer, _eventsDependingActionListViewModel));
         }
         #endregion
 
@@ -59,15 +63,15 @@ namespace DecisionSupportSystem.Task_5
         {
             if (_actionListViewModel.ActionViewModels.Count > 0)
             {
-                if (_eventsDependingActionListViewModel == null)
+                /*if (_eventsDependingActionListViewModel == null)
                     _eventsDependingActionListViewModel = new EventsDependingActionListViewModel(_baseLayer);
-                else
+                else*/
                     _eventsDependingActionListViewModel.CheckUpdatingData(_baseLayer);
                 _navigation.Navigate(new PageEvents(_baseLayer, _eventsDependingActionListViewModel));
                 ErrorCount.EntityErrorCount = 0;
             }
         }
-        
+
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ErrorCount.EntityListErrorCount == 0;

@@ -129,6 +129,7 @@ namespace DecisionSupportSystem.MainClasses
         public void Save()
         {
             DssDbContext.SaveChanges();
+            NavigationWindowShower.IsSaved = true;
         }
 
         public List<Task> GetSolvedTasksFromDb(string taskUniq)
@@ -148,7 +149,8 @@ namespace DecisionSupportSystem.MainClasses
 
         public List<Event> GetLocalEventsList()
         {
-            return DssDbContext.Events.Local.ToList();
+            var events = DssDbContext.Events.Local;
+            return events.Where(ev => ev != null).Select(ev => ev).ToList();
         }
     }
      

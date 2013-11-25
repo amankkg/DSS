@@ -139,6 +139,7 @@
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />
+    <Compile Include="MainClasses\ITaskLayer.cs" />
     <Compile Include="MainClasses\Load.cs" />
     <Compile Include="MainNavWindow.xaml.cs">
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
@@ -149,6 +150,12 @@
     <Compile Include="DbModel\EventsDependingAction.cs" />
     <Compile Include="Task_1\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_9\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_9\PageMain.xaml.cs">
+      <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tree\Action.cs" />
     <Compile Include="Tree\ActionControl.xaml.cs">
@@ -290,6 +297,14 @@
     <Page Include="Task_5\PageSolve.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_9\PageActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_9\PageMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tree\ActionControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -495,9 +510,7 @@
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Task_9\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -94,7 +94,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ActionId" Type="int" Nullable="false" />
-          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" />
           <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="Cp" Type="decimal" Scale="3" />
           <Property Name="Wp" Type="decimal" Scale="3" />
@@ -204,7 +204,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Combinati__Event__0DAF0CB0">
-          <End Role="Events" Type="Хранилище DssDbModel.Events" Multiplicity="1" />
+          <End Role="Events" Type="Хранилище DssDbModel.Events" Multiplicity="0..1" />
           <End Role="Combinations" Type="Хранилище DssDbModel.Combinations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">
@@ -397,7 +397,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="ActionId" Type="Int32" Nullable="false" />
-          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Int32" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="Cp" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="Wp" Type="Decimal" Precision="18" Scale="3" />
@@ -524,7 +524,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Combinati__Event__0DAF0CB0">
-          <End Role="Events" Type="DssDbModel.Event" Multiplicity="1" />
+          <End Role="Events" Type="DssDbModel.Event" Multiplicity="0..1" />
           <End Role="Combinations" Type="DssDbModel.Combination" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Events">

@@ -1,38 +1,36 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.ViewModels;
-using Action = DecisionSupportSystem.DbModel.Action;
 
-namespace DecisionSupportSystem.Task_
+namespace DecisionSupportSystem.Task_9
 {
     public partial class PageActions : Page
     {
-        private BaseLayer _baseLayer; 
+        private BaseLayer _baseLayer;
         private NavigationService _navigation;
         private ActionListViewModel _actionListViewModel;
+
         #region Конструкторы
 
         private void BindElements()
         {
             _actionListViewModel = new ActionListViewModel(_baseLayer);
             ActionListControl.DataContext = _actionListViewModel;
-            ActionControl.DataContext = new ActionViewModel(new Action(), _actionListViewModel);
+            ActionControl.DataContext = new ActionViewModel(_actionListViewModel);
         }
- 
+
         public PageActions()
         {
             InitializeComponent();
             _baseLayer = new BaseLayer();
             ErrorCount.Reset();
         }
-        
+
         public PageActions(BaseLayer baseLayer)
-        { 
+        {
             InitializeComponent();
             _baseLayer = baseLayer;
             BindElements();
@@ -52,7 +50,7 @@ namespace DecisionSupportSystem.Task_
         {
             _navigation = NavigationService.GetNavigationService(this);
         }
-        
+
         #region Обработка событий Validation.Error
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -69,8 +67,6 @@ namespace DecisionSupportSystem.Task_
             e.CanExecute = ErrorCount.EntityListErrorCount == 0;
             e.Handled = true;
         }
-       #endregion
-
-
+        #endregion
     }
 }

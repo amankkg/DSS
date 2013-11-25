@@ -1,4 +1,6 @@
-﻿namespace DecisionSupportSystem
+﻿using System.ComponentModel;
+
+namespace DecisionSupportSystem
 {
     public partial class MainNavWindow 
     {

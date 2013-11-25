@@ -24,6 +24,25 @@ namespace DecisionSupportSystem.Task_1
                     }
         }
 
+        public static void CreateFictiveCombinations(BaseLayer baseLayer, ITaskLayer taskLayer)
+        {
+            var actions = baseLayer.DssDbContext.Actions.Local.ToList();
+            var events = baseLayer.DssDbContext.Events.Local.ToList();
+            if (events.Count == 0)
+            {
+                foreach (var act in actions)
+                    baseLayer.BaseMethods.AddCombination(new Combination(), act, null, baseLayer.Task, 0);
+            }
+            else
+            {
+                if(taskLayer != null) taskLayer.CreateCombinations();
+                else
+                foreach (var act in actions)
+                    foreach (var ev in events)
+                        baseLayer.BaseMethods.AddCombination(new Combination(), act, ev, baseLayer.Task, 0);
+            }
+        }
+
         public static void LoadCombinations(BaseLayer baseLayer)
         {
             CombinationsList = baseLayer.DssDbContext.Combinations.Local;

@@ -54,6 +54,7 @@ namespace DecisionSupportSystem.ViewModels
         public void OnAddAction(object obj)
         {
             this.ActionListViewModel.AddAction(new Action{Name = this.Name});
+            NavigationWindowShower.IsSaved = false;
         }
 
         public bool CanAddAction(object obj)

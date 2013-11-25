@@ -7,7 +7,7 @@ using DecisionSupportSystem.ViewModels;
 
 namespace DecisionSupportSystem.Task_5
 {
-    public class LocalTaskLayer : TaskCombinationsView
+    public class LocalTaskLayer : TaskCombinationsView, ITaskLayer
     {
         public EventsDependingActionListViewModel EventsDependingActionListViewModel { get; set; }
         public List<Combination> FictiveCombinationsList { get; set; }
@@ -26,6 +26,8 @@ namespace DecisionSupportSystem.Task_5
             foreach (var eventsDependingAction in actions)
             {
                 var events = eventsDependingAction.EventListViewModel.Events;
+                if(events.Count == 0)
+                    events.Add(null);
                 foreach (var ev in events)
                 {
                     if (!HaveAction(eventsDependingAction.Action, lastCombList) || !HaveEvent(ev, lastCombList))
