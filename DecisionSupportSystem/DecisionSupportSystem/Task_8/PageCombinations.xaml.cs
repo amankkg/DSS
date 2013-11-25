@@ -3,53 +3,61 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.ViewModels;
 
 namespace DecisionSupportSystem.Task_8
 {
     public partial class PageCombinations : Page
-    { 
-       /* private PagePattern pagePattern = new PagePattern(); // ссылка на шаблон, который хранит общие функции и поля,
-        // которые могут использоваться любой страницей 
-        private NavigationService navigation;  */
+    {
+        private BaseLayer _baseLayer;
+        private NavigationService navigation;
+        private CombinationWithParamListViewModel _combinationListViewModel;
 
-        public PageCombinations(BaseLayer taskLayer)
+        public PageCombinations(BaseLayer baseLayer)
         {
-           /* InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
-            GrdCombinsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Combinations.Local;*/
+            InitializeComponent();
+            _baseLayer = baseLayer;
+            LocalTaskLayer.taskParams.Task = baseLayer.Task;
+            grid_taskParam.DataContext = LocalTaskLayer.taskParams;
+            LocalTaskLayer.CreateCombinations(_baseLayer);
+            _combinationListViewModel = new CombinationWithParamListViewModel(_baseLayer);
+            CombinationListControl.DataContext = _combinationListViewModel;
         }
 
         private void BtnShowCombination_OnClick(object sender, RoutedEventArgs e)
         {
-           /* pagePattern.baseLayer.CreateCombinForFirstType();
-            GrdCombinsLst.Items.Refresh();*/
+            LocalTaskLayer.CreateCombinations(_baseLayer);
         }
 
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
+        private void BtnPrev_OnClick(object sender, RoutedEventArgs e)
         {
-           /* pagePattern.DatagridValidationError(e);*/
+            navigation = NavigationService.GetNavigationService(this);
+            navigation.Navigate(new PageEvents(_baseLayer));
         }
+
+        #region Обработка событий Validation.Error
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-           /* pagePattern.NavigatePageCanExecute(e);*/
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
+            e.Handled = true;
         }
 
         private void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            /*navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageSolve(pagePattern.baseLayer));*/
+           
+            if (ErrorCount.EntityErrorCount == 0)
+            { 
+                LocalTaskLayer.taskParams.InitTask();
+                navigation = NavigationService.GetNavigationService(this);
+                navigation.Navigate(new PageSolve(_baseLayer));
+            }
         }
+        #endregion
 
-        private void PrevPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void Validation(object sender, ValidationErrorEventArgs e)
         {
-           /* pagePattern.NavigatePageCanExecute(e);*/
-        }
-
-        private void PrevPage_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-          /*  navigation = NavigationService.GetNavigationService(this);
-            navigation.Navigate(new PageEvents(pagePattern.baseLayer));*/
+            ErrorCount.CheckEntityError(e);
         }
     }
 }

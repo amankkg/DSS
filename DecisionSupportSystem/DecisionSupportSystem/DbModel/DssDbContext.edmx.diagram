@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="DssDbModel.Event" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.TaskParamName" Width="1.5" PointX="8" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.TaskParam" Width="1.5" PointX="5.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DssDbModel.Task" Width="1.5" PointX="2.375" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DssDbModel.Task" Width="1.5" PointX="1.375" PointY="6.125" IsExpanded="true" />
         <AssociationConnector Association="DssDbModel.FK__ActionPar__NameI__21B6055D" ManuallyRouted="false" />
         <AssociationConnector Association="DssDbModel.FK__ActionPar__Actio__20C1E124" ManuallyRouted="false" />
         <AssociationConnector Association="DssDbModel.FK__Combinati__Actio__0CBAE877" ManuallyRouted="false" />

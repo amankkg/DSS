@@ -1,86 +1,80 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using DecisionSupportSystem.DbModel;
-//using BaseModel;
 using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.ViewModels;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DecisionSupportSystem.Task_8
 {
-    public partial class PageActions
+    public partial class PageActions : Page
     {
-        private PagePattern pagePattern = new PagePattern();  // ссылка на шаблон, который хранит общие функции и поля,
-        private NavigationService navigation;                 // которые могут использоваться любой страницей 
-        private Action action = new Action();
-        private ActionParamName actionParamName = new ActionParamName { Name = "RequiredDefect" };
-        private ActionParam  param;
+        private BaseLayer _baseLayer;
+        private NavigationService _navigation;
+        private ActionWithParamListViewModel _actionWithParamListViewModel;
+
         #region Конструкторы
 
-        private void Init()
+        private void BindElements()
         {
-            pagePattern.baseLayer.BaseMethods.AddActionParamName(actionParamName);
-            param = new ActionParam{Action = action, ActionParamName = actionParamName};
-            txtRequiredDefect.DataContext = param;
-            gridAct.DataContext = action;                                                      // указываем датаконтекст гриду, который содержит текстбокс и кнопку
-            GrdActionsLst.ItemsSource = pagePattern.baseLayer.DssDbContext.Actions.Local;  // привязываем локальные данные таблицы Actions к датагриду
+            _actionWithParamListViewModel = new ActionWithParamListViewModel(_baseLayer);
+            ActionListControl.DataContext = _actionWithParamListViewModel;
+            ActionControl.DataContext = new ActionWithParamViewModel(_actionWithParamListViewModel);
         }
-        
+
         public PageActions()
         {
             InitializeComponent();
-            pagePattern.baseLayer = new BaseLayer();  // так как это первая страница создаем новый объект BaseTaskLayer
+            _baseLayer = new BaseLayer();
+            ErrorCount.Reset();
         }
 
-        public PageActions(BaseLayer taskLayer)
-        { 
+        public PageActions(BaseLayer baseLayer)
+        {
             InitializeComponent();
-            pagePattern.baseLayer = taskLayer;
+            _baseLayer = baseLayer;
+            BindElements();
+            ErrorCount.Reset();
+        }
+
+        public void Show(object pageAction, string title, string taskuniq, BaseLayer baseLayer)
+        {
+            if (baseLayer != null) _baseLayer = baseLayer;
+            _baseLayer.Task.TaskUniq = taskuniq;
+            BindElements();
+            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title);
         }
         #endregion
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Желаете сохранить изменения?", "!", MessageBoxButton.YesNo) == Dia);
+            _baseLayer.Save();
+        }
         
         private void PageActionsOnLoaded(object sender, RoutedEventArgs e)
         {
-            navigation = NavigationService.GetNavigationService(this);
-            Init();
+            _navigation = NavigationService.GetNavigationService(this);
         }
 
-        public void ActionAdd_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            pagePattern.baseLayer.BaseMethods.AddAction(new Action {Name = action.Name});
-            GrdActionsLst.Items.Refresh();
-        }
+        #region Обработка событий Validation.Error
 
         public void NextPage_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (GrdActionsLst.Items.Count > 0)
-                navigation.Navigate(new PageEvents(pagePattern.baseLayer));
-        }
-
-        private void ActionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            pagePattern.EntityAddCanExecute(e);
+            if (_actionWithParamListViewModel.ActionWithParamViewModels.Count > 0)
+            {
+                _navigation.Navigate(new PageEvents(_baseLayer));
+                ErrorCount.EntityErrorCount = 0;
+            }
         }
 
         private void NextPage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            pagePattern.NavigatePageCanExecute(e);
+            e.CanExecute = ErrorCount.EntityListErrorCount == 0;
+            e.Handled = true;
         }
-
-        private void ActionValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.EntityValidationError(e);
-        }
-
-        private void DataGridValidationError(object sender, ValidationErrorEventArgs e)
-        {
-            pagePattern.DatagridValidationError(e);
-        }
-
-        private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            pagePattern.baseLayer.BaseMethods.DeleteAction((Action) GrdActionsLst.SelectedItem);
-            GrdActionsLst.Items.Refresh();
-        }
+        #endregion
     }
 }
