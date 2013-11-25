@@ -57,7 +57,7 @@ namespace DecisionSupportSystem.Task_9
         {
             if (_actionListViewModel.ActionViewModels.Count > 0)
             {
-                _navigation.Navigate(new PageEvents(_baseLayer));
+               // _navigation.Navigate(new PageEvents(_baseLayer));
                 ErrorCount.EntityErrorCount = 0;
             }
         }

@@ -44,15 +44,11 @@ namespace DecisionSupportSystem.Task_8
             if (baseLayer != null) _baseLayer = baseLayer;
             _baseLayer.Task.TaskUniq = taskuniq;
             BindElements();
-            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title);
+            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title, baseLayer, null);
         }
         #endregion
 
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Желаете сохранить изменения?", "!", MessageBoxButton.YesNo) == Dia);
-            _baseLayer.Save();
-        }
+
         
         private void PageActionsOnLoaded(object sender, RoutedEventArgs e)
         {
