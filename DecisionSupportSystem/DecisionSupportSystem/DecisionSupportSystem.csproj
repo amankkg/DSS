@@ -75,6 +75,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ToggleSwitch">
+      <HintPath>..\packages\ToggleSwitch.1.1.1\lib\net40-client\ToggleSwitch.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -148,6 +151,37 @@
     <Compile Include="NavigationWindowShower.cs" />
     <Compile Include="Task_1\LocalTaskLayer.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
+    <Compile Include="Task_6\Model.cs" />
+    <Compile Include="Task_6\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_6\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_6\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_6\PageOptions.xaml.cs">
+      <DependentUpon>PageOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_6\Preferences.cs" />
+    <Compile Include="Task_7\Model.cs" />
+    <Compile Include="Task_7\PageActions.xaml.cs">
+      <DependentUpon>PageActions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_7\PageCombinations.xaml.cs">
+      <DependentUpon>PageCombinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_7\PageEvents.xaml.cs">
+      <DependentUpon>PageEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_7\PageOptions.xaml.cs">
+      <DependentUpon>PageOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_7\PageSolution.xaml.cs">
+      <DependentUpon>PageSolution.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Task_7\Preferences.cs" />
     <Compile Include="ViewModels\CombinationWithParamListViewModel.cs" />
     <Compile Include="ViewModels\CombinationWithParamViewModel.cs" />
     <Compile Include="Views\CombinationsListControlWithParam.xaml.cs">
@@ -176,7 +210,7 @@
     </Compile>
     <Compile Include="Task_8\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Task_1\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -328,6 +362,42 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Task_6\PageActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_6\PageCombinations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_6\PageEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_6\PageOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_7\PageActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_7\PageCombinations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_7\PageEvents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_7\PageOptions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Task_7\PageSolution.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Task_9\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -335,7 +405,7 @@
     <Page Include="Task_9\PageMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-	</Page>
+    </Page>
     <Page Include="Views\CombinationsListControlWithParam.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

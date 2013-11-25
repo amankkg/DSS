@@ -1,123 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using DiceGameClassesLibrary;
+using DecisionSupportSystem.DbModel;
+using DecisionSupportSystem.MainClasses;
+using Action = DecisionSupportSystem.DbModel.Action;
 
-namespace DecisionSupportSystem.Interfaces.Task_7
+namespace DecisionSupportSystem.Task_7
 {
     public class Model
     {
-        public string[] InitialEvents;
-        public Dice game;
-        public TaskSolvingParam stake;
-        public EventParam bonus;
-        public List<EventParamValue> bonuses;
-        public CombinationParam soeg;
-        public List<CombinationParamValue> soegs;
+        BaseLayer _baseLayer { get; set; }
+        Preferences _preferences;
+        char[] InitialEvents;
+        ObservableCollection<Event> events { get; set; }
+        ObservableCollection<Action> actions { get; set; }
+        ObservableCollection<Combination> combinations { get; set; }
+        Dice game;
+        TaskParamName stake;
+        TaskParam stakeValue;
+        EventParamName bonus;
+        List<EventParam> bonuses;
+        CombinParamName soeg;
 
         public void SetStakeValue(decimal value)
         {
-            stake.Value = value;
+            stakeValue.Value = value;
         }//задаем значение ставке в игре
 
         public void GenerateEvents()
         {
-            mainmodel.events = new List<Event>();
-            string name;
-            decimal probability = 1 / game.Outcomes.Count;
-            foreach (var item in game.Outcomes)
+            events = _baseLayer.DssDbContext.Events.Local;
+            char[] name;
+            decimal probability = 1m / game.Outcomes.Count;
+            for (int i = 0; i < game.Outcomes.Count; i++)
             {
-                Event ev = new Event();
-                name = "";
-                foreach (var eventNumber in item)
+                name = new char[_preferences.numberofthrowings];
+                for (int j = 0; j < game.Outcomes[i].Length; j++)
                 {
-                    name += InitialEvents[eventNumber] + "-";
+                    name[j] = InitialEvents[game.Outcomes[i][j]];
                 }
-                name = name.Remove(name.Length - 1);
-                ev.Name = name;
-                ev.Probability = probability;
-                mainmodel.events.Add(ev);
+                Event ev = new Event()
+                {
+                    Name = new string(name),
+                    Probability = probability
+                };
+                ev.EventParams.Add(new EventParam() { EventParamName = bonus });
+                events.Add(ev);
             }
         }//генерим события из исходов игры
 
-        public void SetEventBonuses(List<decimal> valuelist)
+        /*public void SetEventBonuses(List<decimal> valuelist)
         {
-            bonuses = new List<EventParamValue>();
+            foreach (var ev in events)
+	            {
+		            ev.EventParams.Add(new EventParam(){EventParamName = bonus});
+	            }
+
+                        bonuses = new List<EventParamValue>();
             for (int i = 0; i < mainmodel.events.Count; i++)
             {
                 bonuses.Add(new EventParamValue() { EventParam = bonus, Event = mainmodel.events[i], Value = valuelist[i] });
             }
-        }//задаем значения бонусам при исходах
+        }//задаем значения бонусам при исходах*/
 
         public void GenerateActions()
         {
-            mainmodel.actions = new List<Action>();
+            actions = _baseLayer.DssDbContext.Actions.Local;
             string name;
-            foreach (var stake in game.Stakes)
+            for (int i = 0; i < game.Stakes.Count; i++)
             {
-                Action act = new Action();
                 name = "";
-                foreach (var item in stake)
+                for (int j = 0; j < game.Stakes[i].Length; j++)
                 {
-                    name += InitialEvents[item] + "-";
+                    name = name + events[game.Stakes[i][j]].Name + " ";
                 }
                 name = name.Remove(name.Length - 1);
-                act.Name = name;
-                mainmodel.actions.Add(act);
+                actions.Add(new Action()
+                {
+                    Name = name
+                });
             }
         }//генерим действия из ставок игры
 
         public void GenerateCombinations()
         {
-            mainmodel.combinations = new List<Combination>();
-            foreach (var item in game.Combinations)
+            combinations = _baseLayer.DssDbContext.Combinations.Local;
+            for (int i = 0; i < game.StakeOutcomeCombinations.Count; i++)
             {
-                Combination combo = new Combination() { Event = mainmodel.events[item.AcutalOutcome], Action = mainmodel.actions[item._ChoosenStake], TaskSolving = mainmodel.solving };
-                mainmodel.combinations.Add(combo);
+                Combination combo = new Combination()
+                {
+                    Event = events[game.StakeOutcomeCombinations[i].AcutalOutcome],
+                    Action = actions[game.StakeOutcomeCombinations[i]._ChoosenStake],
+                    Task = _baseLayer.Task
+                };
+                combo.CombinParams.Add(new CombinParam() { CombinParamName = soeg, Value = Convert.ToDecimal(game.StakeOutcomeCombinations[i].SoEG) });//задаем значения параметра SoEG из комбинаций игры
+                //combo.Cp = CPFunction(combo.Event.EventParams.ToList()[0].Value, combo.CombinParams.ToList()[0].Value);
+                combinations.Add(combo);
             }
         }//генерим комбинации из комбинаций игры
 
-        public void SetCombinationSoEGs(List<bool> valuelist)
-        {
-            soegs = new List<CombinationParamValue>();
-            for (int i = 0; i < mainmodel.combinations.Count; i++)
-            {
-                soegs.Add(new CombinationParamValue() { CombinationParam = soeg, Combination = mainmodel.combinations[i], Value = Convert.ToDecimal(valuelist[i]) });
-            }
-        }//задаем значения параметра SoEG из комбинаций игры
-
         public decimal CPFunction(decimal bonusvalue, decimal soegvalue)
         {
-            return stake.Value * bonusvalue * soegvalue - stake.Value;
+            return stakeValue.Value * bonusvalue * soegvalue - stakeValue.Value;
         }//функция считает значение CP
 
-        public void SetCPs()
-        {
-            mainmodel.cps = new List<ConditionalProfit>();
-            foreach (var item in mainmodel.combinations)
-            {
-                mainmodel.cps.Add(new ConditionalProfit()
-                {
-                    Combination = item,
-                    Value = CPFunction(Convert.ToDecimal(from x in bonuses
-                                                         where x.Event == item.Event
-                                                         select x.Value),
-                                                         Convert.ToDecimal(from x in soegs
-                                                                           where x.Combination == item
-                                                                           select x.Value))
-                });
-            }
-        }//задаем значения CP
-
-        public Model(MainModel mainmodel)
+        public Model(BaseLayer baseLayer, Preferences preferences)
         {   //конструктор класса, создает задачу и константу (только одна, Ставка)
-            this.mainmodel = mainmodel;
-            mainmodel.solving = new TaskSolving();
-            stake = new TaskSolvingParam() { Name = "Ставка", TaskSolving = mainmodel.solving };
-            bonus = new EventParam() { Name = "Бонус" };
-            soeg = new CombinationParam() { Name = "SoEG" };
-        }//конструктор класса
+            _baseLayer = baseLayer;
+            _preferences = preferences;
+            stake = new TaskParamName() { Name = "Ставка" };
+            stakeValue = new TaskParam { Task = _baseLayer.Task };
+            bonus = new EventParamName() { Name = "Бонус" };
+            soeg = new CombinParamName() { Name = "SoEG" };
+
+            InitialEvents = preferences.evenoddGame
+                                ? InitialEvents = preferences.evenoddNames
+                                : InitialEvents = preferences.numericNames;
+            game = new Dice(InitialEvents.Length, preferences.numberofthrowings); //, preferences.numberofoutcomesperstake);
+            GenerateEvents();
+        }//конструктор класса*/     
     }
 }

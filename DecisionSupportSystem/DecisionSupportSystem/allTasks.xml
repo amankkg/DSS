@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Data>
- <Task>
+  <Task>
  <Name>Задача №1. Колесо Фортуны</Name>
  <Type>Тип №1</Type>
  <Description>
@@ -54,7 +54,25 @@
     <TaskUniq>task5</TaskUniq>
     <Window>DecisionSupportSystem.Task_5.PageActions</Window>
   </Task>
- <Task>
+  <Task>
+    <Name>Задача №6: Симметричная монета.</Name>
+    <Type>Тип №2</Type>
+    <Description>
+      Симметричная монета бросается 3 раза.
+    </Description>
+    <TaskUniq>task6</TaskUniq>
+    <Window>DecisionSupportSystem.Task_6.PageOptions</Window>
+  </Task>
+  <Task>
+    <Name>Задача №7: Симметричная игральная кость.</Name>
+    <Type>Тип №1</Type>
+    <Description>
+      Симметричная игральная кость бросается 2 раза.
+    </Description>
+    <TaskUniq>task7</TaskUniq>
+    <Window>DecisionSupportSystem.Task_7.PageOptions</Window>
+  </Task>
+  <Task>
  <Name>Задача №8. Компания Intel.</Name>
  <Type>Тип №1</Type>
  <Description>
