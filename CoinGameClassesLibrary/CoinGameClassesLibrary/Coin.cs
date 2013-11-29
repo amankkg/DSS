@@ -6,7 +6,6 @@ namespace CoinGameClassesLibrary
     public class Coin
     {
         int _NumberOfInitialEvents;
-        double[] InitialEventsBonuses;
         int _NumberOfThrowings;
 
         public List<int[]> Outcomes; //  исходы (события)
@@ -52,7 +51,7 @@ namespace CoinGameClassesLibrary
                     {
                         //  если искомый выпад найден
                         countMatches++;
-                        if (prevMatches)
+                        if (NumberOfInitialEventsInSequence == 1 || prevMatches)
                         {   //  если предыдущий выпад был искомым
                             if (countMatches >= NumberOfInitialEventsInSequence)
                             {
@@ -75,10 +74,9 @@ namespace CoinGameClassesLibrary
             return resultList;
         }
 
-        public Coin(double[] InitialEventsBonusValues, int NumberOfThrowings)
+        public Coin(int NumberOfInitialEvents, int NumberOfThrowings)
         {   //конструктор
-            _NumberOfInitialEvents = InitialEventsBonusValues.Length;
-            InitialEventsBonuses = InitialEventsBonusValues;
+            _NumberOfInitialEvents = NumberOfInitialEvents;
             _NumberOfThrowings = NumberOfThrowings;
             GenerateOutcomes();
         }
