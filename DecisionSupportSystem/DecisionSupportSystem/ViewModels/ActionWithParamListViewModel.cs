@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,17 +58,22 @@ namespace DecisionSupportSystem.ViewModels
 
         public void AddAction(Action act, ActionParam actionParam)
         {
+            var haveThisActInActions = Actions.Any(a => a.Name.Trim() == act.Name.Trim());
+            if (haveThisActInActions) return;
             ActionWithParamViewModels.Add(new ActionWithParamViewModel(act, actionParam, this));
             Actions.Add(act);
             actionParam.Action = act;
             ActionParams.Add(actionParam);
+            NavigationWindowShower.IsSaved = false;
         }
 
         public void UpdateActions()
         {
             if (ActionWithParamViewModels.Count == Actions.Count)
+            {
                 for (int i = 0; i < Actions.Count; i++)
                     Actions[i].Name = ActionWithParamViewModels[i].Name;
+            }
         }
 
         private int _selectedItem = -1;
@@ -78,8 +84,33 @@ namespace DecisionSupportSystem.ViewModels
             {
                 ActionWithParamViewModels.RemoveAt(_selectedItem);
                 _baseLayer.BaseMethods.DeleteAction(Actions[_selectedItem]);
-                UpdateActions();
+                NavigationWindowShower.IsSaved = false;
             }
+        }
+
+        public void UpdateAction(ActionWithParamViewModel callActionViewModel)
+        {
+            if (ActionWithParamViewModels.Count != Actions.Count || !ActionWithParamViewModels.Contains(callActionViewModel)) return;
+            int index = ActionWithParamViewModels.IndexOf(callActionViewModel);
+            RenameSimilarActs(callActionViewModel);
+            Actions[index].Name = callActionViewModel.Name;
+            NavigationWindowShower.IsSaved = false;
+        }
+
+        void RenameSimilarActs(ActionWithParamViewModel callActionViewModel)
+        {
+            var simactslist = SearchSimilarActs(callActionViewModel.Name.Trim()).ToList();
+            foreach (var action in simactslist)
+            {
+                string name = callActionViewModel.Name;
+                ActionWithParamViewModels[Actions.IndexOf(action)].Name = name + "*";
+                action.Name = name + "*";
+            }
+        }
+
+        IEnumerable<Action> SearchSimilarActs(string actname)
+        {
+            return Actions.Where(a => a.Name.Trim() == actname).Select(a => a).ToList();
         }
 
         private int FindIndexInEventListViewModels(ActionWithParamViewModel element)

@@ -11,7 +11,7 @@
                 <DataGridTemplateColumn Header="Действие" Width="170">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox  Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Action.Name, UpdateSourceTrigger=PropertyChanged, 
+                            <TextBox IsReadOnly="True" Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Action.Name, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                             Validation.Error="CombinationListValidationError"/>
                         </DataTemplate>
@@ -20,7 +20,7 @@
                 <DataGridTemplateColumn Header="Событие" Width="170">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox  Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Event.Name, UpdateSourceTrigger=PropertyChanged, 
+                            <TextBox IsReadOnly="True" Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Event.Name, UpdateSourceTrigger=PropertyChanged, 
                                 ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                  Validation.Error="CombinationListValidationError"/>
                         </DataTemplate>
@@ -29,7 +29,7 @@
                 <DataGridTemplateColumn Header="Треб. брак" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=ActionParam.Value, StringFormat=F3, UpdateSourceTrigger=PropertyChanged, 
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=ActionParam.Value, StringFormat=F8, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                             Validation.Error="CombinationListValidationError"/>
                         </DataTemplate>
@@ -38,7 +38,7 @@
                 <DataGridTemplateColumn Header="Факт. брак" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=EventParam.Value, StringFormat=F3, UpdateSourceTrigger=PropertyChanged, 
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=EventParam.Value, StringFormat=F8, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                             Validation.Error="CombinationListValidationError"/>
                         </DataTemplate>

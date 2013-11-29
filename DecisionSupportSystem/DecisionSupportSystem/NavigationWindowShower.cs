@@ -34,7 +34,6 @@ namespace DecisionSupportSystem
             {
                 var result = MessageBox.Show("Cохранить текущее решение?", "Внимание",
                                              System.Windows.MessageBoxButton.YesNoCancel);
-                
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     _baseLayer.DssDbContext.CombinParams.Local.Clear();

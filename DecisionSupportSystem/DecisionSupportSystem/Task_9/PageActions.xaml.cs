@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.ViewModels;
+using DecisionSupportSystem.Views;
 
 namespace DecisionSupportSystem.Task_9
 {
@@ -18,7 +19,7 @@ namespace DecisionSupportSystem.Task_9
         private void BindElements()
         {
             _actionListViewModel = new ActionListViewModel(_baseLayer);
-            ActionListControl.DataContext = _actionListViewModel;
+            //ActionListControl.DataContext = _actionListViewModel;
             ActionControl.DataContext = new ActionViewModel(_actionListViewModel);
         }
 

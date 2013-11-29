@@ -21,8 +21,9 @@
                 <DataGridTextColumn Header="Комментарии" IsReadOnly="False" Binding="{Binding Comment}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="Download" Content="Посмотреть задачу" Margin="0,58,10,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Download_Click"/>
+        <Button Name="Download" Content="Посмотреть задачу" Margin="0,58,155,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Download_Click"/>
         <TextBlock Name="txtbTaskName" Margin="10,10,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="43" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Calibri"/>
-        <Button x:Name="Refresh" Content="Обновить таблицу" Margin="0,58,155,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Refresh_Click"/>
+        <Button x:Name="Refresh" Content="Обновить таблицу" Margin="0,58,300,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Refresh_Click"/>
+        <Button x:Name="Delete" Content="Удалить задачу" Margin="0,58,10,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Delete_Click"/>
     </Grid>
 </Page>

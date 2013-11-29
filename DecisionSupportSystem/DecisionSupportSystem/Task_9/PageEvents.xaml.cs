@@ -4,7 +4,7 @@ using System.Windows.Navigation;
 using DecisionSupportSystem.MainClasses;
 using DecisionSupportSystem.ViewModels;
 
-namespace DecisionSupportSystem.Task_9
+namespace DecisionSupportSystem.Task_1
 {
     public partial class PageEvents
     {
@@ -17,7 +17,7 @@ namespace DecisionSupportSystem.Task_9
         private void BindElements()
         {
             _eventListViewModel = new EventListViewModel(_baseLayer);
-            //EventListControl.DataContext = _eventListViewModel;
+            EventListControl.DataContext = _eventListViewModel;
             EventControl.DataContext = new EventViewModel(_eventListViewModel);
         }
 
@@ -51,7 +51,7 @@ namespace DecisionSupportSystem.Task_9
         {
             if (_eventListViewModel.EventViewModels.Count > 0)
             {
-                //_navigation.Navigate(new PageCombinations(_baseLayer));
+                _navigation.Navigate(new PageCombinations(_baseLayer));
                 ErrorCount.EntityErrorCount = 0;
             }
         }

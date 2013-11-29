@@ -139,7 +139,9 @@ namespace DecisionSupportSystem.MainClasses
                     Comment = Task.Comment,
                     Date = DateTime.Now,
                     Recommendation = Task.Recommendation,
-                    TaskUniq = Task.TaskUniq
+                    TaskUniq = Task.TaskUniq,
+                    Deleted = Task.Deleted,
+                    TreeDiagramm = Task.TreeDiagramm
                 };
             BaseLayer.Task = task;
             LoadTaskParams(Task, task);

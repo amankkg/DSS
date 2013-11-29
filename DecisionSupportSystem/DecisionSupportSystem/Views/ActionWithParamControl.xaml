@@ -3,22 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="120" d:DesignWidth="472">
+             mc:Ignorable="d" d:DesignHeight="151" d:DesignWidth="472">
     <Grid>
-        <Rectangle Fill="#FF6C9EC1" Margin="0,0,0,-17" />
+        <Rectangle Fill="#FF6C9EC1" />
         <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"
-                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="35" VerticalAlignment="Bottom" />
+                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,10" Height="35" VerticalAlignment="Bottom" />
         
-        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="29" FontWeight="Bold" Margin="61,10,0,0"/>
+        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="18" FontWeight="Bold" Margin="55,10,0,0" Padding="0,0,0,0"/>
         
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="29" Margin="160,10,35,0"  VerticalAlignment="Top" 
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="44" Margin="160,10,35,0"  VerticalAlignment="Top" 
                      Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Validation.Error="ActionValidationError"/>
-        <Label Content="Требуемый брак:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="29" FontWeight="Bold" Margin="20,44,0,0"/>
+        <Label Content="Требуемый брак:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="18" FontWeight="Bold" Margin="12,63,0,0" Padding="0,0,0,0"/>
         
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="29" Margin="160,46,35,0"  VerticalAlignment="Top" 
-                     Text="{Binding Path=ActionParam.Value, StringFormat=f3, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                     Validation.Error="ActionValidationError"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="160,59,0,0"  VerticalAlignment="Top" 
+                     Text="{Binding Path=ActionParam.Value, StringFormat=F8, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                     Validation.Error="ActionValidationError" HorizontalAlignment="Left" Width="185"/>
 
 
     </Grid>

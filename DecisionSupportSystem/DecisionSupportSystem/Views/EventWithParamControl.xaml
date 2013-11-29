@@ -3,26 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" d:DesignHeight="120" d:DesignWidth="465">
+             mc:Ignorable="d" d:DesignHeight="140" d:DesignWidth="465">
     <Grid>
-        <Rectangle Fill="#FF6C9EC1" Margin="0,0,0,-28"/>
-        <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"  Margin="0,0,35,34" VerticalAlignment="Bottom" 
+        <Rectangle Fill="#FF6C9EC1"/>
+        <Button  Content="Добавить" Style="{StaticResource AddButtonStyle}" HorizontalAlignment="Right"  Margin="0,0,35,10" VerticalAlignment="Bottom" 
                 Command="{Binding Path=AddEventCommand}"/>
         
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="29" Margin="160,10,35,0" VerticalAlignment="Top"
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="44" Margin="160,10,35,0" VerticalAlignment="Top"
                      Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  Validation.Error="EventControlValidationError"/>
         
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="160,54,0,0"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" 
-                     Text="{Binding Path=Probability, StringFormat=f3, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                 Validation.Error="EventControlValidationError"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="160,59,0,0"  VerticalAlignment="Top" 
+                     Text="{Binding Path=Probability, StringFormat=F8, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                 Validation.Error="EventControlValidationError" HorizontalAlignment="Left" Width="185"/>
         
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="160,91,35,0"  VerticalAlignment="Top" 
-                     Text="{Binding Path=EventParam.Value, StringFormat=f3, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                     Validation.Error="EventControlValidationError"/>
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="160,86,0,0"  VerticalAlignment="Top" 
+                     Text="{Binding Path=EventParam.Value, StringFormat=F8, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                     Validation.Error="EventControlValidationError" HorizontalAlignment="Left" Width="185"/>
 
-        <Label Content="Вероятность:" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold"/>
-        <Label Content="Событие:" HorizontalAlignment="Left" Margin="32,14,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold"/>
-        <Label Content="Факт.брак:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="29" FontWeight="Bold" Margin="23,91,0,0"/>
+        <Label Content="Вероятность:" HorizontalAlignment="Left" Margin="32,59,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold" Padding="0,0,0,0"/>
+        <Label Content="Событие:" HorizontalAlignment="Left" Margin="54,10,0,0" VerticalAlignment="Top" Height="25" Foreground="Black" FontWeight="Bold" Padding="0,0,0,0"/>
+        <Label Content="Факт.брак:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="19" FontWeight="Bold" Margin="46,89,0,0" RenderTransformOrigin="0.556,1.474" Padding="0,0,0,0"/>
     </Grid>
 </UserControl>

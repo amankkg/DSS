@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DecisionSupportSystem.Task_1
+namespace DecisionSupportSystem.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Window1.xaml
+    /// Логика взаимодействия для ActionControlForTask9.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class ActionControlForTask9 : UserControl
     {
-        public Window1()
+        public ActionControlForTask9()
         {
             InitializeComponent();
         }

@@ -46,7 +46,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._name = value;
                     RaisePropertyChanged("Name");
-                    ActionWithParamListViewModel.UpdateActions();
+                    ActionWithParamListViewModel.UpdateAction(this);
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._actionParam = value;
                     RaisePropertyChanged("ActionParam");
-                    ActionWithParamListViewModel.UpdateActions();
+                    ActionWithParamListViewModel.UpdateAction(this);
                 }
             }
         }

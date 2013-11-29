@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Objects;
 using System.Reflection;
 using System.Windows;
 using DecisionSupportSystem.DbModel;
@@ -18,11 +19,12 @@ namespace DecisionSupportSystem
             using (var dssDbContext = new DssDbEntities())
             {
                 var tasks = (from task in dssDbContext.Tasks
-                             where task.TaskUniq == taskUniq
+                             where task.TaskUniq == taskUniq && task.Deleted != 1
                              select task).ToList();
                 foreach (var t in tasks)
                 {
-                    Tasks.Add(new Task { Comment = t.Comment, TaskUniq = t.TaskUniq, Id = t.Id, Recommendation = t.Recommendation, Date = t.Date });
+                    Tasks.Add(new Task { Comment = t.Comment, TaskUniq = t.TaskUniq, Id = t.Id, Recommendation = t.Recommendation, 
+                                         Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm});
                 }
             }
         }
@@ -65,6 +67,21 @@ namespace DecisionSupportSystem
             var loadedTask = new LoadedTask();
             loadedTask.LoadTasks(TaskViewForSolvedTaskWindow.TaskUniq);
             gridTasks.ItemsSource = loadedTask.Tasks;
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridTasks.SelectedItem != null)
+            {
+                using (DssDbEntities context = new DssDbEntities())
+                {
+                    var tasks = context.Tasks.Select(t => t);
+                    tasks.Where(t => t.Id == ((Task) gridTasks.SelectedItem).Id).Select(t => t).First().Deleted = 1;
+                    context.SaveChanges();
+                    RefreshTable();
+                }
+            }
+
         }
     }
 }

@@ -23,6 +23,8 @@ namespace DecisionSupportSystem.DbModel
         public int Id { get; set; }
         public System.DateTime Date { get; set; }
         public string Comment { get; set; }
+        public int Deleted { get; set; }
+        public string TreeDiagramm { get; set; }
         private string _recomendation;
         public string Recommendation
         {

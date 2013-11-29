@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:v="clr-namespace:DecisionSupportSystem.Views"
+      xmlns:views="clr-namespace:DecisionSupportSystem.Views"
       mc:Ignorable="d"
 	  Title="События" Loaded="PageEventsOnLoaded" d:DesignWidth="500" d:DesignHeight="332">
     
@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         
         <Grid Height="140" VerticalAlignment="Top">
-            <v:EventControl x:Name="EventControl"/>
+            <views:EventControl x:Name="EventControl"/>
         </Grid>
      
         <Grid Margin="0,140,0,0">
@@ -32,7 +32,7 @@
                     Style="{StaticResource NavigationButtonStyle}" HorizontalAlignment="Right"
         	         Margin="0,10,115,0" Height="25" VerticalAlignment="Top" Click="BtnPrev_OnClick"/>
             <Label  Content="Список возможных событий:" Margin="10,10,0,0" VerticalAlignment="Top" Height="29" FontSize="14" HorizontalAlignment="Left" Width="233"/>
-            <v:MainEventListControl x:Name="EventListControl" Margin="0,50,0,25"/>
+            <views:MainEventListControl x:Name="EventListControl" Margin="0,50,0,25"/>
         </Grid>
     </Grid>
 </Page>

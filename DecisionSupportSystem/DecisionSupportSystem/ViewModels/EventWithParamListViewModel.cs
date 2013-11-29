@@ -104,14 +104,27 @@ namespace DecisionSupportSystem.ViewModels
                 _selectedItem = FindIndexInEventListViewModels((EventWithParamViewModel)e.AddedItems[0]);
         }
 
+        public void UpdateEvent(EventWithParamViewModel callEventViewModel)
+        {
+            if (EventWithParamViewModels.Count != Events.Count || !EventWithParamViewModels.Contains(callEventViewModel)) return;
+            int index = EventWithParamViewModels.IndexOf(callEventViewModel);
+            RenameSimilarEvents(callEventViewModel);
+            Events[index].Name = callEventViewModel.Name;
+            Events[index].Probability = callEventViewModel.Probability;
+            NavigationWindowShower.IsSaved = false;
+        }
+
         public void AddEvent(Event ev, EventParam eventParam)
         {
+            var haveThisEvInEvents = Events.Any(e => e.Name.Trim() == ev.Name.Trim());
+            if (haveThisEvInEvents) return;
             EventWithParamViewModels.Add(new EventWithParamViewModel(ev, eventParam, this));
             Events.Add(ev);
             eventParam.Event = ev;
             EventParams.Add(eventParam);
             _baseLayer.DssDbContext.Events.Local.Add(ev);
             Sum();
+            NavigationWindowShower.IsSaved = false;
         }
 
         public void UpdateEvents()
@@ -135,6 +148,7 @@ namespace DecisionSupportSystem.ViewModels
                 _baseLayer.BaseMethods.DeleteEvent(Events[_selectedItem]);
                 Events.RemoveAt(_selectedItem);
                 UpdateEvents();
+                NavigationWindowShower.IsSaved = false;
                 Sum();
             }
         }
@@ -151,6 +165,25 @@ namespace DecisionSupportSystem.ViewModels
                     return i;
             return -1;
         }
+
+        void RenameSimilarEvents(EventWithParamViewModel callEventWithParamViewModel)
+        {
+            var simeventslist = SearchSimilarEvents(callEventWithParamViewModel.Name.Trim()).ToList();
+            foreach (var ev in simeventslist)
+            {
+                if (EventWithParamViewModels[Events.IndexOf(ev)] == callEventWithParamViewModel) continue;
+                string name = callEventWithParamViewModel.Name;
+                EventWithParamViewModels[Events.IndexOf(ev)].Name = name + "*";
+                ev.Name = name + "*";
+            }
+        }
+
+        IEnumerable<Event> SearchSimilarEvents(string eventname)
+        {
+            return Events.Where(ev => ev.Name.Trim() == eventname).Select(ev => ev).ToList();
+        }
+
+
         #endregion
     }
 }

@@ -44,7 +44,7 @@ namespace DecisionSupportSystem.Task_8
             if (baseLayer != null) _baseLayer = baseLayer;
             _baseLayer.Task.TaskUniq = taskuniq;
             BindElements();
-            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title, baseLayer, null);
+            NavigationWindowShower.ShowNavigationWindows(new NavigationWindow(), pageAction, title, _baseLayer, null);
         }
         #endregion
 

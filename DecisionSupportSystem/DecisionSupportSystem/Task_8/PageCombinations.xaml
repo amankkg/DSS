@@ -16,8 +16,8 @@
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Rectangle Fill="#FF6C9EC1" Grid.ColumnSpan="3"/>
-            <TextBox Text="{Binding Path=Shtraf.Value, ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F10}" Style="{StaticResource TextBoxStyle}" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="130,32,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" Validation.Error="Validation"/>
-            <TextBox Text="{Binding Path=Premia.Value, ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F10}"  Style="{StaticResource TextBoxStyle}" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="130,76,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="184" Validation.Error="Validation"/>
+            <TextBox Text="{Binding Path=Shtraf.Value, ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F3}" Style="{StaticResource TextBoxStyle}" Grid.Column="1" Height="23" Margin="130,32,26,0" TextWrapping="Wrap"  VerticalAlignment="Top" Validation.Error="Validation"/>
+            <TextBox Text="{Binding Path=Premia.Value, ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F3}"  Style="{StaticResource TextBoxStyle}" Grid.Column="1" Height="23" Margin="130,76,26,0" TextWrapping="Wrap"  VerticalAlignment="Top" Validation.Error="Validation"/>
             <Label Content="Штраф" HorizontalAlignment="Left" Margin="43,32,0,0" VerticalAlignment="Top" Grid.Column="1" FontWeight="Bold" />
             <Label Content="Премия" HorizontalAlignment="Left" Margin="43,76,0,0" VerticalAlignment="Top" Grid.Column="1"  FontWeight="Bold"/>
         </Grid>

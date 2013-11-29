@@ -22,9 +22,9 @@ namespace DecisionSupportSystem.DbModel
         }
     
         public int Id { get; set; }
-        public int ActionId { get; set; }
+        public int? ActionId { get; set; }
         public int? EventId { get; set; }
-        public int TaskId { get; set; }
+        public int? TaskId { get; set; }
         private decimal _cp;
         public Nullable<decimal> Cp
         {

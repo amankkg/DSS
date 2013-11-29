@@ -8,8 +8,11 @@
 	    Title="Действия" Loaded="PageActionsOnLoaded" ShowsNavigationUI="False">
 
     <Grid>
-        <v:ActionControl x:Name="ActionControl" Height="140" VerticalAlignment="Top"/>
-        <Grid Margin="0,141,0,0">
+        <v:ActionControlForTask9 x:Name="ActionControl" Height="160" VerticalAlignment="Top"/>
+        <Grid Margin="0,160,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.CommandBindings>
                 <CommandBinding CanExecute="NextPage_CanExecute" Executed="NextPage_Executed">
                     <CommandBinding.Command>NextPage</CommandBinding.Command>
@@ -19,9 +22,8 @@
             <Button Name="BtnNext" Content="далее >>" Style="{StaticResource NavigationButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right"
                  Margin="0,10,35,0" Command="NextPage" />
 
-            <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,10,0,220" Width="233" FontSize="14"/>
-            <v:ActionsListControl x:Name="ActionListControl" Margin="0,50,0,20"/>
-        </Grid>
+            <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,11,0,204" Width="233" FontSize="14" Padding="0,0,0,0"/>
+           </Grid>
 
     </Grid>
 </Page>

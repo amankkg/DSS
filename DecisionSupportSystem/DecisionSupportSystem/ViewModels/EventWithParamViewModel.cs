@@ -48,7 +48,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._name = value;
                     RaisePropertyChanged("Name");
-                    EventWithParamListViewModel.UpdateEvents();
+                    EventWithParamListViewModel.UpdateEvent(this);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._probability = value;
                     RaisePropertyChanged("Probability");
-                    EventWithParamListViewModel.UpdateEvents();
+                    EventWithParamListViewModel.UpdateEvent(this);
                     EventWithParamListViewModel.Sum();
                 }
             }
@@ -85,7 +85,7 @@ namespace DecisionSupportSystem.ViewModels
                 {
                     this._eventParam = value;
                     RaisePropertyChanged("EventParam");
-                    EventWithParamListViewModel.UpdateEvents();
+                    EventWithParamListViewModel.UpdateEvent(this);
                 }
             }
         }
