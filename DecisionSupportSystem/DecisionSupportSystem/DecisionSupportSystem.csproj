@@ -220,9 +220,6 @@
     <Compile Include="Task_8\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task_1\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Task_9\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
@@ -374,6 +371,7 @@
     <Page Include="Views\EventControlForTask9.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Task_6\PageActions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
