@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="DecisionSupportSystem.UserElements.ProbabilitySumUE"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+             mc:Ignorable="d" d:DesignHeight="25" d:DesignWidth="374">
+    <Grid Name="mainGrid">
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type ValidationError}"></DataTemplate>
+        </Grid.Resources>
+        <Rectangle Fill="#FF6C9EC1" Stroke="Black"/>
+        <Label Content="Сумма вероятностей:" HorizontalAlignment="Left" Width="130" Foreground="White" FontFamily="Calibri" Margin="0,-1,0,0"/>
+        <TextBox Margin="130,0" Style="{StaticResource TextBoxInGridStyle}"  TextWrapping="Wrap" IsReadOnly="True" 
+                 Text="{Binding Path=Sum, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 BorderBrush="Black" TextAlignment="Center" FontWeight="Bold">
+            <interactivity:Interaction.Triggers>
+                <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
+                    <i:CallMethodAction TargetObject="{Binding ElementName=mainGrid, Path=DataContext}" MethodName="EntityGroupValidationError"/>
+                </evend:RoutedEventTrigger>
+            </interactivity:Interaction.Triggers>
+        </TextBox>
+    </Grid>
+</UserControl>

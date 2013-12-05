@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-//using BaseModel;
-using System.Linq;
+﻿using System.Linq;
+using System.Collections.Generic;
 using DecisionSupportSystem.DbModel;
 
 namespace DecisionSupportSystem.MainClasses
@@ -27,6 +26,7 @@ namespace DecisionSupportSystem.MainClasses
             if (param == null || task == null || name == null) return;
             param.Task = task;
             param.TaskParamName = name;
+            param.Value = value;
             dssDbContext.TaskParams.Add(param);
         }
 

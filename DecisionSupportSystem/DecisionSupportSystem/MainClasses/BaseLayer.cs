@@ -104,8 +104,7 @@ namespace DecisionSupportSystem.MainClasses
                 "если многократно (бесчисленное множество раз) будет выбрано это действие при условии, " +
                 "что вероятности событий будут неизменны.",
                 optimalActName, maxEmv);
-            SolvedTaskView.Recommendation = Task.Recommendation;
-            SolvedTaskView.MaxEmv = maxEmv;
+            Task.MaxEmv = maxEmv;
         }
 
         public void SolveEol(List<Combination> fictiveCombinations)
@@ -122,7 +121,7 @@ namespace DecisionSupportSystem.MainClasses
                 a.Eol = wols.Sum();
             }
             var minEol = Convert.ToDecimal(Convert.ToDouble(DssDbContext.Actions.Local.Min(a => a.Eol)));
-            SolvedTaskView.MinEol = minEol;
+            Task.MinEol = minEol;
             BaseMethods.AddTask(Task);
         }
 

@@ -17,7 +17,6 @@ namespace DecisionSupportSystem
             InitializeComponent();
         }
 
-
         private XmlElement GetTaskType()
         {
             if (gridTasks.SelectedItem != null)

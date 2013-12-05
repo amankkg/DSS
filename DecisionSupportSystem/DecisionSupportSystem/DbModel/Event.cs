@@ -54,6 +54,7 @@ namespace DecisionSupportSystem.DbModel
     
         public virtual ICollection<Combination> Combinations { get; set; }
         public virtual ICollection<EventParam> EventParams { get; set; }
+        public Guid SavingId { get; set; }
 
         #region реализация интерфейса IDataErrorInfo
         public string Error { get { throw new NotImplementedException(); } }
@@ -73,6 +74,8 @@ namespace DecisionSupportSystem.DbModel
                         {
                             if (Probability > 1)
                                 errormsg = "Вероятность не должна превышать 1";
+                            if (Probability < 0)
+                                errormsg = "Вероятность не должна быть меньше 0";
                             if (Probability == 0)
                                 errormsg = "Введите вероятность.";
                         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DecisionSupportSystem.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ActionControlForTask9.xaml
+    /// Логика взаимодействия для ActionListControlForTask9.xaml
     /// </summary>
-    public partial class ActionControlForTask9 : UserControl
+    public partial class ActionListControlForTask9 : UserControl
     {
-        public ActionControlForTask9()
+        public ActionListControlForTask9()
         {
             InitializeComponent();
         }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
+using DecisionSupportSystem.MainClasses;
 
 
 namespace DecisionSupportSystem.DbModel
 {
-    public abstract class BasePropertyChanged : INotifyPropertyChanged
+    public abstract class BasePropertyChanged : ErrorValidateEvents, INotifyPropertyChanged
     {
         protected virtual void RaisePropertyChanged(string propName)
         {

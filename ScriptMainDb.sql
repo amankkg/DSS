@@ -32,7 +32,8 @@ CREATE TABLE [dbo].[Actions] (
     [Id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Name] nvarchar(max)  NULL,
     [Emv] decimal(18,3)  NULL,
-    [Eol] decimal(18,3)  NULL
+    [Eol] decimal(18,3)  NULL,
+	[SavingId] uniqueidentifier NULL,
 );
 GO
 
@@ -40,7 +41,8 @@ GO
 CREATE TABLE [dbo].[Events] (
     [Id] int IDENTITY(1,1) NOT NULL  PRIMARY KEY,
     [Name] nvarchar(max)  NOT NULL,
-    [Probability] decimal(18,3) NULL
+    [Probability] decimal(18,3) NULL,
+	[SavingId] uniqueidentifier NULL,
 );
 GO
 
@@ -48,9 +50,12 @@ GO
 CREATE TABLE [dbo].[Tasks] (
     [Id] int IDENTITY(1,1) NOT NULL  PRIMARY KEY,
     [Date] datetime  NOT NULL,
-    [Comment] nvarchar(max)  NULL,
+    [Comment] nvarchar(max) NULL,
+	[MaxEmv] decimal(18,3) NULL,
+	[MinEol] decimal(18,3) NULL,
     [Recommendation] nvarchar(max)  NULL,
 	[TaskUniq] nvarchar(100) NOT NULL,
+	[SavingId] uniqueidentifier NULL,
 	[Deleted] int NOT NULL Default(0),
 	[TreeDiagramm] nvarchar(max) NULL,
 );
@@ -65,7 +70,8 @@ CREATE TABLE [dbo].[Combinations] (
     [Cp] decimal(18,3)  NULL,
     [Wp] decimal(18,3)  NULL,
     [Col] decimal(18,3)  NULL,
-    [Wol] decimal(18,3)  NULL
+    [Wol] decimal(18,3)  NULL,
+	[SavingId] uniqueidentifier NULL,
 );
 GO
 

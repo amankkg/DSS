@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d" 
         d:DesignHeight="400" d:DesignWidth="500"
-        Title="Архив задач">
+        Title="Архив решенных задач">
     <Grid>
         <DataGrid x:Name="gridTasks" Margin="10,85,10,10" AutoGenerateColumns="False" CanUserAddRows="False"
 		RowDetailsVisibilityMode="VisibleWhenSelected" CanUserReorderColumns="False">
@@ -21,9 +21,9 @@
                 <DataGridTextColumn Header="Комментарии" IsReadOnly="False" Binding="{Binding Comment}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="Download" Content="Посмотреть задачу" Margin="0,58,155,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Download_Click"/>
+        <Button Name="Download" Content="Посмотреть решение" Margin="0,58,155,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Download_Click"/>
         <TextBlock Name="txtbTaskName" Margin="10,10,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="43" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontFamily="Calibri"/>
         <Button x:Name="Refresh" Content="Обновить таблицу" Margin="0,58,300,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Refresh_Click"/>
-        <Button x:Name="Delete" Content="Удалить задачу" Margin="0,58,10,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Delete_Click"/>
+        <Button x:Name="Delete" Content="Удалить решение" Margin="0,58,10,0" HorizontalAlignment="Right" Width="140" Height="22" VerticalAlignment="Top" Click="Delete_Click"/>
     </Grid>
 </Page>

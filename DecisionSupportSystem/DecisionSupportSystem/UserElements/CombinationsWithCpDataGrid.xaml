@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="DecisionSupportSystem.UserElements.CombinationsWithCpDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+             mc:Ignorable="d" d:DesignWidth="515.754" d:DesignHeight="318.493">
+    <Grid Name="mainGrid">
+        <DataGrid Background="White" BorderBrush="Black" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="14" 
+                  ItemsSource="{Binding Path=CombinationViewModels}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Действие" Width="170" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox IsReadOnly="True" Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Combination.Action.Name, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Событие" Width="170">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox IsReadOnly="True" Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Combination.Event.Name, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Условная прибыль" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Combination.Cp, StringFormat=F3, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                                <interactivity:Interaction.Triggers>
+                                    <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
+                                        <i:CallMethodAction TargetObject="{Binding ElementName=mainGrid, Path=DataContext}" MethodName="EntityGroupValidationError"/>
+                                    </evend:RoutedEventTrigger>
+                                </interactivity:Interaction.Triggers>
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowHeaderStyle>
+                <StaticResource ResourceKey="DataGridRowHeaderStyleSimple"/>
+            </DataGrid.RowHeaderStyle>
+        </DataGrid>
+    </Grid>
+</UserControl>

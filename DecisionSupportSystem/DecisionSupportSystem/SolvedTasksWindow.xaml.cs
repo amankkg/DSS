@@ -24,7 +24,7 @@ namespace DecisionSupportSystem
                 foreach (var t in tasks)
                 {
                     Tasks.Add(new Task { Comment = t.Comment, TaskUniq = t.TaskUniq, Id = t.Id, Recommendation = t.Recommendation, 
-                                         Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm});
+                                         Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm, SavingId = t.SavingId, TaskParams = t.TaskParams});
                 }
             }
         }

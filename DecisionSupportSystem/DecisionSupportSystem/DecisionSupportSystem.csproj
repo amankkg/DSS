@@ -142,23 +142,88 @@
     <Compile Include="MainClasses\BaseLayer.cs" />
     <Compile Include="MainClasses\CpMax.cs" />
     <Compile Include="MainClasses\BaseMethods.cs" />
+    <Compile Include="MainClasses\ErrorCatcher.cs" />
+    <Compile Include="MainClasses\ErrorValidateEvents.cs" />
+    <Compile Include="MainClasses\IErrorCatch.cs" />
     <Compile Include="MainClasses\ITaskLayer.cs" />
+    <Compile Include="MainClasses\ITaskSpecific.cs" />
     <Compile Include="MainClasses\Load.cs" />
+    <Compile Include="MainClasses\RoutedEventTrigger.cs" />
+    <Compile Include="MainClasses\SolvedTaskView.cs" />
     <Compile Include="MainNavWindow.xaml.cs">
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainClasses\TaskViewForMainWindows.cs" />
     <Compile Include="NavigationWindowShower.cs" />
+    <Compile Include="Tasks\TaskNumberEight.cs" />
+    <Compile Include="Tasks\TaskNumberFour.cs" />
+    <Compile Include="Tasks\TaskNumberOne.cs" />
     <Compile Include="Task_1\LocalTaskLayer.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
-    <Compile Include="Views\ActionControlForTask9.xaml.cs">
-      <DependentUpon>ActionControlForTask9.xaml</DependentUpon>
+    <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
+      <DependentUpon>ActionEmvEolsUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\CombinationsWithCpDataGrid.xaml.cs">
+      <DependentUpon>CombinationsWithCpDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\CombinationsWithParamsDataGrid.xaml.cs">
+      <DependentUpon>CombinationsWithParamsDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\CombinationViewModel.cs" />
+    <Compile Include="PageUserElements\PageCombinationWithCpUE.xaml.cs">
+      <DependentUpon>PageCombinationWithCpUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserElements\PageCombinationWithParamUE.xaml.cs">
+      <DependentUpon>PageCombinationWithParamUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserElements\PageMainUE.xaml.cs">
+      <DependentUpon>PageMainUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserElements\PageSolveUE.xaml.cs">
+      <DependentUpon>PageSolveUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\ProbabilitySumUE.xaml.cs">
+      <DependentUpon>ProbabilitySumUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ProbabilitySumViewModel.cs" />
+    <Compile Include="ViewModel\TaskParamsViewModel.cs" />
+    <Compile Include="UserElements\TaskRecomendationUE.xaml.cs">
+      <DependentUpon>TaskRecomendationUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\ActionsDataGrid.xaml.cs">
+      <DependentUpon>ActionsDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ActionsViewModel.cs" />
+    <Compile Include="ViewModel\ActionViewModel.cs" />
+    <Compile Include="UserElements\EventsDataGrid.xaml.cs">
+      <DependentUpon>EventsDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\EventsViewModel.cs" />
+    <Compile Include="UserElements\EventUE.xaml.cs">
+      <DependentUpon>EventUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\EventViewModel.cs" />
+    <Compile Include="PageUserElements\PageActionUE.xaml.cs">
+      <DependentUpon>PageActionUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\TaskParamsDataGrid.xaml.cs">
+      <DependentUpon>TaskParamsDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TaskSpecific.cs" />
+    <Compile Include="PageUserElements\PageEventUE.xaml.cs">
+      <DependentUpon>PageEventUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ActionListViewModelForTask9.cs" />
+    <Compile Include="ViewModels\ActionViewModelForTask9.cs" />
+    <Compile Include="UserElements\ActionUE.xaml.cs">
+      <DependentUpon>ActionUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CombinationsListViewModel.cs" />
+    <Compile Include="Views\ActionListControlForTask9.xaml.cs">
+      <DependentUpon>ActionListControlForTask9.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EventControlForTask9.xaml.cs">
       <DependentUpon>EventControlForTask9.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_9\PageEvents.xaml.cs">
-      <DependentUpon>PageEvents.xaml</DependentUpon>
     </Compile>
     <Compile Include="Task_6\Model.cs" />
     <Compile Include="Task_6\PageActions.xaml.cs">
@@ -220,12 +285,6 @@
     <Compile Include="Task_8\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task_9\PageActions.xaml.cs">
-      <DependentUpon>PageActions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_9\PageMain.xaml.cs">
-      <DependentUpon>PageMain.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Tree\Action.cs" />
     <Compile Include="Tree\ActionControl.xaml.cs">
       <DependentUpon>ActionControl.xaml</DependentUpon>
@@ -264,18 +323,10 @@
     <Compile Include="Tree\Tree.xaml.cs">
       <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\EventsDependingActionListViewModel.cs" />
-    <Compile Include="ViewModels\EventsDependingActionViewModel.cs" />
-    <Compile Include="Task_5\PageActions.xaml.cs">
-      <DependentUpon>PageActions.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_5\PageSolve.xaml.cs">
-      <DependentUpon>PageSolve.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Task_\Task_SolvingLayer.cs" />
     <Compile Include="ViewModels\ActionListViewModel.cs" />
     <Compile Include="ViewModels\ActionViewModel.cs" />
-    <Compile Include="ViewModels\CombinationListViewModel.cs" />
+    <Compile Include="ViewModel\CombinationsViewModel.cs" />
     <Compile Include="ViewModels\CombinationViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\ProbabilitySumViewModel.cs" />
@@ -313,7 +364,6 @@
     <Compile Include="Task_\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainClasses\SolvedTaskView.cs" />
     <Compile Include="Task_1\PageActions.xaml.cs">
       <DependentUpon>PageActions.xaml</DependentUpon>
     </Compile>
@@ -339,13 +389,6 @@
     <Compile Include="Task_4\PageSolve.xaml.cs">
       <DependentUpon>PageSolve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Task_5\LocalTaskLayer.cs" />
-    <Compile Include="Task_5\PageEvents.xaml.cs">
-      <DependentUpon>PageEvents.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Task_5\PageCombinations.xaml.cs">
-      <DependentUpon>PageCombinations.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ProbabilitySumControl.xaml.cs">
       <DependentUpon>ProbabilitySumControl.xaml</DependentUpon>
     </Compile>
@@ -356,15 +399,71 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Task_5\PageActions.xaml">
+    <Page Include="UserElements\ActionEmvEolsUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\CombinationsWithCpDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Task_5\PageSolve.xaml">
+    <Page Include="UserElements\CombinationsWithParamsDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageCombinationWithCpUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageCombinationWithParamUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageMainUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageSolveUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\ProbabilitySumUE.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ActionControlForTask9.xaml">
+    <Page Include="UserElements\TaskRecomendationUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\ActionsDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\EventsDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\EventUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageActionUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\TaskParamsDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageEventUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\ActionUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActionListControlForTask9.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,18 +506,6 @@
     <Page Include="Task_7\PageSolution.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_9\PageActions.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_9\PageEvents.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_9\PageMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CombinationsListControlWithParam.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -565,14 +652,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Task_4\PageSolve.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_5\PageEvents.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Task_5\PageCombinations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

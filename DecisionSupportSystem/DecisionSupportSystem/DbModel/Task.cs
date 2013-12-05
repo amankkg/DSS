@@ -39,6 +39,34 @@ namespace DecisionSupportSystem.DbModel
             }
         }
         public string TaskUniq { get; set; }
+        public Guid SavingId { get; set; }
+        private decimal? _maxEmv;
+        public decimal? MaxEmv
+        {
+            get { return _maxEmv; }
+            set
+            {
+                if (value != this._maxEmv)
+                {
+                    this._maxEmv = value;
+                    RaisePropertyChanged("MaxEmv");
+                }
+            }
+        }
+
+        private decimal? _minEol;
+        public decimal? MinEol
+        {
+            get { return _minEol; }
+            set
+            {
+                if (value != this._minEol)
+                {
+                    this._minEol = value;
+                    RaisePropertyChanged("MinEol");
+                }
+            }
+        }
     
         public virtual ICollection<Combination> Combinations { get; set; }
         public virtual ICollection<TaskParam> TaskParams { get; set; }

@@ -7,19 +7,52 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace DecisionSupportSystem.DbModel
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class TaskParam
+
+    public partial class TaskParam : BasePropertyChanged, IDataErrorInfo
     {
         public int Id { get; set; }
-        public decimal Value { get; set; }
+        private decimal _value;
+        public decimal Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value != this._value)
+                {
+                    this._value = value;
+                    RaisePropertyChanged("Value");
+                }
+            }
+        }
         public int TaskId { get; set; }
         public Nullable<int> NameId { get; set; }
     
         public virtual TaskParamName TaskParamName { get; set; }
         public virtual Task Task { get; set; }
+        #region реализация интерфейса IDataErrorInfo
+        public string Error { get { throw new NotImplementedException(); } }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string errormsg = null;
+                if (columnName == "Value")
+                {
+
+                }
+                return errormsg;
+            }
+        }
+        #endregion
     }
 }

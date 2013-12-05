@@ -21,13 +21,21 @@ namespace DecisionSupportSystem.MainClasses
             dssDbContext = new DssDbEntities();
             Task = task;
             Combinations = (dssDbContext.Combinations.Where(c => c.TaskId == task.Id)).ToList();
-            Actions = (Combinations.Select(c => c.Action)).Distinct().ToList();
-            var nullableCombinations = Combinations.Where(combination => combination.Event == null).ToList();
-            foreach (var nullableCombination in nullableCombinations)
+            if (Combinations.Count != 0)
             {
-                Combinations.Remove(nullableCombination);
+                Actions = (Combinations.Select(c => c.Action)).Distinct().ToList();
+                var nullableCombinations = Combinations.Where(combination => combination.Event == null).ToList();
+                foreach (var nullableCombination in nullableCombinations)
+                {
+                    Combinations.Remove(nullableCombination);
+                }
+                Events = (Combinations.Select(c => c.Event)).Distinct().ToList();
             }
-            Events = (Combinations.Select(c => c.Event)).Distinct().ToList();
+            else
+            {
+                Actions = (dssDbContext.Actions.Where(a => a.SavingId == task.SavingId)).ToList();
+                Events = (dssDbContext.Events.Where(ev => ev.SavingId == task.SavingId)).ToList();
+            }
         }
 
         private void LoadActions()
@@ -38,7 +46,8 @@ namespace DecisionSupportSystem.MainClasses
                 {
                     Name = a.Name,
                     Eol = a.Eol,
-                    Emv = a.Emv
+                    Emv = a.Emv,
+                    SavingId = a.SavingId
                 };
                 LoadActionParams(a, action);
                 BaseLayer.BaseMethods.AddAction(action);
@@ -50,7 +59,7 @@ namespace DecisionSupportSystem.MainClasses
             var actionParams = (dssDbContext.ActionParams.Where(ap => ap.ActionId == oldAction.Id));
             foreach (var actionParam in actionParams)
             {
-                BaseLayer.BaseMethods.AddActionParam(newAction, new ActionParam(), null, actionParam.Value);
+                BaseLayer.BaseMethods.AddActionParam(newAction, new ActionParam(), new ActionParamName{Name = actionParam.ActionParamName.Name}, actionParam.Value);
             }
         }
 
@@ -63,7 +72,8 @@ namespace DecisionSupportSystem.MainClasses
                     var eEvent = new Event
                         {
                             Name = ev.Name,
-                            Probability = ev.Probability
+                            Probability = ev.Probability,
+                            SavingId = ev.SavingId
                         };
                     LoadEventParams(ev, eEvent);
                     BaseLayer.BaseMethods.AddEvent(eEvent);
@@ -76,7 +86,7 @@ namespace DecisionSupportSystem.MainClasses
             var eventParams = (dssDbContext.EventParams.Where(ep => ep.EventId == oldEvent.Id));
             foreach (var eventParam in eventParams)
             {
-                BaseLayer.BaseMethods.AddEventParam( newEvent, new EventParam(), null, eventParam.Value);
+                BaseLayer.BaseMethods.AddEventParam( newEvent, new EventParam(), new EventParamName{Name = eventParam.EventParamName.Name}, eventParam.Value);
             }
         }
 
@@ -128,7 +138,8 @@ namespace DecisionSupportSystem.MainClasses
             var combinParams = (dssDbContext.CombinParams.Where(combp => combp.CombinationId == oldCombination.Id)).ToList();
             foreach (var combinParam in combinParams)
             {
-                BaseLayer.BaseMethods.AddCombinationParam(newCombintaion, new CombinParam(), null, combinParam.Value);
+                BaseLayer.BaseMethods.AddCombinationParam(newCombintaion, new CombinParam(), 
+                    new CombinParamName{Name = combinParam.CombinParamName.Name}, combinParam.Value);
             }
         }
 
@@ -141,13 +152,23 @@ namespace DecisionSupportSystem.MainClasses
                     Recommendation = Task.Recommendation,
                     TaskUniq = Task.TaskUniq,
                     Deleted = Task.Deleted,
+                    SavingId = Task.SavingId,
                     TreeDiagramm = Task.TreeDiagramm
                 };
-            BaseLayer.Task = task;
             LoadTaskParams(Task, task);
+            BaseLayer.Task = task;
             SolvedTaskViewInit(task);
             BaseLayer.BaseMethods.AddTask(task);
             return task;
+        }
+
+        private void LoadTaskParams(Task oldTask, Task newTask)
+        {
+            var taskParams = (dssDbContext.TaskParams.Where(tp => tp.TaskId == oldTask.Id)).ToList();
+            foreach (var taskParam in taskParams)
+            {
+                BaseLayer.BaseMethods.AddTaskParam(newTask, new TaskParam(), new TaskParamName{Name = taskParam.TaskParamName.Name}, taskParam.Value);
+            }
         }
 
         private void SolvedTaskViewInit(Task task)
@@ -160,13 +181,6 @@ namespace DecisionSupportSystem.MainClasses
             BaseLayer.SolvedTaskView.Comment = task.Comment;
         }
 
-        private void LoadTaskParams(Task olTask, Task newTask)
-        {
-            var taskParams = (dssDbContext.TaskParams.Where(tp => tp.TaskId == olTask.Id)).ToList();
-            foreach (var taskParam in taskParams)
-            {
-                BaseLayer.BaseMethods.AddTaskParam(newTask, new TaskParam(), null, taskParam.Value);
-            }
-        }
+
     }
 }

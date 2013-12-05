@@ -87,6 +87,7 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Emv" Type="decimal" Scale="3" />
           <Property Name="Eol" Type="decimal" Scale="3" />
+          <Property Name="SavingId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Combinations">
           <Key>
@@ -100,6 +101,7 @@
           <Property Name="Wp" Type="decimal" Scale="3" />
           <Property Name="Col" Type="decimal" Scale="3" />
           <Property Name="Wol" Type="decimal" Scale="3" />
+          <Property Name="SavingId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="CombinParamNames">
           <Key>
@@ -140,6 +142,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Probability" Type="decimal" Scale="3" />
+          <Property Name="SavingId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="TaskParamNames">
           <Key>
@@ -164,8 +167,11 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="MaxEmv" Type="decimal" Scale="3" />
+          <Property Name="MinEol" Type="decimal" Scale="3" />
           <Property Name="Recommendation" Type="nvarchar(max)" />
           <Property Name="TaskUniq" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="SavingId" Type="uniqueidentifier" />
           <Property Name="Deleted" Type="int" Nullable="false" />
           <Property Name="TreeDiagramm" Type="nvarchar(max)" />
         </EntityType>
@@ -392,6 +398,7 @@
           <Property Name="Eol" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="ActionParams" Relationship="DssDbModel.FK__ActionPar__Actio__20C1E124" FromRole="Actions" ToRole="ActionParams" />
           <NavigationProperty Name="Combinations" Relationship="DssDbModel.FK__Combinati__Actio__0CBAE877" FromRole="Actions" ToRole="Combinations" />
+          <Property Type="Guid" Name="SavingId" />
         </EntityType>
         <EntityType Name="Combination">
           <Key>
@@ -409,6 +416,7 @@
           <NavigationProperty Name="Event" Relationship="DssDbModel.FK__Combinati__Event__0DAF0CB0" FromRole="Combinations" ToRole="Events" />
           <NavigationProperty Name="Task" Relationship="DssDbModel.FK__Combinati__TaskI__0EA330E9" FromRole="Combinations" ToRole="Tasks" />
           <NavigationProperty Name="CombinParams" Relationship="DssDbModel.FK__CombinPar__Combi__173876EA" FromRole="Combinations" ToRole="CombinParams" />
+          <Property Type="Guid" Name="SavingId" />
         </EntityType>
         <EntityType Name="CombinParamName">
           <Key>
@@ -457,6 +465,7 @@
           <Property Name="Probability" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="Combinations" Relationship="DssDbModel.FK__Combinati__Event__0DAF0CB0" FromRole="Events" ToRole="Combinations" />
           <NavigationProperty Name="EventParams" Relationship="DssDbModel.FK__EventPara__Event__2A4B4B5E" FromRole="Events" ToRole="EventParams" />
+          <Property Type="Guid" Name="SavingId" />
         </EntityType>
         <EntityType Name="TaskParamName">
           <Key>
@@ -490,6 +499,9 @@
           <NavigationProperty Name="TaskParams" Relationship="DssDbModel.FK__TaskParam__TaskI__33D4B598" FromRole="Tasks" ToRole="TaskParams" />
           <Property Type="Int32" Name="Deleted" Nullable="false" DefaultValue="0" />
           <Property Type="String" Name="TreeDiagramm" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Type="Decimal" Name="MaxEmv" Precision="18" Scale="3" />
+          <Property Type="Guid" Name="SavingId" />
+          <Property Type="Decimal" Name="MinEol" Precision="18" Scale="3" />
         </EntityType>
         <Association Name="FK__ActionPar__NameI__21B6055D">
           <End Role="ActionParamNames" Type="DssDbModel.ActionParamName" Multiplicity="0..1" />
@@ -650,6 +662,7 @@
           <EntitySetMapping Name="Actions">
             <EntityTypeMapping TypeName="DssDbModel.Action">
               <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="SavingId" ColumnName="SavingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Emv" ColumnName="Emv" />
@@ -660,6 +673,7 @@
           <EntitySetMapping Name="Combinations">
             <EntityTypeMapping TypeName="DssDbModel.Combination">
               <MappingFragment StoreEntitySet="Combinations">
+                <ScalarProperty Name="SavingId" ColumnName="SavingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ActionId" ColumnName="ActionId" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
@@ -710,6 +724,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="DssDbModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="SavingId" ColumnName="SavingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
@@ -737,6 +752,9 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="DssDbModel.Task">
               <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="MinEol" ColumnName="MinEol" />
+                <ScalarProperty Name="SavingId" ColumnName="SavingId" />
+                <ScalarProperty Name="MaxEmv" ColumnName="MaxEmv" />
                 <ScalarProperty Name="TreeDiagramm" ColumnName="TreeDiagramm" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

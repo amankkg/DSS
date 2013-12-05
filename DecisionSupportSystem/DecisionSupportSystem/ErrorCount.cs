@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace DecisionSupportSystem
 {
@@ -14,7 +9,7 @@ namespace DecisionSupportSystem
         {
             if (e.Action == ValidationErrorEventAction.Added)
                 EntityListErrorCount++;
-            else
+            else if (EntityListErrorCount > 0)
                 EntityListErrorCount--;
         }
 
@@ -23,7 +18,7 @@ namespace DecisionSupportSystem
         {
             if (e.Action == ValidationErrorEventAction.Added)
                 EntityErrorCount++;
-            else
+            else if (EntityErrorCount > 0)
                 EntityErrorCount--;
         }
 

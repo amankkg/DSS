@@ -41,6 +41,7 @@ namespace DecisionSupportSystem.DbModel
         public Nullable<decimal> Wp { get; set; }
         public Nullable<decimal> Col { get; set; }
         public Nullable<decimal> Wol { get; set; }
+        public Guid SavingId { get; set; }
         
         public virtual Action Action { get; set; }
         public virtual Event Event { get; set; }
