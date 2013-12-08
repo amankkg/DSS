@@ -46,14 +46,6 @@ namespace DecisionSupportSystem.MainClasses
             }
         }
 
-        public void SolveThisTask()
-        {
-            SolveWp();
-            SolveColWol(null);
-            SolveEmv();
-            SolveEol(null);
-        }
-
         public void SolveThisTask(List<Combination> fictiveCombinations)
         {
             SolveWp();

@@ -11,22 +11,25 @@ namespace DecisionSupportSystem.ViewModel
 {
     public class ActionsViewModel : BasePropertyChanged
     {
-        private const int OUT_OF_RANGE = -1;
-        private BaseLayer _baseLayer;
+        protected const int OUT_OF_RANGE = -1;
+        public BaseLayer BaseLayer;
         public ObservableCollection<Action> Actions { get; set; }
         public ObservableCollection<ActionViewModel> ActionViewModels { get; set; }
+
+        public ActionsViewModel()
+        {}
 
         public ActionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;
-            this._baseLayer = baseLayer;
-            this.Actions = this._baseLayer.DssDbContext.Actions.Local;
+            this.BaseLayer = baseLayer;
+            this.Actions = this.BaseLayer.DssDbContext.Actions.Local;
             this.ActionViewModels = new ObservableCollection<ActionViewModel>();
             foreach (var action in this.Actions)
                 this.ActionViewModels.Add(new ActionViewModel(action, this, base.ErrorCatcher));
         }
 
-        public void AddAction(Action act)
+        public virtual void AddAction(Action act)
         {
             var thisActionsHaveAct = Actions.Any(a => a.Name.Trim() == act.Name.Trim());
             if (thisActionsHaveAct) return;
@@ -34,7 +37,7 @@ namespace DecisionSupportSystem.ViewModel
             Actions.Add(act);
         }
 
-        private int _selectedAction = OUT_OF_RANGE;
+        protected int _selectedAction = OUT_OF_RANGE;
         public void SelectAction(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
@@ -58,7 +61,7 @@ namespace DecisionSupportSystem.ViewModel
         {
             if (_selectedAction <= OUT_OF_RANGE || Actions.Count == 0) return;
             ActionViewModels.RemoveAt(_selectedAction);
-            _baseLayer.BaseMethods.DeleteAction(Actions[_selectedAction]);
+            BaseLayer.BaseMethods.DeleteAction(Actions[_selectedAction]);
         }
 
         public void UpdateAction(ActionViewModel callActionViewModel)

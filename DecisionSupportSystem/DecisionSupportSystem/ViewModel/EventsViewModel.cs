@@ -44,6 +44,17 @@ namespace DecisionSupportSystem.ViewModel
                 this.EventViewModels.Add(new EventViewModel(ev, this, base.ErrorCatcher));
         }
 
+        public EventsViewModel(ObservableCollection<Event> events, BaseLayer baseLayer, IErrorCatch errorCatcher)
+        {
+            this.Events = events;
+            base.ErrorCatcher = errorCatcher;
+            this._baseLayer = baseLayer;
+            this.EventViewModels = new ObservableCollection<EventViewModel>();
+            this.ProbabilitySumViewModel = new ProbabilitySumViewModel(base.ErrorCatcher);
+            foreach (var ev in this.Events)
+                this.EventViewModels.Add(new EventViewModel(ev, this, base.ErrorCatcher));
+        }
+
         public void AddEvent(Event even)
         {
             var thisEventsHaveEven = this.Events.Any(ev => ev.Name.Trim() == even.Name.Trim());
@@ -74,6 +85,7 @@ namespace DecisionSupportSystem.ViewModel
             if (_selectedEvent <= OUT_OF_RANGE || Events.Count == 0) return;
             EventViewModels.RemoveAt(_selectedEvent);
             _baseLayer.BaseMethods.DeleteEvent(Events[_selectedEvent]);
+            Events.RemoveAt(_selectedEvent);
             SumProbabilities();
         }
 

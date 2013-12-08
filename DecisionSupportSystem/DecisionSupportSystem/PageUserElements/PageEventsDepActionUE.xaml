@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="DecisionSupportSystem.PageUserElements.PageEventUE"
+﻿<UserControl x:Class="DecisionSupportSystem.PageUserElements.PageEventsDepActionUE"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,17 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="382.331" d:DesignWidth="464.662">
-    <Grid DataContext="{Binding}" Background="#FF6C9EC1">
-        <task:EventUE DataContext="{Binding Path=EventViewModel}" Height="186" VerticalAlignment="Top" Margin="0,40,0,0"/>
-        <Grid Margin="0,251,0,0">
-            <task:EventsMainDataGrid DataContext="{Binding Path=EventsViewModel}"/>
+             d:DesignHeight="354.135" d:DesignWidth="496.241">
+    <Grid Background="#FF6C9EC1">
+        <task:EventDepActionUE DataContext="{Binding Path=EventDepActionViewModel}" Height="145" VerticalAlignment="Top" Margin="0,40,0,0"/>
+        <Grid Margin="0,205,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <task:EventDepActionsDataGrid DataContext="{Binding Path=EventsDepActionsViewModel}" Margin="0,0,0,10"/>
         </Grid>
-        <Button Content="далее &gt;&gt;" 
-        	Style="{StaticResource NavigationButtonStyle}" HorizontalAlignment="Right"
-        	Margin="0,10,35,0" Height="25" VerticalAlignment="Top">
+        <Button Content="далее &gt;&gt;" Style="{StaticResource NavigationButtonStyle}" 
+        	VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,35,0" >
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="Click">
                     <i:CallMethodAction TargetObject="{Binding}"  MethodName="NextBtnClick_OnPageEvents"/>
@@ -31,7 +33,8 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="10,226,0,0" Width="233" FontSize="14" 
+        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="0,185,0,0" Width="233" FontSize="14" 
         	Padding="0,0,0,0" Height="20" VerticalAlignment="Top" Foreground="White" FontFamily="Calibri"/>
+
     </Grid>
 </UserControl>

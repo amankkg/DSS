@@ -8,8 +8,8 @@
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="519.925">
-    <Grid Name="MainGrid">
-        <DataGrid ItemsSource="{Binding Path=EventViewModels}" AutoGenerateColumns="False" CanUserAddRows="False">
+    <Grid>
+        <DataGrid Name="dataGrid" ItemsSource="{Binding Path=EventViewModels}" AutoGenerateColumns="False" CanUserAddRows="False">
 
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="SelectionChanged">

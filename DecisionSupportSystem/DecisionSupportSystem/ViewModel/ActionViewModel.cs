@@ -33,7 +33,10 @@ namespace DecisionSupportSystem.ViewModel
         }
         public ObservableCollection<ActionParam> EditableActionParams { get; set; }
         public ActionsViewModel ActionsViewModel { get; set; }
-        public ICommand AddActionCommand { get; private set; }
+        public ICommand AddActionCommand { get; set; }
+
+        public ActionViewModel()
+        {}
 
         public ActionViewModel(Action actionTemplate, ActionsViewModel actionsViewModel, IErrorCatch errorCatcher)
         {
@@ -48,7 +51,7 @@ namespace DecisionSupportSystem.ViewModel
             base.ErrorCatcher = errorCatcher;
         }
 
-        public void OnAddAction(object obj)
+        public virtual void OnAddAction(object obj)
         {
             if (base.ErrorCatcher.EntityErrorCount != 0) return;
             var actionParams = new Collection<ActionParam>();

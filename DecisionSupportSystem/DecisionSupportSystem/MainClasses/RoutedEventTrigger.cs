@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
 
@@ -14,9 +10,7 @@ namespace DecisionSupportSystem.MainClasses
         public RoutedEvent RoutedEvent
         {
             get
-            {
-                return _routedEvent;
-            }
+            { return _routedEvent; }
             set { _routedEvent = value; }
         }
 

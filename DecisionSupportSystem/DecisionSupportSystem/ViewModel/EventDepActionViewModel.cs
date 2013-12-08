@@ -1,47 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.MainClasses;
 using Microsoft.Practices.Prism.Commands;
-using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.ViewModel
 {
-    public class EventDepActionViewModel : BasePropertyChanged, IDataErrorInfo
+    public class EventDepActionViewModel : BasePropertyChanged
     {
-        public EventDepActionViewModel(BaseLayer baseLayer, EventDepActionViewModel eventDepActionsViewModel)
-        {
-            var ev = new Event();
-            this.Name = ev.Name;
-            this.Probability = ev.Probability;
-            Actions = baseLayer.DssDbContext.Actions.Local.ToList();
-            EventsWithActionListViewModel = eventDepActionsViewModel;
-            AddEventCommand = new DelegateCommand<object>(this.OnAddEvent, this.CanAddEvent);
-        }
-
-        public EventDepActionViewModel EventsWithActionListViewModel { get; set; }
-
+        public Event EditableEvent { get; set; }
+        public ObservableCollection<Action> Actions { get; set; }
         public ICommand AddEventCommand { get; private set; }
-
-        private void OnAddEvent(object obj)
-        {
-            this.EventsWithActionListViewModel.AddEvent(
-                Actions[ActionSelectedIndex], 
-                new Event
-                    {
-                        Name = this.Name, Probability = this.Probability
-                    });
-        }
-
-        private bool CanAddEvent(object obj)
-        {
-            return ErrorCount.EntityErrorCount == 0;
-        }
-        
-
+        public EventsDepActionsViewModel EventsDepActionsViewModel { get; set; }
         private int _actionSelectedIndex;
         public int ActionSelectedIndex
         {
@@ -58,85 +28,38 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
-        
-        private List<Action> _actions;
-        public List<Action> Actions
+
+        public EventDepActionViewModel(BaseLayer baseLayer, Event eventTemplate, EventsDepActionsViewModel eventsDepActionsViewModel, IErrorCatch errorCatcher)
         {
-            get
-            {
-                return _actions;
-            }
-            set
-            {
-                if (value != this._actions)
-                {
-                    this._actions = value;
-                    RaisePropertyChanged("Actions");
-                }
-            }
+            this.Actions = baseLayer.DssDbContext.Actions.Local;
+            this.EditableEvent = eventTemplate;
+            base.ErrorCatcher = errorCatcher;
+            this.EventsDepActionsViewModel = eventsDepActionsViewModel;
+            AddEventCommand = new DelegateCommand<object>(this.OnAddEvent);
         }
 
-        public Event Event { get; set; }
-
-        private string _name;
-        public string Name
+        private void OnAddEvent(object obj)
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (value != this._name)
+            if (ErrorCatcher.EntityErrorCount != 0) return;
+            var eventParams = new Collection<EventParam>();
+            foreach (var eventParam in EditableEvent.EventParams)
+                eventParams.Add(new EventParam
                 {
-                    this._name = value;
-                    RaisePropertyChanged("Name");
-                }
-            }
+                    Event = eventParam.Event,
+                    Value = eventParam.Value,
+                    EventId = eventParam.EventId,
+                    Id = eventParam.Id,
+                    EventParamName = eventParam.EventParamName
+                });
+            this.EventsDepActionsViewModel.AddEvent(
+                Actions[ActionSelectedIndex],
+               new Event
+               {
+                   Name = EditableEvent.Name,
+                   Probability = EditableEvent.Probability,
+                   EventParams = eventParams,
+                   SavingId = EditableEvent.SavingId
+               });
         }
-
-        private decimal _probability;
-        public decimal Probability
-        {
-            get
-            {
-                return _probability;
-            }
-            set
-            {
-                if (value != this._probability)
-                {
-                    this._probability = value;
-                    RaisePropertyChanged("Probability");
-                }
-            }
-        }
-        #region Реализация интерфейса IDataErrorInfo
-        public string Error { get { throw new NotImplementedException(); } }
-
-        public string this[string columnName]
-        {
-            get
-            {
-                string errormsg = null;
-                switch (columnName)
-                {
-                    case "Name":
-                        if (string.IsNullOrEmpty(Name))
-                            errormsg = "Введите название события";
-                        break;
-                    case "Probability":
-                        {
-                            if (Probability > 1)
-                                errormsg = "Вероятность не должна превышать 1";
-                            if (Probability == 0)
-                                errormsg = "Введите вероятность.";
-                        }
-                        break;
-                }
-                return errormsg;
-            }
-        }
-        #endregion
     }
 }

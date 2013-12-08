@@ -28,6 +28,8 @@ namespace DecisionSupportSystem.Tasks
         public EventViewModel EventViewModel { get; set; }
         public TaskParamsViewModel TaskParamsViewModel { get; set; }
         public CombinationsViewModel CombinationsViewModel { get; set; }
+        public EventsDepActionsViewModel EventsDepActionsViewModel { get; set; }
+        public EventDepActionViewModel EventDepActionViewModel { get; set; }
         public ErrorCatcher TaskParamErrorCatcher { get; set; }
         public ErrorCatcher ActionErrorCatcher { get; set; }
         public ErrorCatcher EventErrorCatcher { get; set; }
@@ -92,6 +94,8 @@ namespace DecisionSupportSystem.Tasks
             EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher);
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
             TaskParamsViewModel = new TaskParamsViewModel(BaseLayer, TaskParamErrorCatcher);
+            EventsDepActionsViewModel = new EventsDepActionsViewModel(BaseLayer, EventErrorCatcher);
+            EventDepActionViewModel = new EventDepActionViewModel(BaseLayer, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
         }
 
         // Создание комбинаций
@@ -140,12 +144,7 @@ namespace DecisionSupportSystem.Tasks
         }
         protected virtual Event CreateEventTemplate()
         {
-            var eventParamName = new EventParamName {Name = "Фактич. брак"};
-            return new Event{Name = "Событие", Probability = Convert.ToDecimal(0.5), SavingId = this.SavingID,
-                EventParams = new Collection<EventParam>
-                    {
-                        new EventParam{EventParamName = eventParamName
-                    }}};
+            return new Event{Name = "Событие", Probability = Convert.ToDecimal(0.5), SavingId = this.SavingID};
         }
         protected virtual Combination CreateCombinationTemplate()
         {

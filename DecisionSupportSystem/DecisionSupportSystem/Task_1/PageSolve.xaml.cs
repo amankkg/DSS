@@ -24,7 +24,7 @@ namespace DecisionSupportSystem.Task_1
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            _baseLayer.SolveThisTask();
+            _baseLayer.SolveThisTask(null);
             GrdSolutionLst.Items.Refresh();
         }
 

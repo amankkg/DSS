@@ -24,7 +24,7 @@ namespace DecisionSupportSystem.Task_
 
         private void BtnShowSolution_OnClick(object sender, RoutedEventArgs e)
         {
-            _baseLayer.SolveThisTask();
+            _baseLayer.SolveThisTask(null);
             SolutionDataGrid.Items.Refresh();
         }
 
