@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DecisionSupportSystem.MainClasses
+namespace DecisionSupportSystem.CommonClasses
 {
     public class ErrorCatcher : IErrorCatch
     {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Objects;
 using System.Reflection;
 using System.Windows;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 namespace DecisionSupportSystem
 {
@@ -30,12 +29,12 @@ namespace DecisionSupportSystem
         }
     }
 
-    public partial class SolvedTasksWindow
+    public partial class SolvedTasksPage
     {
         public Load Layer { get; set; }
         public TaskViewForMainWindows TaskViewForSolvedTaskWindow { get; set; }
 
-        public SolvedTasksWindow(TaskViewForMainWindows taskViewForSolvedTaskWindow)
+        public SolvedTasksPage(TaskViewForMainWindows taskViewForSolvedTaskWindow)
         {
             InitializeComponent();
             TaskViewForSolvedTaskWindow = taskViewForSolvedTaskWindow;

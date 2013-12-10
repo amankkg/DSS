@@ -3,16 +3,16 @@ using System.Reflection;
 using System.Windows;
  using System.Windows.Navigation;
  using System.Xml;
- using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 
 namespace DecisionSupportSystem
 {
-    public partial class MainWindow
+    public partial class MainPage
     {
         private NavigationService navigation;
 
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
         }
@@ -39,7 +39,7 @@ namespace DecisionSupportSystem
                     };
 
                 navigation = NavigationService.GetNavigationService(this);
-                navigation.Navigate(new SolvedTasksWindow(taskEx));
+                navigation.Navigate(new SolvedTasksPage(taskEx));
             }
         }
 

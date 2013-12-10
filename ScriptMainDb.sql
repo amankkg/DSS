@@ -33,6 +33,7 @@ CREATE TABLE [dbo].[Actions] (
     [Name] nvarchar(max)  NULL,
     [Emv] decimal(18,3)  NULL,
     [Eol] decimal(18,3)  NULL,
+	[ExtendableActionId] int NULL REFERENCES [dbo].[Actions]([Id]),
 	[SavingId] uniqueidentifier NULL,
 );
 GO

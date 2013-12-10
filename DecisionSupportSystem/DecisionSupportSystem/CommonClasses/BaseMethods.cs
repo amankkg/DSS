@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DecisionSupportSystem.DbModel;
 
-namespace DecisionSupportSystem.MainClasses
+namespace DecisionSupportSystem.CommonClasses
 { 
     public class BaseMethods
     {

@@ -12,7 +12,7 @@ namespace DecisionSupportSystem.DbModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ActionParamName
+    public partial class ActionParamName : BasePropertyChanged
     {
         public ActionParamName()
         {
@@ -20,7 +20,22 @@ namespace DecisionSupportSystem.DbModel
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (value != this._name)
+                {
+                    this._name = value;
+                    RaisePropertyChanged("Name");
+                }
+            }
+        }
     
         public virtual ICollection<ActionParam> ActionParams { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
 using System.Collections.ObjectModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using Microsoft.Practices.Prism.Commands;
 
 namespace DecisionSupportSystem.ViewModel

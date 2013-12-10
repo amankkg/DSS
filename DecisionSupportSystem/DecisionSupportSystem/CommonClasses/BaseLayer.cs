@@ -5,7 +5,7 @@ using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
 using Task = DecisionSupportSystem.DbModel.Task;
 
-namespace DecisionSupportSystem.MainClasses
+namespace DecisionSupportSystem.CommonClasses
 {
     public class BaseLayer
     {
@@ -120,7 +120,6 @@ namespace DecisionSupportSystem.MainClasses
         public void Save()
         {
             DssDbContext.SaveChanges();
-            NavigationWindowShower.IsSaved = true;
         }
 
         public List<Task> GetSolvedTasksFromDb(string taskUniq)

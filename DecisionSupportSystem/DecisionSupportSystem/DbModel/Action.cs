@@ -34,7 +34,9 @@ namespace DecisionSupportSystem.DbModel
         public Nullable<decimal> Emv { get; set; }
         public Nullable<decimal> Eol { get; set; }
         public Guid SavingId { get; set; }
-    
+        public int? ExtendableActionId { get; set; }
+         
+        public Action ExtendableAction { get; set; } 
         public virtual ICollection<ActionParam> ActionParams { get; set; }
         public virtual ICollection<Combination> Combinations { get; set; }
 

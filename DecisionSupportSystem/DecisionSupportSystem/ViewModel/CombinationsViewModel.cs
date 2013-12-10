@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 namespace DecisionSupportSystem.ViewModel
 {

@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using DecisionSupportSystem.DbModel;
 using System.Collections.ObjectModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using DecisionSupportSystem.PageUserElements;
 using DecisionSupportSystem.ViewModel;
 using Action = DecisionSupportSystem.DbModel.Action;
@@ -30,6 +30,10 @@ namespace DecisionSupportSystem.Tasks
         public CombinationsViewModel CombinationsViewModel { get; set; }
         public EventsDepActionsViewModel EventsDepActionsViewModel { get; set; }
         public EventDepActionViewModel EventDepActionViewModel { get; set; }
+        public ActionWithExtensionViewModel ActionWithExtensionViewModel { get; set; }
+        public ActionsWithExtensionsViewModel ActionsWithExtensionsViewModel { get; set; }
+        public EventWithExtensionViewModel EventWithExtensionViewModel { get; set; }
+        public EventsWithExtensionsViewModel EventsWithExtensionsViewModel { get; set; }
         public ErrorCatcher TaskParamErrorCatcher { get; set; }
         public ErrorCatcher ActionErrorCatcher { get; set; }
         public ErrorCatcher EventErrorCatcher { get; set; }

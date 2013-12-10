@@ -12,7 +12,9 @@ namespace DecisionSupportSystem.Tasks
         {
             return new Event{Name = "Событие", Probability = 1, SavingId = base.SavingID};
         }
-        protected override void CreateTaskParamsTemplate() { }
-        public override void SolveCP() { }
+        protected override void CreateTaskParamsTemplate() 
+        { }
+        public override void SolveCP() 
+        { }
     }
 }

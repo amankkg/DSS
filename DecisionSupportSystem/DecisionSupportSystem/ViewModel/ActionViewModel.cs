@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using Microsoft.Practices.Prism.Commands;
 using Action = DecisionSupportSystem.DbModel.Action;
 

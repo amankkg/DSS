@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 
 namespace DecisionSupportSystem.DbModel

@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.CommonClasses;
-using System.Collections.ObjectModel;
 
 namespace DecisionSupportSystem.ViewModel
 {
-    public class EventsViewModel : BasePropertyChanged
+    public class EventsWithExtensionsViewModel : BasePropertyChanged
     {
         private const int OUT_OF_RANGE = -1;
-        private BaseLayer _baseLayer;
+        public BaseLayer BaseLayer { get; set; }
         
         public ObservableCollection<Event> Events { get; set; }
-        public ObservableCollection<EventViewModel> EventViewModels { get; set; }
+        public ObservableCollection<EventWithExtensionViewModel> EventWithExtensionViewModels { get; set; }
        
         private ProbabilitySumViewModel _probabilitySumViewModel;
         public ProbabilitySumViewModel ProbabilitySumViewModel
@@ -33,33 +33,33 @@ namespace DecisionSupportSystem.ViewModel
             }
         } 
 
-        public EventsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public EventsWithExtensionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;
-            this._baseLayer = baseLayer;
-            this.Events = this._baseLayer.DssDbContext.Events.Local;
-            this.EventViewModels = new ObservableCollection<EventViewModel>();
+            this.BaseLayer = baseLayer;
+            this.Events = this.BaseLayer.DssDbContext.Events.Local;
+            this.EventWithExtensionViewModels = new ObservableCollection<EventWithExtensionViewModel>();
             this.ProbabilitySumViewModel = new ProbabilitySumViewModel(base.ErrorCatcher);
             foreach (var ev in this.Events)
-                this.EventViewModels.Add(new EventViewModel(ev, this, base.ErrorCatcher));
+                this.EventWithExtensionViewModels.Add(new EventWithExtensionViewModel(ev, this, base.ErrorCatcher));
         }
 
-        public EventsViewModel(ObservableCollection<Event> events, BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public EventsWithExtensionsViewModel(ObservableCollection<Event> events, BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             this.Events = events;
             base.ErrorCatcher = errorCatcher;
-            this._baseLayer = baseLayer;
-            this.EventViewModels = new ObservableCollection<EventViewModel>();
+            this.BaseLayer = baseLayer;
+            this.EventWithExtensionViewModels = new ObservableCollection<EventWithExtensionViewModel>();
             this.ProbabilitySumViewModel = new ProbabilitySumViewModel(base.ErrorCatcher);
             foreach (var ev in this.Events)
-                this.EventViewModels.Add(new EventViewModel(ev, this, base.ErrorCatcher));
+                this.EventWithExtensionViewModels.Add(new EventWithExtensionViewModel(ev, this, base.ErrorCatcher));
         }
 
         public void AddEvent(Event even)
         {
             var thisEventsHaveEven = this.Events.Any(ev => ev.Name.Trim() == even.Name.Trim());
             if (thisEventsHaveEven) return;
-            this.EventViewModels.Add(new EventViewModel(even, this, base.ErrorCatcher));
+            this.EventWithExtensionViewModels.Add(new EventWithExtensionViewModel(even, this, base.ErrorCatcher));
             this.Events.Add(even);
         }
 
@@ -68,14 +68,14 @@ namespace DecisionSupportSystem.ViewModel
         public void SelectEvent(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
-                try {  this._selectedEvent = this.FindIndexInEventViewModels((EventViewModel)e.AddedItems[0]); }
+                try { this._selectedEvent = this.FindIndexInEventViewModels((EventWithExtensionViewModel)e.AddedItems[0]); }
                 catch { this._selectedEvent = OUT_OF_RANGE; }
         }
 
-        private int FindIndexInEventViewModels(EventViewModel element)
+        private int FindIndexInEventViewModels(EventWithExtensionViewModel element)
         {
-            for (int i = 0; i < EventViewModels.Count; i++)
-                if (EventViewModels[i] == element)
+            for (int i = 0; i < EventWithExtensionViewModels.Count; i++)
+                if (EventWithExtensionViewModels[i] == element)
                     return i;
             return OUT_OF_RANGE;
         }
@@ -83,8 +83,8 @@ namespace DecisionSupportSystem.ViewModel
         public void DeleteEvent(object sender, RoutedEventArgs e)
         {
             if (_selectedEvent <= OUT_OF_RANGE || Events.Count == 0) return;
-            EventViewModels.RemoveAt(_selectedEvent);
-            _baseLayer.BaseMethods.DeleteEvent(Events[_selectedEvent]);
+            EventWithExtensionViewModels.RemoveAt(_selectedEvent);
+            BaseLayer.BaseMethods.DeleteEvent(Events[_selectedEvent]);
             Events.RemoveAt(_selectedEvent);
             SumProbabilities();
         }
@@ -95,22 +95,33 @@ namespace DecisionSupportSystem.ViewModel
                 ProbabilitySumViewModel.ChangeSum(Events.Select(ev => ev.Probability).ToList().Sum());
         }
 
-        public void UpdateEvent(EventViewModel callEventViewModel)
+        public void UpdateEvent(EventWithExtensionViewModel callEventViewModel)
         {
-            if (EventViewModels.Count != Events.Count || !EventViewModels.Contains(callEventViewModel)) return;
-            int index = EventViewModels.IndexOf(callEventViewModel);
+            if (EventWithExtensionViewModels.Count != Events.Count || !EventWithExtensionViewModels.Contains(callEventViewModel)) return;
+            int index = EventWithExtensionViewModels.IndexOf(callEventViewModel);
             RenameSimilarEvents(callEventViewModel);
             Events[index].Name = callEventViewModel.Name;
         }
 
-        void RenameSimilarEvents(EventViewModel callEventViewModel)
+        public void UpdateEventParams(EventWithExtensionViewModel callEventViewModel)
+        {
+            foreach (var eventWithExtensionViewModel in EventWithExtensionViewModels)
+            {
+                if (eventWithExtensionViewModel != callEventViewModel)
+                {
+                    eventWithExtensionViewModel.IsExtendableEvent = false;
+                }
+            }
+        }
+
+        void RenameSimilarEvents(EventWithExtensionViewModel callEventViewModel)
         {
             var simeventslist = SearchSimilarEvents(callEventViewModel.Name.Trim()).ToList();
             foreach (var ev in simeventslist)
             {
-                if (EventViewModels[Events.IndexOf(ev)] == callEventViewModel) continue;
+                if (EventWithExtensionViewModels[Events.IndexOf(ev)] == callEventViewModel) continue;
                 string name = callEventViewModel.Name;
-                EventViewModels[Events.IndexOf(ev)].Name = name + "*";
+                EventWithExtensionViewModels[Events.IndexOf(ev)].Name = name + "*";
                 ev.Name = name + "*";
             }
         }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              mc:Ignorable="d"
              d:DesignHeight="160.789" d:DesignWidth="535.715">
     <Grid Name="mainGrid">
