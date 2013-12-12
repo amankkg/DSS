@@ -15,6 +15,8 @@ namespace DecisionSupportSystem
         public void LoadTasks(string taskUniq)
         {
             Tasks = new List<Task>();
+            try
+            {
             using (var dssDbContext = new DssDbEntities())
             {
                 var tasks = (from task in dssDbContext.Tasks
@@ -26,6 +28,12 @@ namespace DecisionSupportSystem
                                          Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm, SavingId = t.SavingId, TaskParams = t.TaskParams});
                 }
             }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось подключиться к базе данных.");
+            }
+            
         }
     }
 
