@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DecisionSupportSystem.CommonClasses.BaseLayer">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQiAAoAAgAAAGAAEAAAACAQAAEAAAAAAAEBgQCAAAAA=</HashCode>
+      <FileName>CommonClasses\BaseLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.CommonClasses.BaseMethods">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAACAABGAIAABAACAAEgAAAEEAAAEAAAAAABAgAAE=</HashCode>
+      <FileName>CommonClasses\BaseMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.CommonClasses.ErrorCatcher">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAABAAAAAAAAAACAAAAAQBBAAAAAAAEAAA=</HashCode>
+      <FileName>CommonClasses\ErrorCatcher.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.CommonClasses.Load">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIAgAgAEJAABAAAEEAgQAoAgAgCAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>CommonClasses\Load.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.CommonClasses.RoutedEventTrigger">
+    <Position X="1.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAgAASAAAAAAAA=</HashCode>
+      <FileName>CommonClasses\RoutedEventTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DecisionSupportSystem.CommonClasses.IErrorCatch">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAACAAAAAQBBAAAAAAAEAAA=</HashCode>
+      <FileName>CommonClasses\IErrorCatch.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="DecisionSupportSystem.CommonClasses.EntityErrorCheck" Collapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommonClasses\IErrorCatch.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="DecisionSupportSystem.CommonClasses.EntityGroupErrorCheck" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommonClasses\IErrorCatch.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

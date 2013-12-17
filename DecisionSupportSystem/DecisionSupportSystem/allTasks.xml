@@ -102,7 +102,7 @@
      Решите предыдущее упражнение в предложении, что ежегодная учетная ставка равна 10% и что решение принимается с учетом инфляции.
     </Description>
     <TaskUniq>task10</TaskUniq>
-    <Window>DecisionSupportSystem.Tasks.TaskNumberNine</Window>
+    <Window>DecisionSupportSystem.Tasks.TaskNumberTen</Window>
   </Task>
 	<Task>
     <Name>Задача №11. Строительство в Арканзасе.</Name>

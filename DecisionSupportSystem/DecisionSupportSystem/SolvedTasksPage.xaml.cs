@@ -57,10 +57,10 @@ namespace DecisionSupportSystem
                 Layer = new Load((Task)gridTasks.SelectedItem);
                 Layer.LoadCombinations();
                 var asm = Assembly.GetExecutingAssembly();
-                var navigationwindow = asm.GetType(TaskViewForSolvedTaskWindow.Window);
-                object obj = Activator.CreateInstance(navigationwindow);
-                MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-                methodInfo.Invoke(obj, new[] { obj, TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
+                var task = asm.GetType(TaskViewForSolvedTaskWindow.Window);
+                object taskInstance = Activator.CreateInstance(task);
+                MethodInfo methodInfo = task.GetMethod("InitBaseLayerAndShowMainPage");
+                methodInfo.Invoke(taskInstance, new object[] {TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
             }
         }
 

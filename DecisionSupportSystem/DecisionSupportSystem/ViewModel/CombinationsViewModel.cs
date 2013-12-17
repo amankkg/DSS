@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.CommonClasses;
 
@@ -8,7 +9,7 @@ namespace DecisionSupportSystem.ViewModel
     {   
         public ObservableCollection<CombinationViewModel> CombinationViewModels { get; set; }
         public ObservableCollection<Combination> Combinations { get; set; }
-
+        public Visibility ParamsVisibility { get; set; }
         public CombinationsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             Combinations = baseLayer.DssDbContext.Combinations.Local;

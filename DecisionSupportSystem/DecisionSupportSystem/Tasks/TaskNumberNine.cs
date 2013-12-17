@@ -1,15 +1,44 @@
-﻿using System.Linq;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
 using DecisionSupportSystem.ViewModel;
+using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.Tasks
 {
     public class TaskNumberNine : TaskSpecific
     {
+        public ActionForTask9ViewModel ActionForTask9ViewModel { get; set; }
+        public ActionsForTask9ViewModel ActionsViewModel { get; set; }
+        public EventsViewModel EventsViewModel { get; set; }
+        public EventViewModel EventViewModel { get; set; }
+        public CombinationsViewModel CombinationsViewModel { get; set; }
+        public TaskParamsViewModel TaskParamsViewModel { get; set; }
+
+        public TaskNumberNine()
+        {
+            InitErrorCatchers();
+        }
+
+        protected override void InitViewModels()
+        {   
+            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher);
+            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
+            ActionsViewModel = new ActionsForTask9ViewModel(BaseLayer, ActionErrorCatcher);
+            ActionForTask9ViewModel = new ActionForTask9ViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher)
+                {EventViewModel = EventViewModel};
+            TaskParamsViewModel = new TaskParamsViewModel(BaseLayer, TaskParamErrorCatcher);
+        } 
+        protected override void InitCombinationViewModel()
+        {
+            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher) { ParamsVisibility = Visibility.Hidden }; 
+        }
         protected override void CreateTaskParamsTemplate()
         {
+            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Период:" } });
         }
 
         protected override Action CreateActionTemplate()
@@ -26,103 +55,104 @@ namespace DecisionSupportSystem.Tasks
                     new ActionParam
                         {
                             ActionParamName = new ActionParamName{Name = "Затрата:"}
+                        },
+                    new ActionParam
+                        {
+                            ActionParamName = new ActionParamName{Name = "Срок расширения:"}
+                        },
+                    new ActionParam
+                        {
+                            ActionParamName = new ActionParamName{Name = "Затрата на расширение:"}
+                        },
+                    new ActionParam
+                        {
+                            ActionParamName = new ActionParamName{Name = "Доход предпр:"}
+                        },
+                    new ActionParam
+                        {
+                            ActionParamName = new ActionParamName{Name = "Доход расшир:"}
                         }
                 }
             };
         }
-
         protected override Event CreateEventTemplate()
         {
-            var eventParamName = new EventParamName { Name = "Событие для расширения" };
             return new Event
             {
                 Name = "Событие",
                 Probability = 1,
                 SavingId = this.SavingID,
-                EventParams = new Collection<EventParam>
-                    {
-                        new EventParam{EventParamName = eventParamName
-                    }}
+                EventParams = new Collection<EventParam>()
             };
         }
-
         protected override Combination CreateCombinationTemplate()
         {
-            var combinParamNameS = new CombinParamName { Name = "Доход:" };
             return new Combination
             {
                 SavingId = base.SavingID,
-                CombinParams = new Collection<CombinParam>
-                        {
-                            new CombinParam{CombinParamName = combinParamNameS}
-                        }
+                CombinParams = new Collection<CombinParam>()
             };
         }
-        protected override void InitViewModels()
+
+        public virtual void SolveCp()
         {
-            base.InitViewModels();
-            ActionsWithExtensionsViewModel = new ActionsWithExtensionsViewModel(BaseLayer, ActionErrorCatcher);
-            ActionWithExtensionViewModel = new ActionWithExtensionViewModel(CreateActionTemplate(), ActionsWithExtensionsViewModel, ActionErrorCatcher);
-            EventsWithExtensionsViewModel = new EventsWithExtensionsViewModel(BaseLayer, EventErrorCatcher);
-            EventWithExtensionViewModel = new EventWithExtensionViewModel(CreateEventTemplate(), EventsWithExtensionsViewModel, EventErrorCatcher);
-        }
-        public override void SolveCP()
-        {
-             var combinations = BaseLayer.DssDbContext.Combinations.Local;
+            var combinations = BaseLayer.DssDbContext.Combinations.Local;
             foreach (var combination in combinations)
             {
-                if (combination.Action.ExtendableAction == null)
-                {
-                    decimal period = combination.Action.ActionParams.ToList()[0].Value;
-                    decimal debit = combination.CombinParams.ToList()[0].Value;
-                    decimal credit = combination.Action.ActionParams.ToList()[1].Value;
-                    combination.Cp = period * debit - credit;
-                }
+                if (combination.Action.ActionParams.ToList()[5].Value == -1)
+                    combination.Cp = combination.Action.ActionParams.ToList()[0].Value*
+                                     combination.Event.EventParams.ToList()[
+                                         Convert.ToInt32(combination.Action.ActionParams.ToList()[4].Value)].Value -
+                                     combination.Action.ActionParams.ToList()[1].Value;
                 else
-                {
-                    decimal beforeExtendPeriod = combination.Action.ActionParams.ToList()[0].Value;
-                    decimal afterExtendPeriod = combination.Action.ExtendableAction.ActionParams.ToList()[0].Value -
-                                                beforeExtendPeriod;
-                    decimal beforeExtendCredit = combination.Action.ExtendableAction.ActionParams.ToList()[1].Value;
-                    decimal afterExtendCredit = combination.Action.ActionParams.ToList()[1].Value;
-                    var extendableEvent = BaseLayer.DssDbContext.Events.Local.ToList().First(ev => ev.EventParams.ToList()[0].Value == 1);
-                    decimal beforeExtendDebit = combinations.Where(c => c.Action == combination.Action.ExtendableAction &&
-                                                c.Event == extendableEvent).Select(c => c).First().CombinParams.ToList()[0].Value;
-                    decimal afterExtendDebit = combination.CombinParams.ToList()[0].Value;
-                    combination.Cp = (beforeExtendPeriod*beforeExtendDebit - beforeExtendCredit) +
-                                     (afterExtendPeriod*afterExtendDebit - afterExtendCredit);
-                }
+                    combination.Cp = combination.Action.ActionParams.ToList()[0].Value*
+                                     combination.Event.EventParams.ToList()[
+                                         Convert.ToInt32(combination.Action.ActionParams.ToList()[4].Value)].Value +
+                                     combination.Action.ActionParams.ToList()[2].Value*
+                                     combination.Event.EventParams.ToList()[
+                                         Convert.ToInt32(combination.Action.ActionParams.ToList()[5].Value)].Value -
+                                     combination.Action.ActionParams.ToList()[1].Value -
+                                     combination.Action.ActionParams.ToList()[3].Value;
             }
+        }        
+        protected override int GetActionsCount()
+        {
+            return ActionsViewModel.Actions.Count;
         }
-
-        public override void NextBtnClick_OnPageMain(object sender, System.Windows.RoutedEventArgs e)
+        protected override int GetEventsCount()
+        {
+            return EventsViewModel.Events.Count;
+        }
+        public override void NextBtnClick_OnPageMain(object sender, RoutedEventArgs e)
         {
             if (TaskParamErrorCatcher.EntityErrorCount != 0) return;
-            ContentPage.Content = new PageActionWithExtensionUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageActionForTask9UE { DataContext = this });
         }
-        public override void NextBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
+        public override void NextBtnClick_OnPageActions(object sender, RoutedEventArgs e)
         {
-            if (ActionErrorCatcher.EntityGroupErrorCount != 0 || ActionsWithExtensionsViewModel.Actions.Count == 0) return;
-            ContentPage.Content = new PageEventWithExtensionUE { DataContext = this };
-            Navigate();
+            if (ActionErrorCatcher.EntityGroupErrorCount != 0 || GetActionsCount() == 0) return;
+            SetContentUEAtContentPageAndNavigate(new PageEventUE {DataContext = this});
         }
-        public override void PrevBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
+        public override void PrevBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
         {
-            ContentPage.Content = new PageActionWithExtensionUE { DataContext = this };
-            Navigate(); 
+            SetContentUEAtContentPageAndNavigate(new PageActionForTask9UE {DataContext = this});
         }
-        public override void NextBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
+        public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
         {
-            if (EventErrorCatcher.EntityGroupErrorCount != 0 || EventsViewModel.Events.Count == 0) return;
+            if (EventErrorCatcher.EntityGroupErrorCount != 0 || GetEventsCount() == 0) return;
             CreateCombinations();
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE {DataContext = this});
         }
-        public override void PrevBtnClick_OnPageSolve(object sender, System.Windows.RoutedEventArgs e)
+        public override void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithCpUE {DataContext = this});
+        }
+        public override void NextBtnClick_OnPageCombinations(object sender, RoutedEventArgs e)
+        {
+            if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
+            SolveCp();
+            BaseLayer.SolveThisTask(null);
+            SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
     }
 }

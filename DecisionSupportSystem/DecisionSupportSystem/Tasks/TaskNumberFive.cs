@@ -1,14 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
+using DecisionSupportSystem.ViewModel;
 
 namespace DecisionSupportSystem.Tasks
 {
     public class TaskNumberFive : TaskSpecific
     {
-        public List<Combination> FictiveCombinations { get; set; }
+        public ActionsViewModel ActionsViewModel { get; set; }
+        public ActionViewModel ActionViewModel { get; set; }
+        public EventsDepActionsViewModel EventsDepActionsViewModel { get; set; }
+        public EventDepActionViewModel EventDepActionViewModel { get; set; }
+        public CombinationsViewModel CombinationsViewModel { get; set; }
+
+        public TaskNumberFive()
+        {
+            InitErrorCatchers();
+        }
+
+        public List<Combination> FictiveCombinations { get; set; }   
+        protected override void InitViewModels()
+        {
+            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher);
+            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
+            EventsDepActionsViewModel = new EventsDepActionsViewModel(BaseLayer, EventErrorCatcher);
+            EventDepActionViewModel = new EventDepActionViewModel(BaseLayer, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
+        }
+        protected override void InitCombinationViewModel()
+        {
+            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher);
+        }
         protected override void CreateTaskParamsTemplate() { }
         protected override Action CreateActionTemplate()
         {
@@ -32,9 +58,10 @@ namespace DecisionSupportSystem.Tasks
                         }
             };
         }
-        public override void CreateCombinations()
+
+        protected override void CreateCombinations()
         {
-            var lastCombinations = GetLastCombinations(BaseLayer);
+            var lastCombinations = GetCombinations(BaseLayer);
             var actions = EventsDepActionsViewModel.EventsDependingActions;
             foreach (var eventsDependingAction in actions)
             {
@@ -42,7 +69,7 @@ namespace DecisionSupportSystem.Tasks
                 if (events.Count == 0) events.Add(null);
                 foreach (var even in events)
                 {
-                    if (!HaveAction(eventsDependingAction.Action, lastCombinations) || !HaveEvent(even, lastCombinations))
+                    if (!ActionContainsInCombinations(eventsDependingAction.Action, lastCombinations) || !EventContainsInCombinations(even, lastCombinations))
                     {
                         BaseLayer.BaseMethods.AddCombination(CreateCombinationTemplate(), eventsDependingAction.Action, even, BaseLayer.Task, 0);
                     }
@@ -51,7 +78,6 @@ namespace DecisionSupportSystem.Tasks
             InitCombinationViewModel();
             CreateFictiveCombinations();
         }
-
         public void CreateFictiveCombinations()
         {
             FictiveCombinations = new List<Combination>();
@@ -71,47 +97,60 @@ namespace DecisionSupportSystem.Tasks
                         FictiveCombinations.Add(combination[0]);
                 }
         }
-
-        public override void SolveCP()
+        public void SolveCp()
         {
             var combinations = BaseLayer.DssDbContext.Combinations.Local;
             foreach (var combination in combinations)
-            {
                 combination.Cp = combination.CombinParams.ToList()[0].Value - combination.CombinParams.ToList()[1].Value;
-            }
         }
 
-        public override void NextBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
+        protected override void ShowPageMain()
         {
-            if (ActionErrorCatcher.EntityGroupErrorCount != 0 || ActionsViewModel.Actions.Count == 0) return;
+            ContentPage = new Page();
+            var pageMainUe = new PageActionUE { DataContext = this, PrevBtnVisibility = Visibility.Hidden };
+            ContentPage.Content = pageMainUe;
+            Navigation = NavigationService.GetNavigationService(pageMainUe.Parent);
+            ShowNavigationWindow(ContentPage);
+        }
+        
+        public override void PrevBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
+        {
+            SetContentUEAtContentPageAndNavigate(new PageActionUE { DataContext = this, PrevBtnVisibility = Visibility.Hidden });
+        }
+        public override void NextBtnClick_OnPageActions(object sender, RoutedEventArgs e)
+        {
+            if (ActionErrorCatcher.EntityGroupErrorCount != 0 || GetActionsCount() == 0) return;
             EventsDepActionsViewModel.CheckForUpdatedData();
-            ContentPage.Content = new PageEventsDepActionUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageEventsDepActionUE {DataContext = this});
         }
-        public override void PrevBtnClick_OnPageCombinations(object sender, System.Windows.RoutedEventArgs e)
+        public override void PrevBtnClick_OnPageCombinations(object sender, RoutedEventArgs e)
         {
-            ContentPage.Content = new PageEventsDepActionUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageEventsDepActionUE { DataContext = this });
         }
-        public override void NextBtnClick_OnPageCombinations(object sender, System.Windows.RoutedEventArgs e)
+        public override void NextBtnClick_OnPageCombinations(object sender, RoutedEventArgs e)
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
-            SolveCP();
+            SolveCp();
             BaseLayer.SolveThisTask(FictiveCombinations);
-            ContentPage.Content = new PageSolveUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
-        public override void NextBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
+        public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
         {
-            if (EventErrorCatcher.EntityGroupErrorCount != 0 || EventsDepActionsViewModel.EventsDependingActions.Count == 0) return;
+            if (EventErrorCatcher.EntityGroupErrorCount != 0 || GetEventsCount() == 0) return;
             CreateCombinations();
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE { DataContext = this });
         }
-        public override void PrevBtnClick_OnPageSolve(object sender, System.Windows.RoutedEventArgs e)
+        public override void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE { DataContext = this });
+        }  
+        protected override int GetActionsCount()
+        {
+            return ActionsViewModel.Actions.Count;
+        }
+        protected override int GetEventsCount()
+        {
+            return EventsDepActionsViewModel.EventsDependingActions.Count;
         }
     }
 }

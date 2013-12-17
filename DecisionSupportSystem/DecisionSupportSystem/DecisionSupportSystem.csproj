@@ -155,6 +155,9 @@
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonClasses\TaskViewForMainWindows.cs" />
+    <Compile Include="PageUserElements\PageActionForTask9UE.xaml.cs">
+      <DependentUpon>PageActionForTask9UE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageUserElements\PageActionWithExtensionUE.xaml.cs">
       <DependentUpon>PageActionWithExtensionUE.xaml</DependentUpon>
     </Compile>
@@ -164,18 +167,32 @@
     <Compile Include="PageUserElements\PageEventWithExtensionUE.xaml.cs">
       <DependentUpon>PageEventWithExtensionUE.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tasks\TaskNumberEight.cs" />
-    <Compile Include="Tasks\TaskNumberFive.cs" />
-    <Compile Include="Tasks\TaskNumberFour.cs" />
-    <Compile Include="Tasks\TaskNumberNine.cs" />
-    <Compile Include="Tasks\TaskNumberOne.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
+    <Compile Include="Tasks\TaskNumberEight.cs" />
+    <Compile Include="Tasks\TaskNumberFive.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskNumberFour.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskNumberNine.cs" />
+    <Compile Include="Tasks\TaskNumberOne.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskNumberTen.cs" />
     <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
       <DependentUpon>ActionEmvEolsUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\ActionsDataGridForTask9.xaml.cs">
+      <DependentUpon>ActionsDataGridForTask9.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\ActionUEForTask9.xaml.cs">
+      <DependentUpon>ActionUEForTask9.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserElements\ActionWithExtensionUE.xaml.cs">
       <DependentUpon>ActionWithExtensionUE.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserElements\ChangeableDataGrid.cs" />
     <Compile Include="UserElements\CombinationsWithCpDataGrid.xaml.cs">
       <DependentUpon>CombinationsWithCpDataGrid.xaml</DependentUpon>
     </Compile>
@@ -200,6 +217,8 @@
     <Compile Include="UserElements\EventWithExtensionUE.xaml.cs">
       <DependentUpon>EventWithExtensionUE.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ActionForTask9ViewModel.cs" />
+    <Compile Include="ViewModel\ActionsForTask9ViewModel.cs" />
     <Compile Include="ViewModel\ActionsWithExtensionsViewModel.cs" />
     <Compile Include="ViewModel\ActionWithExtensionViewModel.cs" />
     <Compile Include="ViewModel\CombinationViewModel.cs" />
@@ -261,6 +280,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageUserElements\PageActionForTask9UE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageUserElements\PageActionWithExtensionUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -274,6 +297,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserElements\ActionEmvEolsUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\ActionsDataGridForTask9.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserElements\ActionUEForTask9.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -408,6 +439,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DssDbContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="CommonClassesDiagram.cd" />
     <None Include="DbModel\DssDbContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DssDbContext.edmx</DependentUpon>
@@ -429,6 +461,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="TasksDiagramm.cd" />
+    <None Include="ViewModelsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Windows;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.CommonClasses;
 
@@ -33,7 +34,7 @@ namespace DecisionSupportSystem.ViewModel
                 EventsDependingActions.Add(new EventsDependingAction
                 {
                     Action = action,
-                    EventsViewModel = new EventsViewModel(eventsDepAction, BaseLayer, base.ErrorCatcher)
+                    EventsViewModel = new EventsViewModel(eventsDepAction, BaseLayer, base.ErrorCatcher){ParamsVisibility = Visibility.Hidden}
                 });
             }
         }

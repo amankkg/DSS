@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using DecisionSupportSystem.DbModel;
@@ -31,10 +32,27 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
+
+        private Visibility _paramsVisibility;
+        public Visibility ParamsVisibility
+        {
+            get
+            {
+                return _paramsVisibility;
+            }
+            set
+            {
+                if (value != this._paramsVisibility)
+                {
+                    this._paramsVisibility = value;
+                    RaisePropertyChanged("ParamsVisibility");
+                }
+            }
+        }
         public ObservableCollection<ActionParam> EditableActionParams { get; set; }
         public ActionsViewModel ActionsViewModel { get; set; }
         public ICommand AddActionCommand { get; set; }
-
+      
         public ActionViewModel()
         {}
 
@@ -48,6 +66,8 @@ namespace DecisionSupportSystem.ViewModel
             var actionParams = this.EditableAction.ActionParams.ToList();
             foreach (var actionParam in actionParams)
                 this.EditableActionParams.Add(actionParam);
+            if(EditableActionParams.Count == 0)
+                ParamsVisibility = Visibility.Hidden;
             base.ErrorCatcher = errorCatcher;
         }
 

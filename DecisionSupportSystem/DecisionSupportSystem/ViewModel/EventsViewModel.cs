@@ -31,8 +31,8 @@ namespace DecisionSupportSystem.ViewModel
                     RaisePropertyChanged("ProbabilitySumViewModel");
                 }
             }
-        } 
-
+        }
+        public Visibility ParamsVisibility { get; set; }
         public EventsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;

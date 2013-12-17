@@ -36,22 +36,10 @@ namespace DecisionSupportSystem.CommonClasses
             dssDbContext.Actions.Local.Add(action);
         }
 
-        public void AddActionParamName(ActionParamName actionParamName)
-        {
-            if (actionParamName == null) return;
-                dssDbContext.ActionParamNames.Add(actionParamName);
-        }
-
         public void AddEvent(Event eEvent)
         {
             if (eEvent == null) return;
             dssDbContext.Events.Add(eEvent);
-        }
-
-        public void AddEventParamName(EventParamName eventParamName)
-        {
-            if (eventParamName == null) return;
-            dssDbContext.EventParamNames.Add(eventParamName);
         }
         
         public void AddActionParam(Action action, ActionParam param, ActionParamName name, decimal value)

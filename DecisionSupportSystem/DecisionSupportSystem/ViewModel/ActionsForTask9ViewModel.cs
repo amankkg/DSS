@@ -1,38 +1,37 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.CommonClasses;
-using Action = DecisionSupportSystem.DbModel.Action;
+using DecisionSupportSystem.DbModel;
 
 namespace DecisionSupportSystem.ViewModel
 {
-    public class ActionsViewModel : BasePropertyChanged
+    public class ActionsForTask9ViewModel : BasePropertyChanged
     {
         protected const int OUT_OF_RANGE = -1;
         public BaseLayer BaseLayer;
         public ObservableCollection<Action> Actions { get; set; }
-        public ObservableCollection<ActionViewModel> ActionViewModels { get; set; }
+        public ObservableCollection<ActionForTask9ViewModel> ActionForTask9ViewModels { get; set; }
         public Visibility ParamsVisibility { get; set; }
-        public ActionsViewModel(){}
+        public ActionsForTask9ViewModel(){}
 
-        public ActionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public ActionsForTask9ViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;
             this.BaseLayer = baseLayer;
             this.Actions = this.BaseLayer.DssDbContext.Actions.Local;
-            this.ActionViewModels = new ObservableCollection<ActionViewModel>();
+            this.ActionForTask9ViewModels = new ObservableCollection<ActionForTask9ViewModel>();
             foreach (var action in this.Actions)
-                this.ActionViewModels.Add(new ActionViewModel(action, this, base.ErrorCatcher));
+                this.ActionForTask9ViewModels.Add(new ActionForTask9ViewModel(action, this, base.ErrorCatcher));
         }
 
         public virtual void AddAction(Action act)
         {
             var thisActionsHaveAct = Actions.Any(a => a.Name.Trim() == act.Name.Trim());
             if (thisActionsHaveAct) return;
-            ActionViewModels.Add(new ActionViewModel(act, this, base.ErrorCatcher));
+            ActionForTask9ViewModels.Add(new ActionForTask9ViewModel(act, this, base.ErrorCatcher));
             Actions.Add(act);
         }
 
@@ -41,17 +40,17 @@ namespace DecisionSupportSystem.ViewModel
         {
             if (e.AddedItems.Count > 0)
                 try {
-                    _selectedAction = FindIndexInActionViewModels((ActionViewModel) e.AddedItems[0]);
+                    _selectedAction = FindIndexInActionViewModels((ActionForTask9ViewModel)e.AddedItems[0]);
                     }
                 catch {
                     _selectedAction = OUT_OF_RANGE;
                       }
         }
-        
-        private int FindIndexInActionViewModels(ActionViewModel element)
+
+        private int FindIndexInActionViewModels(ActionForTask9ViewModel element)
         {
-            for (int i = 0; i < ActionViewModels.Count; i++)
-                if (ActionViewModels[i] == element)
+            for (int i = 0; i < ActionForTask9ViewModels.Count; i++)
+                if (ActionForTask9ViewModels[i] == element)
                     return i;
             return OUT_OF_RANGE;
         }
@@ -59,25 +58,25 @@ namespace DecisionSupportSystem.ViewModel
         public void DeleteAction(object sender, RoutedEventArgs e)
         {
             if (_selectedAction <= OUT_OF_RANGE || Actions.Count == 0) return;
-            ActionViewModels.RemoveAt(_selectedAction);
+            ActionForTask9ViewModels.RemoveAt(_selectedAction);
             BaseLayer.BaseMethods.DeleteAction(Actions[_selectedAction]);
         }
 
-        public void UpdateAction(ActionViewModel callActionViewModel)
+        public void UpdateAction(ActionForTask9ViewModel callActionViewModel)
         {
-            if (ActionViewModels.Count != Actions.Count || !ActionViewModels.Contains(callActionViewModel)) return;
-            int index = ActionViewModels.IndexOf(callActionViewModel);
+            if (ActionForTask9ViewModels.Count != Actions.Count || !ActionForTask9ViewModels.Contains(callActionViewModel)) return;
+            int index = ActionForTask9ViewModels.IndexOf(callActionViewModel);
             RenameSimilarActs(callActionViewModel);
             Actions[index].Name = callActionViewModel.EditableAction.Name;
         }
 
-        void RenameSimilarActs(ActionViewModel callActionViewModel)
+        void RenameSimilarActs(ActionForTask9ViewModel callActionViewModel)
         {
             var simactslist = SearchSimilarActs(callActionViewModel.Name.Trim()).ToList();
             foreach (var action in simactslist)
             {
                 string name = callActionViewModel.Name;
-                ActionViewModels[Actions.IndexOf(action)].Name = name + "*";
+                ActionForTask9ViewModels[Actions.IndexOf(action)].Name = name + "*";
                 action.Name = name + "*";
             }
         }

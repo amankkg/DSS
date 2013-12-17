@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberEight">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAAAAAMIAAAEAAAAAAAAAQAQAAAAAAAAAAA=</HashCode>
+      <FileName>Tasks\TaskNumberEight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberFive">
+    <Position X="0.5" Y="3" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAiggAAAgIAAMMAAAEAAAAABAAAQAYCAAAAAABAAA=</HashCode>
+      <FileName>Tasks\TaskNumberFive.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberFour">
+    <Position X="6.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAAIAAMIAAAEAAAAABAAAQAQAAAAAAABAAA=</HashCode>
+      <FileName>Tasks\TaskNumberFour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskSpecific">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>iAAAkgIAAAgIAAMEdIAEAAIwARACAUAYSACQAAQFUAM=</HashCode>
+      <FileName>Tasks\TaskSpecific.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberNine">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAgIAAIIQAAEAAAAAAAAAQAQAAAAAAABAAA=</HashCode>
+      <FileName>Tasks\TaskNumberNine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberTenNew">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAggAAEAgIAAMIQAAEAAAAAAAAAQAQAAAIAAABAAA=</HashCode>
+      <FileName>Tasks\TaskNumberTenNew.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.Tasks.TaskNumberOne" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <InheritanceLine Type="DecisionSupportSystem.Tasks.TaskSpecific" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="1.93" />
+        <Point X="4.25" Y="2.438" />
+        <Point X="7.75" Y="2.438" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABgAIAEAAIEgMAAIAEAAAAABIAAAAQAAAAAAABAAA=</HashCode>
+      <FileName>Tasks\TaskNumberOne.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.CommonClasses;
@@ -28,11 +29,28 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
-
+        private Visibility _paramsVisibility;
+        public Visibility ParamsVisibility
+        {
+            get
+            {
+                return _paramsVisibility;
+            }
+            set
+            {
+                if (value != this._paramsVisibility)
+                {
+                    this._paramsVisibility = value;
+                    RaisePropertyChanged("ParamsVisibility");
+                }
+            }
+        }
         public EventDepActionViewModel(BaseLayer baseLayer, Event eventTemplate, EventsDepActionsViewModel eventsDepActionsViewModel, IErrorCatch errorCatcher)
         {
             this.Actions = baseLayer.DssDbContext.Actions.Local;
             this.EditableEvent = eventTemplate;
+            if (EditableEvent.EventParams.Count == 0)
+                ParamsVisibility = Visibility.Hidden;
             base.ErrorCatcher = errorCatcher;
             this.EventsDepActionsViewModel = eventsDepActionsViewModel;
             AddEventCommand = new DelegateCommand<object>(this.OnAddEvent);
