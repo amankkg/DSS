@@ -61,7 +61,7 @@
       Симметричная монета бросается 3 раза.
     </Description>
     <TaskUniq>task6</TaskUniq>
-    <Window>DecisionSupportSystem.Task_6.PageOptions</Window>
+    <Window>DecisionSupportSystem.Tasks.TaskNumberSix</Window>
   </Task>
   <Task>
     <Name>Задача №7: Симметричная игральная кость.</Name>

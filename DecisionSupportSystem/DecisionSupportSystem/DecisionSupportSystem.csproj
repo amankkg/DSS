@@ -158,10 +158,14 @@
     <Compile Include="PageUserElements\PageEventsDepActionUE.xaml.cs">
       <DependentUpon>PageEventsDepActionUE.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageUserElements\PageOptionsTask6.xaml.cs">
+      <DependentUpon>PageOptionsTask6.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\TaskNumberEight.cs" />
     <Compile Include="Tasks\TaskNumberFive.cs" />
     <Compile Include="Tasks\TaskNumberFour.cs" />
     <Compile Include="Tasks\TaskNumberOne.cs" />
+    <Compile Include="Tasks\TaskNumberSix.cs" />
     <Compile Include="Task_1\LocalTaskLayer.cs" />
     <Compile Include="DbModel\EventsDependingAction.cs" />
     <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
@@ -205,6 +209,7 @@
     </Compile>
     <Compile Include="ViewModel\EventDepActionViewModel.cs" />
     <Compile Include="ViewModel\EventsDepActionsViewModel.cs" />
+    <Compile Include="ViewModel\PageOptionsTask6ViewModel.cs" />
     <Compile Include="ViewModel\ProbabilitySumViewModel.cs" />
     <Compile Include="ViewModel\TaskParamsViewModel.cs" />
     <Compile Include="UserElements\TaskRecomendationUE.xaml.cs">
@@ -420,6 +425,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageUserElements\PageEventsDepActionUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageOptionsTask6.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
