@@ -1,7 +1,7 @@
 ﻿//using BaseModel;
 using DecisionSupportSystem.DbModel;
 
-namespace DecisionSupportSystem.MainClasses
+namespace DecisionSupportSystem.CommonClasses
 {
     public class CpMax
     {

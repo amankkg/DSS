@@ -18,47 +18,51 @@
           <EntitySet Name="TaskParamNames" EntityType="Хранилище DssDbModel.TaskParamNames" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TaskParams" EntityType="Хранилище DssDbModel.TaskParams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tasks" EntityType="Хранилище DssDbModel.Tasks" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__ActionPar__Actio__21B6055D" Association="Хранилище DssDbModel.FK__ActionPar__Actio__21B6055D">
+          <AssociationSet Name="FK__ActionPar__Actio__22AA2996" Association="Хранилище DssDbModel.FK__ActionPar__Actio__22AA2996">
             <End Role="Actions" EntitySet="Actions" />
             <End Role="ActionParams" EntitySet="ActionParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__ActionPar__NameI__22AA2996" Association="Хранилище DssDbModel.FK__ActionPar__NameI__22AA2996">
+          <AssociationSet Name="FK__ActionPar__NameI__239E4DCF" Association="Хранилище DssDbModel.FK__ActionPar__NameI__239E4DCF">
             <End Role="ActionParamNames" EntitySet="ActionParamNames" />
             <End Role="ActionParams" EntitySet="ActionParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__Combinati__Actio__0DAF0CB0" Association="Хранилище DssDbModel.FK__Combinati__Actio__0DAF0CB0">
+          <AssociationSet Name="FK__Actions__Extenda__014935CB" Association="Хранилище DssDbModel.FK__Actions__Extenda__014935CB">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Actions1" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Combinati__Actio__0EA330E9" Association="Хранилище DssDbModel.FK__Combinati__Actio__0EA330E9">
             <End Role="Actions" EntitySet="Actions" />
             <End Role="Combinations" EntitySet="Combinations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Combinati__Event__0EA330E9" Association="Хранилище DssDbModel.FK__Combinati__Event__0EA330E9">
+          <AssociationSet Name="FK__Combinati__Event__0F975522" Association="Хранилище DssDbModel.FK__Combinati__Event__0F975522">
             <End Role="Events" EntitySet="Events" />
             <End Role="Combinations" EntitySet="Combinations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Combinati__TaskI__0F975522" Association="Хранилище DssDbModel.FK__Combinati__TaskI__0F975522">
+          <AssociationSet Name="FK__Combinati__TaskI__108B795B" Association="Хранилище DssDbModel.FK__Combinati__TaskI__108B795B">
             <End Role="Tasks" EntitySet="Tasks" />
             <End Role="Combinations" EntitySet="Combinations" />
           </AssociationSet>
-          <AssociationSet Name="FK__CombinPar__Combi__182C9B23" Association="Хранилище DssDbModel.FK__CombinPar__Combi__182C9B23">
+          <AssociationSet Name="FK__CombinPar__Combi__1920BF5C" Association="Хранилище DssDbModel.FK__CombinPar__Combi__1920BF5C">
             <End Role="Combinations" EntitySet="Combinations" />
             <End Role="CombinParams" EntitySet="CombinParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__CombinPar__NameI__1920BF5C" Association="Хранилище DssDbModel.FK__CombinPar__NameI__1920BF5C">
+          <AssociationSet Name="FK__CombinPar__NameI__1A14E395" Association="Хранилище DssDbModel.FK__CombinPar__NameI__1A14E395">
             <End Role="CombinParamNames" EntitySet="CombinParamNames" />
             <End Role="CombinParams" EntitySet="CombinParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__EventPara__Event__2B3F6F97" Association="Хранилище DssDbModel.FK__EventPara__Event__2B3F6F97">
+          <AssociationSet Name="FK__EventPara__Event__2C3393D0" Association="Хранилище DssDbModel.FK__EventPara__Event__2C3393D0">
             <End Role="Events" EntitySet="Events" />
             <End Role="EventParams" EntitySet="EventParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__EventPara__NameI__2C3393D0" Association="Хранилище DssDbModel.FK__EventPara__NameI__2C3393D0">
+          <AssociationSet Name="FK__EventPara__NameI__2D27B809" Association="Хранилище DssDbModel.FK__EventPara__NameI__2D27B809">
             <End Role="EventParamNames" EntitySet="EventParamNames" />
             <End Role="EventParams" EntitySet="EventParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__TaskParam__NameI__35BCFE0A" Association="Хранилище DssDbModel.FK__TaskParam__NameI__35BCFE0A">
+          <AssociationSet Name="FK__TaskParam__NameI__36B12243" Association="Хранилище DssDbModel.FK__TaskParam__NameI__36B12243">
             <End Role="TaskParamNames" EntitySet="TaskParamNames" />
             <End Role="TaskParams" EntitySet="TaskParams" />
           </AssociationSet>
-          <AssociationSet Name="FK__TaskParam__TaskI__34C8D9D1" Association="Хранилище DssDbModel.FK__TaskParam__TaskI__34C8D9D1">
+          <AssociationSet Name="FK__TaskParam__TaskI__35BCFE0A" Association="Хранилище DssDbModel.FK__TaskParam__TaskI__35BCFE0A">
             <End Role="Tasks" EntitySet="Tasks" />
             <End Role="TaskParams" EntitySet="TaskParams" />
           </AssociationSet>
@@ -87,6 +91,7 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Emv" Type="decimal" Scale="3" />
           <Property Name="Eol" Type="decimal" Scale="3" />
+          <Property Name="ExtendableActionId" Type="int" />
           <Property Name="SavingId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Combinations">
@@ -175,7 +180,7 @@
           <Property Name="Deleted" Type="int" Nullable="false" />
           <Property Name="TreeDiagramm" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK__ActionPar__Actio__21B6055D">
+        <Association Name="FK__ActionPar__Actio__22AA2996">
           <End Role="Actions" Type="Хранилище DssDbModel.Actions" Multiplicity="0..1" />
           <End Role="ActionParams" Type="Хранилище DssDbModel.ActionParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -187,7 +192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ActionPar__NameI__22AA2996">
+        <Association Name="FK__ActionPar__NameI__239E4DCF">
           <End Role="ActionParamNames" Type="Хранилище DssDbModel.ActionParamNames" Multiplicity="0..1" />
           <End Role="ActionParams" Type="Хранилище DssDbModel.ActionParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,7 +204,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Combinati__Actio__0DAF0CB0">
+        <Association Name="FK__Actions__Extenda__014935CB">
+          <End Role="Actions" Type="Хранилище DssDbModel.Actions" Multiplicity="0..1" />
+          <End Role="Actions1" Type="Хранилище DssDbModel.Actions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Actions1">
+              <PropertyRef Name="ExtendableActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Combinati__Actio__0EA330E9">
           <End Role="Actions" Type="Хранилище DssDbModel.Actions" Multiplicity="0..1" />
           <End Role="Combinations" Type="Хранилище DssDbModel.Combinations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -211,7 +228,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Combinati__Event__0EA330E9">
+        <Association Name="FK__Combinati__Event__0F975522">
           <End Role="Events" Type="Хранилище DssDbModel.Events" Multiplicity="0..1" />
           <End Role="Combinations" Type="Хранилище DssDbModel.Combinations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -223,7 +240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Combinati__TaskI__0F975522">
+        <Association Name="FK__Combinati__TaskI__108B795B">
           <End Role="Tasks" Type="Хранилище DssDbModel.Tasks" Multiplicity="0..1" />
           <End Role="Combinations" Type="Хранилище DssDbModel.Combinations" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +252,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CombinPar__Combi__182C9B23">
+        <Association Name="FK__CombinPar__Combi__1920BF5C">
           <End Role="Combinations" Type="Хранилище DssDbModel.Combinations" Multiplicity="0..1" />
           <End Role="CombinParams" Type="Хранилище DssDbModel.CombinParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +264,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CombinPar__NameI__1920BF5C">
+        <Association Name="FK__CombinPar__NameI__1A14E395">
           <End Role="CombinParamNames" Type="Хранилище DssDbModel.CombinParamNames" Multiplicity="0..1" />
           <End Role="CombinParams" Type="Хранилище DssDbModel.CombinParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +276,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EventPara__Event__2B3F6F97">
+        <Association Name="FK__EventPara__Event__2C3393D0">
           <End Role="Events" Type="Хранилище DssDbModel.Events" Multiplicity="0..1" />
           <End Role="EventParams" Type="Хранилище DssDbModel.EventParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +288,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EventPara__NameI__2C3393D0">
+        <Association Name="FK__EventPara__NameI__2D27B809">
           <End Role="EventParamNames" Type="Хранилище DssDbModel.EventParamNames" Multiplicity="0..1" />
           <End Role="EventParams" Type="Хранилище DssDbModel.EventParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +300,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TaskParam__NameI__35BCFE0A">
+        <Association Name="FK__TaskParam__NameI__36B12243">
           <End Role="TaskParamNames" Type="Хранилище DssDbModel.TaskParamNames" Multiplicity="0..1" />
           <End Role="TaskParams" Type="Хранилище DssDbModel.TaskParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -295,7 +312,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TaskParam__TaskI__34C8D9D1">
+        <Association Name="FK__TaskParam__TaskI__35BCFE0A">
           <End Role="Tasks" Type="Хранилище DssDbModel.Tasks" Multiplicity="0..1" />
           <End Role="TaskParams" Type="Хранилище DssDbModel.TaskParams" Multiplicity="*" />
           <ReferentialConstraint>
@@ -368,6 +385,10 @@
             <End Role="Tasks" EntitySet="Tasks" />
             <End Role="TaskParams" EntitySet="TaskParams" />
           </AssociationSet>
+          <AssociationSet Name="FK__Actions__Extenda__014935CB" Association="DssDbModel.FK__Actions__Extenda__014935CB">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="Action1" EntitySet="Actions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ActionParamName">
           <Key>
@@ -399,6 +420,8 @@
           <NavigationProperty Name="ActionParams" Relationship="DssDbModel.FK__ActionPar__Actio__20C1E124" FromRole="Actions" ToRole="ActionParams" />
           <NavigationProperty Name="Combinations" Relationship="DssDbModel.FK__Combinati__Actio__0CBAE877" FromRole="Actions" ToRole="Combinations" />
           <Property Type="Guid" Name="SavingId" />
+          <Property Type="Int32" Name="ExtendableActionId" />
+          <NavigationProperty Name="ExtendableAction" Relationship="DssDbModel.FK__Actions__Extenda__014935CB" FromRole="Action1" ToRole="Action" />
         </EntityType>
         <EntityType Name="Combination">
           <Key>
@@ -635,6 +658,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Actions__Extenda__014935CB">
+          <End Type="DssDbModel.Action" Role="Action" Multiplicity="0..1" />
+          <End Type="DssDbModel.Action" Role="Action1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Action1">
+              <PropertyRef Name="ExtendableActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -662,6 +697,7 @@
           <EntitySetMapping Name="Actions">
             <EntityTypeMapping TypeName="DssDbModel.Action">
               <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="ExtendableActionId" ColumnName="ExtendableActionId" />
                 <ScalarProperty Name="SavingId" ColumnName="SavingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

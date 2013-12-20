@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.ViewModel
@@ -15,9 +15,8 @@ namespace DecisionSupportSystem.ViewModel
         public BaseLayer BaseLayer;
         public ObservableCollection<Action> Actions { get; set; }
         public ObservableCollection<ActionViewModel> ActionViewModels { get; set; }
-
-        public ActionsViewModel()
-        {}
+        public Visibility ParamsVisibility { get; set; }
+        public ActionsViewModel(){}
 
         public ActionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {

@@ -1,12 +1,38 @@
 ﻿using System.Linq;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
+using DecisionSupportSystem.ViewModel;
 
 namespace DecisionSupportSystem.Tasks
 {
     public class TaskNumberFour : TaskSpecific
     {
+        public ActionsViewModel ActionsViewModel { get; set; }
+        public ActionViewModel ActionViewModel { get; set; }
+        public EventsViewModel EventsViewModel { get; set; }
+        public EventViewModel EventViewModel { get; set; }
+        public CombinationsViewModel CombinationsViewModel { get; set; }
+
+        public TaskNumberFour()
+        {
+            InitErrorCatchers();
+        }
+
+        protected override void InitViewModels()
+        {
+            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher) { ParamsVisibility = Visibility.Hidden };
+            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
+            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher) { ParamsVisibility = Visibility.Hidden };
+            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
+        }
+        protected override void InitCombinationViewModel()
+        {
+            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher) { ParamsVisibility = Visibility.Visible };
+        }
         protected override void CreateTaskParamsTemplate() { }
         protected override Action CreateActionTemplate()
         {
@@ -30,8 +56,7 @@ namespace DecisionSupportSystem.Tasks
                         }
                 };
         }
-        
-        public override void SolveCP()
+        public void SolveCp()
         {
             var combinations = BaseLayer.DssDbContext.Combinations.Local;
             foreach (var combination in combinations)
@@ -39,18 +64,45 @@ namespace DecisionSupportSystem.Tasks
                 combination.Cp = combination.CombinParams.ToList()[0].Value * (combination.CombinParams.ToList()[1].Value + 100) / 100;
             }
         }
-        public override void NextBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
+        
+        protected override void ShowPageMain()
         {
-            if (EventErrorCatcher.EntityGroupErrorCount != 0 || EventsViewModel.Events.Count == 0) return;
-            CreateCombinations();
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            ContentPage = new Page();
+            var pageMainUe = new PageActionUE { DataContext = this, PrevBtnVisibility = Visibility.Hidden };
+            ContentPage.Content = pageMainUe;
+            Navigation = NavigationService.GetNavigationService(pageMainUe.Parent);
+            ShowNavigationWindow(ContentPage);
         }
-        public override void PrevBtnClick_OnPageSolve(object sender, System.Windows.RoutedEventArgs e)
+        
+        public override void PrevBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
+        {
+            SetContentUEAtContentPageAndNavigate(new PageActionUE{DataContext = this, PrevBtnVisibility = Visibility.Hidden});
+        }
+        public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
+        {
+            if (EventErrorCatcher.EntityGroupErrorCount != 0 || GetEventsCount() == 0) return;
+            CreateCombinations();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE {DataContext = this});
+        }
+        public override void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {
             CreateCombinations();
-            ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
-            Navigate();
+            SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE {DataContext = this});
+        }
+        public override void NextBtnClick_OnPageCombinations(object sender, RoutedEventArgs e)
+        {
+            if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
+            SolveCp();
+            BaseLayer.SolveThisTask(null);
+            SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
+        }
+        protected override int GetActionsCount()
+        {
+            return ActionsViewModel.Actions.Count;
+        }
+        protected override int GetEventsCount()
+        {
+            return EventsViewModel.Events.Count;
         }
     }
 }

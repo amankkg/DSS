@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DecisionSupportSystem.ViewModel.ActionForTask9ViewModel" Collapsed="true">
+    <Position X="1.75" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAAAKACAAAAAEEABAAAAACQIIAAACAAAAAggAAAAAgA=</HashCode>
+      <FileName>ViewModel\ActionForTask9ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.DbModel.BasePropertyChanged">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbModel\BasePropertyChanged.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ActionsForTask9ViewModel" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAACAAAQAAIABAgAAA=</HashCode>
+      <FileName>ViewModel\ActionsForTask9ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ActionsViewModel" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAACAAAQAAAABAgACA=</HashCode>
+      <FileName>ViewModel\ActionsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ActionsWithExtensionsViewModel" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAAAAAAQAAAABAgACA=</HashCode>
+      <FileName>ViewModel\ActionsWithExtensionsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ActionViewModel" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAEAAAAQAACAAAAAQAIAAACAAAAAgAAABAIAA=</HashCode>
+      <FileName>ViewModel\ActionViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ActionWithExtensionViewModel" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAIAAACRAACAAAAAQCIAAAABAAAAhAAABAgAA=</HashCode>
+      <FileName>ViewModel\ActionWithExtensionViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.CombinationsViewModel" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAQAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\CombinationsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.CombinationViewModel" Collapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgIAAAAAAQAACAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\CombinationViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventDepActionViewModel" Collapsed="true">
+    <Position X="10.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAIEAAAAAAAAAAAAAAAAAACAAAAAAEAEAAKBA=</HashCode>
+      <FileName>ViewModel\EventDepActionViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventsDepActionsViewModel" Collapsed="true">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAACAIAEJAEAMAAAAAAAAAACAAAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModel\EventsDepActionsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventsViewModel" Collapsed="true">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAGIAAAAAAAIEEBAAAAAAAACAqBACAAAAAAAAAQAAIA=</HashCode>
+      <FileName>ViewModel\EventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventsWithExtensionsViewModel" Collapsed="true">
+    <Position X="1.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIGIAAAAAAAJAEBAEAAAAAACAqBAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>ViewModel\EventsWithExtensionsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventViewModel" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAIAAEABAwAACAABAAQAAAAACAAAAAAAAEAAIAA=</HashCode>
+      <FileName>ViewModel\EventViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.EventWithExtensionViewModel" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAIAAEgAAQAACAAAAAYAAAhAIAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ViewModel\EventWithExtensionViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.ProbabilitySumViewModel" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAQAACAAAAAAEAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModel\ProbabilitySumViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DecisionSupportSystem.ViewModel.TaskParamsViewModel" Collapsed="true">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\TaskParamsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

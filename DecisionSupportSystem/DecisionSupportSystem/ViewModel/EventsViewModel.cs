@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using System.Collections.ObjectModel;
 
 namespace DecisionSupportSystem.ViewModel
@@ -31,8 +31,8 @@ namespace DecisionSupportSystem.ViewModel
                     RaisePropertyChanged("ProbabilitySumViewModel");
                 }
             }
-        } 
-
+        }
+        public Visibility ParamsVisibility { get; set; }
         public EventsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;

@@ -5,19 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
-             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
+             xmlns:ue="clr-namespace:DecisionSupportSystem.UserElements"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="577.444">
-    <Grid Name="MainGrid">
-        <DataGrid ItemsSource="{Binding Path=ActionViewModels}" AutoGenerateColumns="False" CanUserAddRows="False">
-            
+             d:DesignHeight="300" d:DesignWidth="577.444" Loaded="ActionsDataGrid_OnLoaded">
+    <Grid Name="MainGrid"> 
+        <ue:ChangeableDataGrid x:Name="myDatagrid" ItemsSource="{Binding Path=ActionViewModels}" ParamsVisibility="{Binding Path=ParamsVisibility}"
+                               AutoGenerateColumns="False" CanUserAddRows="False">
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="SelectionChanged">
                     <i:CallMethodAction TargetObject="{Binding}"  MethodName="SelectAction"/>
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
-            
-            <DataGrid.ContextMenu>
+
+            <ue:ChangeableDataGrid.ContextMenu>
                 <ContextMenu>
                     <ContextMenu.ContextMenu>
                         <ContextMenu/>
@@ -30,15 +31,15 @@
                         </interactivity:Interaction.Triggers>
                     </MenuItem>
                 </ContextMenu>
-            </DataGrid.ContextMenu>
+             </ue:ChangeableDataGrid.ContextMenu>
 
-            <DataGrid.Columns>
+            <ue:ChangeableDataGrid.Columns>
                 
                 <DataGridTemplateColumn Header="Действие" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
-                                NotifyOnValidationError=True}" TextWrapping="Wrap" TextAlignment="Center">
+                            <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True,NotifyOnValidationError=True}" TextWrapping="Wrap" TextAlignment="Center">
                                 <interactivity:Interaction.Triggers>
                                     <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
                                         <i:CallMethodAction TargetObject="{Binding}" MethodName="EntityGroupValidationError"/>
@@ -48,12 +49,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
                 <DataGridTemplateColumn Header="Параметры" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-
-                            <DataGrid ItemsSource="{Binding Path=EditableActionParams}" AutoGenerateColumns="False" CanUserAddRows="False">
+                            <DataGrid ItemsSource="{Binding Path=EditableActionParams}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="None">
                                 
                                 <DataGrid.ColumnHeaderStyle>
                                     <StaticResource ResourceKey="InnerDataGridColumnHeaderStyle"/>
@@ -95,12 +95,12 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
+            </ue:ChangeableDataGrid.Columns>
             <DataGrid.RowHeaderStyle>
                 <StaticResource ResourceKey="DataGridRowHeaderStyleSimple"/>
             </DataGrid.RowHeaderStyle>
 
-        </DataGrid>
+        </ue:ChangeableDataGrid>
 
     </Grid>
 </UserControl>

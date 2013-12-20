@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using DecisionSupportSystem.DbModel;
 using System.Collections.ObjectModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 using Microsoft.Practices.Prism.Commands;
 
 namespace DecisionSupportSystem.ViewModel
@@ -41,6 +42,22 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
+        private Visibility _paramsVisibility;
+        public Visibility ParamsVisibility
+        {
+            get
+            {
+                return _paramsVisibility;
+            }
+            set
+            {
+                if (value != this._paramsVisibility)
+                {
+                    this._paramsVisibility = value;
+                    RaisePropertyChanged("ParamsVisibility");
+                }
+            }
+        }
         public ObservableCollection<EventParam> EditableEventParams { get; set; }
         public EventsViewModel EventsViewModel { get; set; }
         public ICommand AddEventCommand { get; private set; }
@@ -53,11 +70,18 @@ namespace DecisionSupportSystem.ViewModel
             this.Name = eventTemplate.Name;
             this.EditableEventParams = new ObservableCollection<EventParam>();
             this.AddEventCommand = new DelegateCommand<object>(this.OnAddEvent);
+            UpdateEventParams();
+        }
+        
+        public void UpdateEventParams()
+        {
+            EditableEventParams.Clear();
             var eventParams = this.EditableEvent.EventParams.ToList();
             foreach (var eventParam in eventParams)
                 this.EditableEventParams.Add(eventParam);
+            ParamsVisibility = EditableEventParams.Count == 0 ? Visibility.Hidden : Visibility.Visible;
         }
-        
+
         public void OnAddEvent(object obj)
         {
             if(ErrorCatcher.EntityErrorCount != 0) return;

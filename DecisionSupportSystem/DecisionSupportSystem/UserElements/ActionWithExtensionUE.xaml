@@ -5,17 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              mc:Ignorable="d"
-             d:DesignHeight="155.353" d:DesignWidth="535.715">
+             d:DesignHeight="155.353" d:DesignWidth="510.715">
     <Grid Name="mainGrid">
         <Rectangle Fill="#FF6C9EC1" />
 
-        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="34,5,0,0" Foreground="White" 
-               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Width="80">
+        <Label Name="ActionLbl" Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="39,20,0,0" Foreground="White" 
+               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Width="75">
         </Label>
 
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="40" Margin="135,5,35,0"  VerticalAlignment="Top" 
+        <TextBox Name="ActionTxtb" Style="{StaticResource TextBoxStyle}" Height="45" Margin="135,20,35,0"  VerticalAlignment="Top" 
                     Text="{Binding Path=EditableAction.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
                     ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
             <interactivity:Interaction.Triggers>
@@ -24,24 +24,20 @@
                 </evend:RoutedEventTrigger>
             </interactivity:Interaction.Triggers>
         </TextBox>
-
+        <Button  Content="Добавить" HorizontalAlignment="Right"
+                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
+        <ComboBox Name="ActionCmbx" Margin="316,20,35,0" VerticalAlignment="Top" Height="45" ItemsSource="{Binding Path=Actions}" DisplayMemberPath="Name"
+                  SelectedItem="{Binding Path=SelectedAction, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
         <DataGrid ItemsSource="{Binding Path=EditableActionParams}" AutoGenerateColumns="False" CanUserAddRows="False" 
-                  Margin="135,50,35,31" FontSize="12">
-
-            <DataGrid.ColumnHeaderStyle>
-                <StaticResource ResourceKey="InnerDataGridColumnHeaderStyle"/>
-            </DataGrid.ColumnHeaderStyle>
-
-            <DataGrid.RowHeaderStyle>
-                <StaticResource ResourceKey="InnerDataGridRowHeaderStyle"/>
-            </DataGrid.RowHeaderStyle>
+        	Margin="135,70,35,30" FontSize="12" ColumnHeaderStyle="{StaticResource InnerDataGridColumnHeaderStyle}" 
+                  RowHeaderStyle="{StaticResource InnerDataGridRowHeaderStyle}">
 
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Название" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=ActionParamName.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
-                                NotifyOnValidationError=True}"/>
+                            <TextBlock Text="{Binding ActionParamName.Name, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -49,11 +45,11 @@
                 <DataGridTemplateColumn Header="Значение" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Path=Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
-                                NotifyOnValidationError=True, StringFormat=F5}">
+                            <TextBox Style="{StaticResource TextBoxStyle}" Text="{Binding Value, Mode=TwoWay, NotifyOnValidationError=True, 
+                                StringFormat=F2, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
                                 <interactivity:Interaction.Triggers>
                                     <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
-                                        <i:CallMethodAction TargetObject="{Binding ElementName=mainGrid, Path=DataContext}" MethodName="EntityValidationError"/>
+                                        <i:CallMethodAction TargetObject="{Binding DataContext, ElementName=mainGrid}" MethodName="EntityValidationError"/>
                                     </evend:RoutedEventTrigger>
                                 </interactivity:Interaction.Triggers>
                             </TextBox>
@@ -62,11 +58,10 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="19,50,0,0" Foreground="White" FontWeight="Bold"
-               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Width="95"/>
-        <Button  Content="Добавить" HorizontalAlignment="Right"
-                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
-        <CheckBox Content="C учетом расширения" HorizontalAlignment="Left" Margin="135,124,0,0" VerticalAlignment="Top" Width="174" Foreground="White" FontWeight="Bold"
-               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
+        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="28,70,0,0" Foreground="White" FontWeight="Bold"
+        	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Width="86"/>
+        <CheckBox Name="ExtendChbx" Content="Расширение предприятия" HorizontalAlignment="Left" Margin="135,0,0,0" VerticalAlignment="Top" Width="203" Foreground="White" FontWeight="Bold"
+        	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Checked="ToggleButton_OnChecked" Unchecked="ToggleButton_OnChecked" 
+            IsChecked="{Binding Path=IsExtendable, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

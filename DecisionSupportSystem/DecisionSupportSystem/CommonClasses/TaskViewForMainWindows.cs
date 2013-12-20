@@ -1,4 +1,4 @@
-﻿namespace DecisionSupportSystem.MainClasses
+﻿namespace DecisionSupportSystem.CommonClasses
 {
     public class TaskViewForMainWindows
     {

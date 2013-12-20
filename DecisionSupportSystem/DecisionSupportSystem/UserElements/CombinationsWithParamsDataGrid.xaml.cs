@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace DecisionSupportSystem.UserElements
 {
@@ -7,6 +8,11 @@ namespace DecisionSupportSystem.UserElements
         public CombinationsWithParamsDataGrid()
         {
             InitializeComponent();
+        }
+
+        private void CombinationsWithParamsDataGrid_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            datagrid.Columns[2].Visibility = datagrid.ParamsVisibility;
         }
     }
 }

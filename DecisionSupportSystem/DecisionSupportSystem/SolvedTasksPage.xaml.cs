@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Objects;
 using System.Reflection;
 using System.Windows;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 namespace DecisionSupportSystem
 {
@@ -16,6 +15,8 @@ namespace DecisionSupportSystem
         public void LoadTasks(string taskUniq)
         {
             Tasks = new List<Task>();
+            try
+            {
             using (var dssDbContext = new DssDbEntities())
             {
                 var tasks = (from task in dssDbContext.Tasks
@@ -27,15 +28,21 @@ namespace DecisionSupportSystem
                                          Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm, SavingId = t.SavingId, TaskParams = t.TaskParams});
                 }
             }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось подключиться к базе данных.");
+            }
+            
         }
     }
 
-    public partial class SolvedTasksWindow
+    public partial class SolvedTasksPage
     {
         public Load Layer { get; set; }
         public TaskViewForMainWindows TaskViewForSolvedTaskWindow { get; set; }
 
-        public SolvedTasksWindow(TaskViewForMainWindows taskViewForSolvedTaskWindow)
+        public SolvedTasksPage(TaskViewForMainWindows taskViewForSolvedTaskWindow)
         {
             InitializeComponent();
             TaskViewForSolvedTaskWindow = taskViewForSolvedTaskWindow;
@@ -50,10 +57,10 @@ namespace DecisionSupportSystem
                 Layer = new Load((Task)gridTasks.SelectedItem);
                 Layer.LoadCombinations();
                 var asm = Assembly.GetExecutingAssembly();
-                var navigationwindow = asm.GetType(TaskViewForSolvedTaskWindow.Window);
-                object obj = Activator.CreateInstance(navigationwindow);
-                MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-                methodInfo.Invoke(obj, new[] { obj, TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
+                var task = asm.GetType(TaskViewForSolvedTaskWindow.Window);
+                object taskInstance = Activator.CreateInstance(task);
+                MethodInfo methodInfo = task.GetMethod("InitBaseLayerAndShowMainPage");
+                methodInfo.Invoke(taskInstance, new object[] {TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
             }
         }
 

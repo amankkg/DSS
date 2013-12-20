@@ -7,7 +7,7 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="496.241">
+             d:DesignHeight="300" d:DesignWidth="496.241" Loaded="PageActionUE_OnLoaded">
    <Grid Background="#FF6C9EC1">
         <task:ActionUE DataContext="{Binding Path=ActionViewModel}" Height="146" VerticalAlignment="Top" Margin="0,40,0,0"/>
         <Grid Margin="0,211,0,0">
@@ -24,7 +24,7 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <Button Content="&lt;&lt; назад"
+        <Button Content="&lt;&lt; назад" Name="btnprev"
         	Style="{StaticResource NavigationButtonStyle}" HorizontalAlignment="Right"
         	Margin="0,10,115,0" Height="25" VerticalAlignment="Top">
             <interactivity:Interaction.Triggers>

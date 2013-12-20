@@ -3,16 +3,16 @@ using System.Reflection;
 using System.Windows;
  using System.Windows.Navigation;
  using System.Xml;
- using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 
 namespace DecisionSupportSystem
 {
-    public partial class MainWindow
+    public partial class MainPage
     {
         private NavigationService navigation;
 
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
         }
@@ -39,7 +39,7 @@ namespace DecisionSupportSystem
                     };
 
                 navigation = NavigationService.GetNavigationService(this);
-                navigation.Navigate(new SolvedTasksWindow(taskEx));
+                navigation.Navigate(new SolvedTasksPage(taskEx));
             }
         }
 
@@ -51,10 +51,10 @@ namespace DecisionSupportSystem
             var asm = Assembly.GetExecutingAssembly();
                 try
                 {
-                    var navigationwindow = asm.GetType(element.ChildNodes[4].InnerText.Trim());
-                    object obj = Activator.CreateInstance(navigationwindow);
-                    MethodInfo methodInfo = navigationwindow.GetMethod("Show");
-                    methodInfo.Invoke(obj, new[] { obj, element.ChildNodes[0].InnerText.Trim(), element.ChildNodes[3].InnerText.Trim(), null });
+                    var task = asm.GetType(element.ChildNodes[4].InnerText.Trim());
+                    object taskInstance = Activator.CreateInstance(task);
+                    MethodInfo methodInfo = task.GetMethod("InitBaseLayerAndShowMainPage");
+                    methodInfo.Invoke(taskInstance, new object[] { element.ChildNodes[0].InnerText.Trim(), element.ChildNodes[3].InnerText.Trim(), null });
                 }
                 catch (Exception)
                 {

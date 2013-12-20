@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              mc:Ignorable="d"
              d:DesignHeight="160.789" d:DesignWidth="535.715">
     <Grid Name="mainGrid">
@@ -26,7 +26,7 @@
         </TextBox>
         
         <DataGrid ItemsSource="{Binding Path=EditableActionParams}" AutoGenerateColumns="False" CanUserAddRows="False" 
-                  Margin="135,50,35,30" FontSize="12">
+                  Margin="135,50,35,30" FontSize="12" Visibility="{Binding Path=ParamsVisibility}">
 
             <DataGrid.ColumnHeaderStyle>
                 <StaticResource ResourceKey="InnerDataGridColumnHeaderStyle"/>
@@ -63,7 +63,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="19,50,0,0" Foreground="White" FontWeight="Bold"
-               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
+               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Visibility="{Binding Path=ParamsVisibility}"/>
         <Button  Content="Добавить" HorizontalAlignment="Right"
                 Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
     </Grid>

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="483.835">
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=EventsDependingActions}" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="datagrid" ItemsSource="{Binding Path=EventsDependingActions}" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="150">
                     <DataGridTemplateColumn.CellTemplate>

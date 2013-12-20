@@ -4,7 +4,7 @@ using System.Linq;
 using DecisionSupportSystem.DbModel;
 using Action = DecisionSupportSystem.DbModel.Action;
 
-namespace DecisionSupportSystem.MainClasses
+namespace DecisionSupportSystem.CommonClasses
 {
     public class Load
     {
@@ -49,6 +49,12 @@ namespace DecisionSupportSystem.MainClasses
                     Emv = a.Emv,
                     SavingId = a.SavingId
                 };
+                if (a.ExtendableAction != null)
+                    action.ExtendableAction =
+                        BaseLayer.DssDbContext.Actions.Local.Where(
+                            act => act.Name == a.ExtendableAction.Name)
+                                 .Select(act => act.ExtendableAction)
+                                 .First();
                 LoadActionParams(a, action);
                 BaseLayer.BaseMethods.AddAction(action);
             }

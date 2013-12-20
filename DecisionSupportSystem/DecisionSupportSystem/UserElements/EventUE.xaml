@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:evend="clr-namespace:DecisionSupportSystem.MainClasses"
+             xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
              d:DesignHeight="228.947" d:DesignWidth="613.534">
@@ -35,10 +35,10 @@
             </interactivity:Interaction.Triggers>
         </TextBox>
             <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="14,79,0,0" Foreground="White" FontWeight="Bold"
-               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
+               FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"  Visibility="{Binding Path=ParamsVisibility}"/>
         
         <DataGrid ItemsSource="{Binding Path=EditableEventParams}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="135,77,35,30"
-                  FontSize="12">
+                  FontSize="12" Visibility="{Binding Path=ParamsVisibility, Mode=TwoWay}">
     
             <DataGrid.ColumnHeaderStyle>
                 <StaticResource ResourceKey="InnerDataGridColumnHeaderStyle"/>
@@ -50,10 +50,10 @@
 
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Header="Название" Width="150">
+                <DataGridTemplateColumn Header="Название" Width="180">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                        <TextBlock Text="{Binding Path=EventParamName.Name}"/>
+                        <TextBlock Text="{Binding Path=EventParamName.Name}" TextWrapping="Wrap"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
