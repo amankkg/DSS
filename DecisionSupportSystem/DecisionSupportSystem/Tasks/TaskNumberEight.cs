@@ -23,21 +23,21 @@ namespace DecisionSupportSystem.Tasks
 
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher){ParamsVisibility = Visibility.Visible};
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){ParamsVisibility = Visibility.Visible};
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
-            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher) { ParamsVisibility = Visibility.Visible };
+            EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher) { ParamsVisibility = Visibility.Visible };
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
-            TaskParamsViewModel = new TaskParamsViewModel(BaseLayer, TaskParamErrorCatcher);
+            TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         }
         protected override void InitCombinationViewModel()
         {
-            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher){ParamsVisibility = Visibility.Hidden};
+            CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher){ParamsVisibility = Visibility.Hidden};
         }
         protected override void CreateTaskParamsTemplate()
         {
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Премия:" } });
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Штраф:" } });
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Пункт процента:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Премия:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Штраф:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Пункт процента:" } });
         }
         protected override Action CreateActionTemplate()
         {
@@ -73,14 +73,14 @@ namespace DecisionSupportSystem.Tasks
 
         public void SolveCp()
         {
-            var combinations = BaseLayer.DssDbContext.Combinations.Local;
+            var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)
             {
                 var raznBrak = combination.Action.ActionParams.ToList()[0].Value - combination.Event.EventParams.ToList()[0].Value;
                 if (raznBrak >= 0)
-                    combination.Cp = raznBrak * BaseLayer.Task.TaskParams.ToList()[2].Value * BaseLayer.Task.TaskParams.ToList()[0].Value;
+                    combination.Cp = raznBrak * BaseAlgorithms.Task.TaskParams.ToList()[2].Value * BaseAlgorithms.Task.TaskParams.ToList()[0].Value;
                 else
-                    combination.Cp = raznBrak * BaseLayer.Task.TaskParams.ToList()[2].Value * BaseLayer.Task.TaskParams.ToList()[1].Value;
+                    combination.Cp = raznBrak * BaseAlgorithms.Task.TaskParams.ToList()[2].Value * BaseAlgorithms.Task.TaskParams.ToList()[1].Value;
             }
         }
 
@@ -110,7 +110,7 @@ namespace DecisionSupportSystem.Tasks
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
             SolveCp();
-            BaseLayer.SolveThisTask(null);
+            BaseAlgorithms.SolveTask(null);
             SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
     }

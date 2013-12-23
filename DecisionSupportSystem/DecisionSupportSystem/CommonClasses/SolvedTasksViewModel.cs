@@ -3,7 +3,7 @@ using DecisionSupportSystem.DbModel;
 
 namespace DecisionSupportSystem.CommonClasses
 {
-    public class SolvedTaskView : BasePropertyChanged
+    public class SolvedTasksViewModel : BasePropertyChanged
     {
         private string _recomendation;
         public string Recommendation 

@@ -24,14 +24,14 @@ namespace DecisionSupportSystem.Tasks
 
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher) { ParamsVisibility = Visibility.Hidden };
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher) { ParamsVisibility = Visibility.Hidden };
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
-            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher) { ParamsVisibility = Visibility.Hidden };
+            EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher) { ParamsVisibility = Visibility.Hidden };
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
         }
         protected override void InitCombinationViewModel()
         {
-            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher) { ParamsVisibility = Visibility.Visible };
+            CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher) { ParamsVisibility = Visibility.Visible };
         }
         protected override void CreateTaskParamsTemplate() { }
         protected override Action CreateActionTemplate()
@@ -58,10 +58,12 @@ namespace DecisionSupportSystem.Tasks
         }
         public void SolveCp()
         {
-            var combinations = BaseLayer.DssDbContext.Combinations.Local;
+            var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)
             {
-                combination.Cp = combination.CombinParams.ToList()[0].Value * (combination.CombinParams.ToList()[1].Value + 100) / 100;
+                var interestRate = combination.CombinParams.ToList()[0].Value;
+                var nominalPrice = combination.CombinParams.ToList()[1].Value;
+                combination.Cp = interestRate * (nominalPrice + 100) / 100;
             }
         }
         
@@ -93,7 +95,7 @@ namespace DecisionSupportSystem.Tasks
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
             SolveCp();
-            BaseLayer.SolveThisTask(null);
+            BaseAlgorithms.SolveTask(null);
             SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
         protected override int GetActionsCount()

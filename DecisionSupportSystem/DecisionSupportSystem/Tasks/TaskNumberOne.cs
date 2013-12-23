@@ -22,14 +22,20 @@ namespace DecisionSupportSystem.Tasks
 
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher){ParamsVisibility = Visibility.Hidden};
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){
+                    ParamsVisibility = Visibility.Hidden
+                };
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
-            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher){ParamsVisibility = Visibility.Hidden};
+            EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher){
+                    ParamsVisibility = Visibility.Hidden
+                };
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
         }
         protected override void InitCombinationViewModel()
         {
-            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher){ParamsVisibility = Visibility.Hidden};
+            CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher){
+                    ParamsVisibility = Visibility.Hidden
+                };
         }
         protected override void CreateTaskParamsTemplate()
         {

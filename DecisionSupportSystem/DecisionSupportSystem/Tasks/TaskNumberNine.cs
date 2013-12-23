@@ -17,28 +17,26 @@ namespace DecisionSupportSystem.Tasks
         public EventViewModel EventViewModel { get; set; }
         public CombinationsViewModel CombinationsViewModel { get; set; }
         public TaskParamsViewModel TaskParamsViewModel { get; set; }
-
         public TaskNumberNine()
         {
             InitErrorCatchers();
         }
-
         protected override void InitViewModels()
         {   
-            EventsViewModel = new EventsViewModel(BaseLayer, EventErrorCatcher);
+            EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher);
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
-            ActionsViewModel = new ActionsForTask9ViewModel(BaseLayer, ActionErrorCatcher);
+            ActionsViewModel = new ActionsForTask9ViewModel(DssDbEntities, ActionErrorCatcher);
             ActionForTask9ViewModel = new ActionForTask9ViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher)
                 {EventViewModel = EventViewModel};
-            TaskParamsViewModel = new TaskParamsViewModel(BaseLayer, TaskParamErrorCatcher);
+            TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         } 
         protected override void InitCombinationViewModel()
         {
-            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher) { ParamsVisibility = Visibility.Hidden }; 
+            CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher) { ParamsVisibility = Visibility.Hidden }; 
         }
         protected override void CreateTaskParamsTemplate()
         {
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Период:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Период:" } });
         }
 
         protected override Action CreateActionTemplate()
@@ -96,7 +94,7 @@ namespace DecisionSupportSystem.Tasks
 
         public virtual void SolveCp()
         {
-            var combinations = BaseLayer.DssDbContext.Combinations.Local;
+            var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)
             {
                 if (combination.Action.ActionParams.ToList()[5].Value == -1)
@@ -151,7 +149,7 @@ namespace DecisionSupportSystem.Tasks
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
             SolveCp();
-            BaseLayer.SolveThisTask(null);
+            BaseAlgorithms.SolveTask(null);
             SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
     }

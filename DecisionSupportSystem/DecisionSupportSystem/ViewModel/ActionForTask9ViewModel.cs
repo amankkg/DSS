@@ -97,7 +97,7 @@ namespace DecisionSupportSystem.ViewModel
         public virtual void OnAddAction(object obj)
         {
             if (base.ErrorCatcher.EntityErrorCount != 0) return;
-            int period = Convert.ToInt32(ActionsForTask9ViewModel.BaseLayer.Task.TaskParams.ToList()[0].Value);
+            int period = Convert.ToInt32(ActionsForTask9ViewModel.DssDbEntities.Tasks.Local.ToList()[0].TaskParams.ToList()[0].Value);
             AddExtensions(IsExtended ? period : 1, period);
         }
 

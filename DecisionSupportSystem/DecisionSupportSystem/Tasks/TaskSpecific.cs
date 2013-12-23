@@ -13,19 +13,20 @@ using Action = DecisionSupportSystem.DbModel.Action;
 namespace DecisionSupportSystem.Tasks
 {
     public abstract class TaskSpecific
-    {  
+    {   
         #region Поля
         protected NavigationService Navigation;
         protected bool IsSaved;
         #endregion
         #region Свойства
-        public BaseLayer BaseLayer { get; set; }
+        public BaseAlgorithms BaseAlgorithms { get; set; }
+        public DssDbEntities DssDbEntities { get; set; }
         protected ErrorCatcher TaskParamErrorCatcher { get; set; }
         protected ErrorCatcher ActionErrorCatcher { get; set; }
         protected ErrorCatcher EventErrorCatcher { get; set; }
         protected ErrorCatcher CombinationErrorCatcher { get; set; }
         protected string WindowTitle { get; set; }
-        protected readonly Guid SavingID = Guid.NewGuid();
+        protected Guid SavingID = Guid.NewGuid();
         #endregion
         #region Окна
         protected Page ContentPage { get; set; }
@@ -45,25 +46,31 @@ namespace DecisionSupportSystem.Tasks
             TaskParamErrorCatcher = new ErrorCatcher();
         }
 
-        public void InitBaseLayerAndShowMainPage(string title, string taskuniq, BaseLayer baseLayer)
+        public void InitBaseLayerAndShowMainPage(string title, string taskuniq, DssDbEntities dssDbEntities)
         {
             WindowTitle = title;
-            if (baseLayer == null)
-                InitNewBaseLayer(taskuniq);
-            else 
-                BaseLayer = baseLayer;
-            BaseLayer.Task.SavingId = SavingID;
+            BaseAlgorithms = new BaseAlgorithms();
+            if (dssDbEntities == null)
+            {
+                DssDbEntities = new DssDbEntities();
+                BaseAlgorithms.Task = new Task();
+                CreateTaskParamsTemplate();
+            }
+            else
+            {
+                DssDbEntities = dssDbEntities;
+                BaseAlgorithms.Task = DssDbEntities.Tasks.Local.ToList()[0];
+            }            
+            BaseAlgorithms.Entities = DssDbEntities;
+            BaseAlgorithms.Task.TaskUniq = taskuniq;
+            BaseAlgorithms.Task.SavingId = SavingID;
+            CRUD.DssDbEntities = DssDbEntities;
+            
             InitViewModels();
             ShowPageMain();
-        } 
+        }  
+        
         protected abstract void InitViewModels();
-
-        protected void InitNewBaseLayer(string taskuniq)
-        {
-                BaseLayer = new BaseLayer();
-                BaseLayer.Task.TaskUniq = taskuniq;
-                CreateTaskParamsTemplate();
-        }
 
         protected virtual void ShowPageMain()
         {
@@ -89,23 +96,19 @@ namespace DecisionSupportSystem.Tasks
 
         protected virtual void CreateCombinations()
         {
-            var combinations = GetCombinations(BaseLayer);
-            var actions = BaseLayer.DssDbContext.Actions.Local;
-            var events = BaseLayer.DssDbContext.Events.Local;
+            var combinations = DssDbEntities.Combinations.Local.ToList();
+            var actions = DssDbEntities.Actions.Local;
+            var events = DssDbEntities.Events.Local;
             foreach (var action in actions)
                 foreach (var even in events)
                     if (!ActionContainsInCombinations(action, combinations) || !EventContainsInCombinations(even, combinations))
                     {
-                        BaseLayer.BaseMethods.AddCombination(CreateCombinationTemplate(), action, even, BaseLayer.Task, 0);
+                        CRUD.AddCombination(CreateCombinationTemplate(), action, even, BaseAlgorithms.Task, 0);
                     }
             InitCombinationViewModel();
         }
         protected abstract void InitCombinationViewModel();
 
-        protected List<Combination> GetCombinations(BaseLayer baseLayer)
-        {
-            return baseLayer.DssDbContext.Combinations.Local.ToList();
-        }
         protected bool ActionContainsInCombinations(Action action, IEnumerable<Combination> combinations)
         {
             return combinations.Any(combination => combination.Action == action);
@@ -148,7 +151,7 @@ namespace DecisionSupportSystem.Tasks
         public virtual void NextBtnClick_OnPageCombinations(object sender, RoutedEventArgs e)
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
-            BaseLayer.SolveThisTask(null);
+            BaseAlgorithms.SolveTask(null);
             SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
         public virtual void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
@@ -167,7 +170,7 @@ namespace DecisionSupportSystem.Tasks
         }
         public virtual void SaveBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {
-            BaseLayer.Save();
+            BaseAlgorithms.Save();
             IsSaved = true;
         }
         protected void NavigationWindow_Closing(object sender, CancelEventArgs e)
@@ -178,9 +181,9 @@ namespace DecisionSupportSystem.Tasks
                                              MessageBoxButton.YesNoCancel);
                 if (result == MessageBoxResult.Yes)
                 {
-                    BaseLayer.Task.Date = DateTime.Now;
-                    BaseLayer.BaseMethods.AddTask(BaseLayer.Task);
-                    BaseLayer.Save();
+                    BaseAlgorithms.Task.Date = DateTime.Now;
+                    CRUD.AddTask(BaseAlgorithms.Task);
+                    BaseAlgorithms.Save();
                 }
                 if (result == MessageBoxResult.Cancel)
                     e.Cancel = true;

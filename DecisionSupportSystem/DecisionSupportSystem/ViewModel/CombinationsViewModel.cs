@@ -10,9 +10,9 @@ namespace DecisionSupportSystem.ViewModel
         public ObservableCollection<CombinationViewModel> CombinationViewModels { get; set; }
         public ObservableCollection<Combination> Combinations { get; set; }
         public Visibility ParamsVisibility { get; set; }
-        public CombinationsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public CombinationsViewModel(ObservableCollection<Combination> combinations, IErrorCatch errorCatcher)
         {
-            Combinations = baseLayer.DssDbContext.Combinations.Local;
+            Combinations = combinations;
             CombinationViewModels = new ObservableCollection<CombinationViewModel>();
             ErrorCatcher = errorCatcher;
             foreach (var combination in Combinations)

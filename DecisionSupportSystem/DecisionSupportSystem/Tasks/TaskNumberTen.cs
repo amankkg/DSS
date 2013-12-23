@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.PageUserElements;
-using DecisionSupportSystem.ViewModel;
-using Action = System.Action;
 
 namespace DecisionSupportSystem.Tasks
 {
@@ -16,14 +8,14 @@ namespace DecisionSupportSystem.Tasks
     {
         protected override void CreateTaskParamsTemplate()
         {
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Период:" } });
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Процентная ставка:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Период:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Процентная ставка:" } });
         }
 
         public override void SolveCp()
         {
-            var combinations = BaseLayer.DssDbContext.Combinations.Local;
-            double procent = Convert.ToDouble(BaseLayer.Task.TaskParams.ToList()[1].Value);
+            var combinations = DssDbEntities.Combinations.Local;
+            double procent = Convert.ToDouble(BaseAlgorithms.Task.TaskParams.ToList()[1].Value);
             foreach (var combination in combinations)
             {
                 if (combination.Action.ActionParams.ToList()[5].Value == -1)

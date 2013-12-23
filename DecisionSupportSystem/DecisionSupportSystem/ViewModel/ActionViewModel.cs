@@ -49,6 +49,7 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
+
         public ObservableCollection<ActionParam> EditableActionParams { get; set; }
         public ActionsViewModel ActionsViewModel { get; set; }
         public ICommand AddActionCommand { get; set; }
@@ -58,22 +59,22 @@ namespace DecisionSupportSystem.ViewModel
 
         public ActionViewModel(Action actionTemplate, ActionsViewModel actionsViewModel, IErrorCatch errorCatcher)
         {
-            this.ActionsViewModel = actionsViewModel;
-            this.EditableAction = actionTemplate;
-            this.Name = actionTemplate.Name;
-            this.EditableActionParams = new ObservableCollection<ActionParam>();
-            this.AddActionCommand = new DelegateCommand<object>(this.OnAddAction);
-            var actionParams = this.EditableAction.ActionParams.ToList();
+            ActionsViewModel = actionsViewModel;
+            EditableAction = actionTemplate;
+            Name = actionTemplate.Name;
+            EditableActionParams = new ObservableCollection<ActionParam>();
+            AddActionCommand = new DelegateCommand<object>(this.OnAddAction);
+            var actionParams = EditableAction.ActionParams.ToList();
             foreach (var actionParam in actionParams)
-                this.EditableActionParams.Add(actionParam);
+                EditableActionParams.Add(actionParam);
             if(EditableActionParams.Count == 0)
                 ParamsVisibility = Visibility.Hidden;
-            base.ErrorCatcher = errorCatcher;
+            ErrorCatcher = errorCatcher;
         }
 
         public virtual void OnAddAction(object obj)
         {
-            if (base.ErrorCatcher.EntityErrorCount != 0) return;
+            if (ErrorCatcher.EntityErrorCount != 0) return;
             var actionParams = new Collection<ActionParam>();
             foreach (var actionParam in EditableAction.ActionParams)
                 actionParams.Add(new ActionParam {
@@ -83,7 +84,7 @@ namespace DecisionSupportSystem.ViewModel
                         Id = actionParam.Id,
                         ActionParamName = actionParam.ActionParamName
                 });
-            this.ActionsViewModel.AddAction(new Action
+            ActionsViewModel.AddAction(new Action
                 {
                     Name = EditableAction.Name, 
                     SavingId = EditableAction.SavingId, 
