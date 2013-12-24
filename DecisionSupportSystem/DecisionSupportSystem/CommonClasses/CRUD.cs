@@ -16,7 +16,7 @@ namespace DecisionSupportSystem.CommonClasses
             DssDbEntities.Tasks.Local.Add(task);
         }
 
-        public static void AddTaskParam(Task task, TaskParam param, TaskParamName name, decimal value)
+        public static void AddTaskParam(Task task, TaskParam param, TaskParamName name, double value)
         {
             if (param == null || task == null || name == null) return;
             param.Task = task;
@@ -37,7 +37,7 @@ namespace DecisionSupportSystem.CommonClasses
             DssDbEntities.Events.Add(eEvent);
         }
 
-        public static void AddActionParam(Action action, ActionParam param, ActionParamName name, decimal value)
+        public static void AddActionParam(Action action, ActionParam param, ActionParamName name, double value)
         {
             if (param == null || action == null) return;
             param.Action = action;
@@ -46,7 +46,7 @@ namespace DecisionSupportSystem.CommonClasses
             DssDbEntities.ActionParams.Local.Add(param);
         }
 
-        public static void AddEventParam(Event eEvent, EventParam param, EventParamName name, decimal value)
+        public static void AddEventParam(Event eEvent, EventParam param, EventParamName name, double value)
         {
             if (param == null || eEvent == null) return;
             param.Event = eEvent;
@@ -55,7 +55,7 @@ namespace DecisionSupportSystem.CommonClasses
             DssDbEntities.EventParams.Local.Add(param);
         }
 
-        public static void AddCombination(Combination combination, Action action, Event eEvent, Task task, decimal cpValue)
+        public static void AddCombination(Combination combination, Action action, Event eEvent, Task task, double cpValue)
         {
             combination.Cp = cpValue;
             combination.Action = action;
@@ -88,7 +88,7 @@ namespace DecisionSupportSystem.CommonClasses
             }
         }
 
-        public static void AddCombinationParam(Combination combination, CombinParam param, CombinParamName name, decimal value)
+        public static void AddCombinationParam(Combination combination, CombinParam param, CombinParamName name, double value)
         {
             if (param == null || combination == null) return;
             param.Combination = combination;

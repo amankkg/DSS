@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using DecisionSupportSystem.DbModel;
@@ -14,6 +15,7 @@ namespace DecisionSupportSystem.Tasks
         public EventsViewModel EventsViewModel { get; set; }
         public EventViewModel EventViewModel { get; set; }
         public CombinationsViewModel CombinationsViewModel { get; set; }
+        public TaskParamsViewModel TaskParamsViewModel { get; set; }
 
         public TaskNumberOne()
         {
@@ -30,6 +32,7 @@ namespace DecisionSupportSystem.Tasks
                     ParamsVisibility = Visibility.Hidden
                 };
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
+            TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         }
         protected override void InitCombinationViewModel()
         {
@@ -39,7 +42,8 @@ namespace DecisionSupportSystem.Tasks
         }
         protected override void CreateTaskParamsTemplate()
         {
-            return;
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Количество действий:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Количество событий:" } });
         }
         protected override Action CreateActionTemplate()
         {
@@ -67,6 +71,11 @@ namespace DecisionSupportSystem.Tasks
         {
             ContentPage.Content = new PageActionUE { DataContext = this, PrevBtnVisibility = Visibility.Hidden };
             Navigate(); 
+        }
+        public override void NextBtnClick_OnPageMain(object sender, RoutedEventArgs e)
+        {
+            if (TaskParamErrorCatcher.EntityErrorCount != 0) return;
+            SetContentUEAtContentPageAndNavigate(new PageActionUE { DataContext = this });
         }
         protected override int GetActionsCount()
         {

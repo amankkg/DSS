@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -72,14 +73,17 @@ namespace DecisionSupportSystem.ViewModel
             if (_selectedEvent <= OUT_OF_RANGE || Events.Count == 0) return;
             EventViewModels.RemoveAt(_selectedEvent);
             CRUD.DeleteEvent(Events[_selectedEvent]);
-            Events.RemoveAt(_selectedEvent);
+            //Events.RemoveAt(_selectedEvent);
             SumProbabilities();
         }
 
         public void SumProbabilities()
         {
             if (Events != null)
+            {
                 ProbabilitySumViewModel.ChangeSum(Events.Select(ev => ev.Probability).ToList().Sum());
+                ProbabilitySumViewModel.Sum = Math.Round(ProbabilitySumViewModel.Sum, 5);
+            }
         }
 
         public void UpdateEvent(EventViewModel callEventViewModel)

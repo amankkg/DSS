@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.PageUserElements;
+using System.Collections.ObjectModel;
 using DecisionSupportSystem.ViewModel;
+using DecisionSupportSystem.PageUserElements;
 
 namespace DecisionSupportSystem.Tasks
 {
@@ -83,24 +83,20 @@ namespace DecisionSupportSystem.Tasks
                     combination.Cp = raznBrak * BaseAlgorithms.Task.TaskParams.ToList()[2].Value * BaseAlgorithms.Task.TaskParams.ToList()[1].Value;
             }
         }
-
         protected override int GetActionsCount()
         {
             return ActionsViewModel.Actions.Count;
         }
-       
         protected override int GetEventsCount()
         {
             return EventsViewModel.Events.Count;
         }
-
         public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
         {
             if (EventErrorCatcher.EntityGroupErrorCount != 0 || GetEventsCount() == 0) return;
             CreateCombinations();
             SetContentUEAtContentPageAndNavigate(new PageCombinationWithParamUE { DataContext = this });
         }
-
         public override void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {
             CreateCombinations();

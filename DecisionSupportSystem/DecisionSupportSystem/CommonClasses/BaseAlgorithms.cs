@@ -12,8 +12,8 @@ namespace DecisionSupportSystem.CommonClasses
         public DssDbEntities Entities { get; set; }
         public IList<CpMax> CpMaxes { get; set; }
         public Task Task { get; set; }
-        public decimal MaxEmv { get; set; }
-        public decimal MinEol { get; set; }
+        public double MaxEmv { get; set; }
+        public double MinEol { get; set; }
 
         public void SolveTask(IEnumerable<Combination> combinations)
         {
@@ -48,7 +48,7 @@ namespace DecisionSupportSystem.CommonClasses
             }
         }
 
-        private decimal? GetCpMaxByEvent(Event ev)
+        private double? GetCpMaxByEvent(Event ev)
         {
             return CpMaxes.First(cpmax => cpmax.Event == ev).Value;
         }
@@ -62,7 +62,7 @@ namespace DecisionSupportSystem.CommonClasses
                 var cps = GetCpsByEventFromCombinations(ev);
                 var cpMax = cps.Max();
                 if (cpMax != null)
-                    CpMaxes.Add(new CpMax{Event = ev, Value = (decimal)cpMax});
+                    CpMaxes.Add(new CpMax{Event = ev, Value = cpMax});
             }
         }
 
@@ -71,7 +71,7 @@ namespace DecisionSupportSystem.CommonClasses
             return Entities.Events.Local;
         }
 
-        private IEnumerable<decimal?> GetCpsByEventFromCombinations(Event ev)
+        private IEnumerable<double?> GetCpsByEventFromCombinations(Event ev)
         {
             var combinations = GetCombinations();
             return (combinations.
@@ -101,7 +101,7 @@ namespace DecisionSupportSystem.CommonClasses
             return Entities.Actions.Local;
         }
 
-        private IEnumerable<decimal?> GetWpsByActionFromCombinations(Action action)
+        private IEnumerable<double?> GetWpsByActionFromCombinations(Action action)
         {
             var combinations = GetCombinations();
             return (combinations.
@@ -119,7 +119,7 @@ namespace DecisionSupportSystem.CommonClasses
             }
         }
         
-        private IEnumerable<decimal?> GetWolsByActionFromCombinations(Action action, 
+        private IEnumerable<double?> GetWolsByActionFromCombinations(Action action, 
             IEnumerable<Combination> combinations)
         {
             combinations = combinations ?? GetCombinations();

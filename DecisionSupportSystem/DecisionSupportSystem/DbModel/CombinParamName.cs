@@ -19,7 +19,7 @@ namespace DecisionSupportSystem.DbModel
             this.CombinParams = new HashSet<CombinParam>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<CombinParam> CombinParams { get; set; }

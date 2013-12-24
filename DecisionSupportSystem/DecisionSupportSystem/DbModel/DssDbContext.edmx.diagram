@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7b7cf2733d164fab8b31d0d508d5e0fa" Name="Диаграмма1" ZoomLevel="64">
+      <Diagram DiagramId="7b7cf2733d164fab8b31d0d508d5e0fa" Name="Диаграмма1" ZoomLevel="95">
         <EntityTypeShape EntityType="DssDbModel.ActionParamName" Width="1.75" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.ActionParam" Width="1.5" PointX="2.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DssDbModel.Action" Width="1.75" PointX="0.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DssDbModel.Action" Width="1.75" PointX="0.5" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.Combination" Width="1.5" PointX="4.625" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.CombinParamName" Width="1.5" PointX="8.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DssDbModel.CombinParam" Width="1.5" PointX="6.625" PointY="2.875" IsExpanded="true" />
@@ -30,7 +30,6 @@
         <AssociationConnector Association="DssDbModel.FK__EventPara__Event__2A4B4B5E" ManuallyRouted="false" />
         <AssociationConnector Association="DssDbModel.FK__TaskParam__NameI__34C8D9D1" ManuallyRouted="false" />
         <AssociationConnector Association="DssDbModel.FK__TaskParam__TaskI__33D4B598" ManuallyRouted="false" />
-        <AssociationConnector Association="DssDbModel.FK__Actions__Extenda__014935CB" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

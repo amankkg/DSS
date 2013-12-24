@@ -27,7 +27,7 @@ namespace DecisionSupportSystem.Tasks
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
             ActionsViewModel = new ActionsForTask9ViewModel(DssDbEntities, ActionErrorCatcher);
             ActionForTask9ViewModel = new ActionForTask9ViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher)
-                {EventViewModel = EventViewModel};
+                {EventViewModel = EventViewModel, Task = BaseAlgorithms.Task};
             TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         } 
         protected override void InitCombinationViewModel()

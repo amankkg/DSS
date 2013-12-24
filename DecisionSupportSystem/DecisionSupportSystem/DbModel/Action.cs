@@ -14,7 +14,7 @@ namespace DecisionSupportSystem.DbModel
             this.Combinations = new HashSet<Combination>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         private string _name = string.Empty;
         public string Name
         {
@@ -31,12 +31,10 @@ namespace DecisionSupportSystem.DbModel
                 }
             }
         }
-        public Nullable<decimal> Emv { get; set; }
-        public Nullable<decimal> Eol { get; set; }
+        public double? Emv { get; set; }
+        public double? Eol { get; set; }
         public Guid SavingId { get; set; }
-        public int? ExtendableActionId { get; set; }
          
-        public Action ExtendableAction { get; set; } 
         public virtual ICollection<ActionParam> ActionParams { get; set; }
         public virtual ICollection<Combination> Combinations { get; set; }
 

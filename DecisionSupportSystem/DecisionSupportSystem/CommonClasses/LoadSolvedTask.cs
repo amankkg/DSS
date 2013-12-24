@@ -169,7 +169,7 @@ namespace DecisionSupportSystem.CommonClasses
             }
         }
 
-        private Action GetActionById(int? id)
+        private Action GetActionById(Int64? id)
         {
             var localActions = currentDssDbEntities.Actions.Local.ToList();
             for (int i = 0; i < SelectedActions.Count; i++)
@@ -178,7 +178,7 @@ namespace DecisionSupportSystem.CommonClasses
             return null;
         }
 
-        private Event GetEventById(int? id)
+        private Event GetEventById(Int64? id)
         {
             if (id != null)
             {

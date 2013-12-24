@@ -20,7 +20,7 @@ namespace DecisionSupportSystem.DbModel
             this.TaskParams = new HashSet<TaskParam>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public System.DateTime Date { get; set; }
         public string Comment { get; set; }
         public int Deleted { get; set; }
@@ -40,8 +40,8 @@ namespace DecisionSupportSystem.DbModel
         }
         public string TaskUniq { get; set; }
         public Guid SavingId { get; set; }
-        private decimal? _maxEmv;
-        public decimal? MaxEmv
+        private double? _maxEmv;
+        public double? MaxEmv
         {
             get { return _maxEmv; }
             set
@@ -54,8 +54,8 @@ namespace DecisionSupportSystem.DbModel
             }
         }
 
-        private decimal? _minEol;
-        public decimal? MinEol
+        private double? _minEol;
+        public double? MinEol
         {
             get { return _minEol; }
             set

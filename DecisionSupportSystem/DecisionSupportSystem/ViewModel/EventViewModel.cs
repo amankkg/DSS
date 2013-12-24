@@ -58,6 +58,44 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
+
+        private int eventsCount;
+
+        private bool isGenerated;
+        public bool IsGenerated
+        {
+            get
+            {
+                return isGenerated;
+            }
+            set
+            {
+                if (value != this.isGenerated)
+                {
+                    this.isGenerated = value;
+                    RaisePropertyChanged("IsGenerated");
+                    if (!isGenerated)
+                        EventsCount = 0;
+                }
+            }
+        }
+
+        public int EventsCount
+        {
+            get
+            {
+                return eventsCount;
+            }
+            set
+            {
+                if (value != this.eventsCount)
+                {
+                    this.eventsCount = value;
+                    RaisePropertyChanged("EventsCount");
+                }
+            }
+        }
+        public int Iterator = 0;
         public ObservableCollection<EventParam> EditableEventParams { get; set; }
         public EventsViewModel EventsViewModel { get; set; }
         public ICommand AddEventCommand { get; private set; }
@@ -84,7 +122,55 @@ namespace DecisionSupportSystem.ViewModel
 
         public void OnAddEvent(object obj)
         {
-            if(ErrorCatcher.EntityErrorCount != 0) return;
+            if (IsGenerated && ErrorCatcher.EntityErrorCount == 0)
+            {
+                Iterator = 0;
+                EventsViewModel.ProbabilitySumViewModel.Sum = 0;
+                EventsViewModel.Events.Clear();
+                EventsViewModel.EventViewModels.Clear();
+                GenerateEvents();
+            }
+            if (ErrorCatcher.EntityErrorCount == 0)
+            {
+                CreateAndAddEvent();
+            }
+        }
+
+         public void GenerateEvents()
+        {
+            if (EventsCount > 1) 
+            while (Iterator != EventsCount)
+            {
+                ErrorCatcher.EntityErrorCount = 0;
+                var k = Iterator;
+                double m = DefineM();
+                double f = Factorial(k);
+                double p = Math.Pow(m, k);
+                double ex = Math.Exp(-m);
+                double prob = p * ex / f;
+                EditableEvent.Probability = Math.Abs(prob);
+                EditableEvent.Name = String.Format("Событие {0}", Iterator = Iterator + 1);
+                
+                CreateAndAddEvent();
+            }
+            else
+                CreateAndAddEvent();
+        }
+
+        private double DefineM()
+        {
+            if (EventsCount < 10)
+                return (double) EventsCount / 1000;
+                return (double)EventsCount / 10;
+        }
+
+        private double Factorial(long x)
+         {
+             return (x == 0) ? 1 : x * Factorial(x - 1);
+         }
+
+        public void CreateAndAddEvent()
+        {
             var eventParams = new Collection<EventParam>();
             foreach (var eventParam in EditableEvent.EventParams)
                 eventParams.Add(new EventParam
@@ -96,12 +182,12 @@ namespace DecisionSupportSystem.ViewModel
                     EventParamName = eventParam.EventParamName
                 });
             this.EventsViewModel.AddEvent(new Event
-                {
-                    Name = EditableEvent.Name, 
-                    Probability = EditableEvent.Probability, 
-                    EventParams = eventParams,
-                    SavingId = EditableEvent.SavingId
-                });
+            {
+                Name = EditableEvent.Name,
+                Probability = EditableEvent.Probability,
+                EventParams = eventParams,
+                SavingId = EditableEvent.SavingId
+            });
         }
 
         #region реализация интерфейса IDataErrorInfo
@@ -117,6 +203,17 @@ namespace DecisionSupportSystem.ViewModel
                     if (string.IsNullOrEmpty(Name))
                     {
                         errormsg = "Введите название события";
+                    }
+                }
+                if (columnName == "EventsCount")
+                {
+                    if (EventsCount > 170)
+                    {
+                        errormsg = "Количество событий не должно превышать 170.";
+                    }
+                    if (EventsCount < 0)
+                    {
+                        errormsg = "Количество событий не должно быть меньше 0.";
                     }
                 }
                 return errormsg;

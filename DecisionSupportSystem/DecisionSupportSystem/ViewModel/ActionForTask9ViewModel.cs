@@ -12,6 +12,7 @@ namespace DecisionSupportSystem.ViewModel
     public class ActionForTask9ViewModel : BasePropertyChanged
     {
         public EventViewModel EventViewModel { get; set; }
+        public Task Task { get; set; }
         private bool _isExtended;
         public bool IsExtended
         {
@@ -46,8 +47,8 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
-        private decimal _credit;
-        public decimal Credit
+        private double _credit;
+        public double Credit
         {
             get
             {
@@ -63,8 +64,8 @@ namespace DecisionSupportSystem.ViewModel
                 }
             }
         }
-        private decimal _creditToExtend;
-        public decimal CreditToExtend
+        private double _creditToExtend;
+        public double CreditToExtend
         {
             get
             {
@@ -97,7 +98,7 @@ namespace DecisionSupportSystem.ViewModel
         public virtual void OnAddAction(object obj)
         {
             if (base.ErrorCatcher.EntityErrorCount != 0) return;
-            int period = Convert.ToInt32(ActionsForTask9ViewModel.DssDbEntities.Tasks.Local.ToList()[0].TaskParams.ToList()[0].Value);
+            int period = Convert.ToInt32(Task.TaskParams.ToList()[0].Value);
             AddExtensions(IsExtended ? period : 1, period);
         }
 
@@ -109,8 +110,8 @@ namespace DecisionSupportSystem.ViewModel
                 var actionParams = new Collection<ActionParam>();
                 if (i == 0)
                 {
-                    EditableAction.ActionParams.ToList()[0].Value = Convert.ToDecimal(period - i);
-                    EditableAction.ActionParams.ToList()[2].Value = Convert.ToDecimal(i);
+                    EditableAction.ActionParams.ToList()[0].Value = period - i;
+                    EditableAction.ActionParams.ToList()[2].Value = i;
                     EditableAction.ActionParams.ToList()[4].Value = EventViewModel.EditableEventParams.Count;
                     EditableAction.ActionParams.ToList()[5].Value = -1;
                     foreach (var actionParam in EditableAction.ActionParams)
@@ -150,8 +151,8 @@ namespace DecisionSupportSystem.ViewModel
                 }
                 else
                 {
-                    EditableAction.ActionParams.ToList()[0].Value = Convert.ToDecimal(period - i);
-                    EditableAction.ActionParams.ToList()[2].Value = Convert.ToDecimal(i);
+                    EditableAction.ActionParams.ToList()[0].Value = period - i;
+                    EditableAction.ActionParams.ToList()[2].Value = i;
                     EditableAction.ActionParams.ToList()[4].Value = EventViewModel.EditableEventParams.Count-2;
                     EditableAction.ActionParams.ToList()[5].Value = EventViewModel.EditableEventParams.Count-1;
                     foreach (var actionParam in EditableAction.ActionParams)

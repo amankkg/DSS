@@ -7,15 +7,15 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              mc:Ignorable="d"
-             d:DesignHeight="160.789" d:DesignWidth="535.715">
+             d:DesignHeight="152.789" d:DesignWidth="535.715">
     <Grid Name="mainGrid">
         <Rectangle Fill="#FF6C9EC1" />
 
-        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="34,5,0,0" Foreground="White" 
+        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="34,31,0,0" Foreground="White" 
                FontFamily="Calibri" FontSize="16" Padding="0,0,0,0">
         </Label>
 
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="40" Margin="135,5,35,0"  VerticalAlignment="Top" 
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="40" Margin="135,31,35,0"  VerticalAlignment="Top" 
                     Text="{Binding Path=EditableAction.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
                     ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
                     <interactivity:Interaction.Triggers>
@@ -26,7 +26,7 @@
         </TextBox>
         
         <DataGrid ItemsSource="{Binding Path=EditableActionParams}" AutoGenerateColumns="False" CanUserAddRows="False" 
-                  Margin="135,50,35,30" FontSize="12" Visibility="{Binding Path=ParamsVisibility}">
+                  Margin="135,72,35,25" FontSize="12" Visibility="{Binding Path=ParamsVisibility}">
 
             <DataGrid.ColumnHeaderStyle>
                 <StaticResource ResourceKey="InnerDataGridColumnHeaderStyle"/>
@@ -62,9 +62,14 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="19,50,0,0" Foreground="White" FontWeight="Bold"
+        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="19,72,0,0" Foreground="White" FontWeight="Bold"
                FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Visibility="{Binding Path=ParamsVisibility}"/>
         <Button  Content="Добавить" HorizontalAlignment="Right"
                 Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
+        <Label Content="Количество:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="288,5,0,0" Foreground="White" 
+        	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
+        <CheckBox Content="Генерация действий" HorizontalAlignment="Left" Margin="135,7,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsGenerated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Height="23" Margin="381,5,35,0" TextWrapping="Wrap" Text="{Binding Path=ActionsCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
+                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
