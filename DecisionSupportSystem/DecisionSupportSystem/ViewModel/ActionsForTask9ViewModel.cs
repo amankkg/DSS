@@ -11,20 +11,20 @@ namespace DecisionSupportSystem.ViewModel
     public class ActionsForTask9ViewModel : BasePropertyChanged
     {
         protected const int OUT_OF_RANGE = -1;
-        public BaseLayer BaseLayer;
+        public DssDbEntities DssDbEntities { get; set; }
         public ObservableCollection<Action> Actions { get; set; }
         public ObservableCollection<ActionForTask9ViewModel> ActionForTask9ViewModels { get; set; }
         public Visibility ParamsVisibility { get; set; }
         public ActionsForTask9ViewModel(){}
 
-        public ActionsForTask9ViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public ActionsForTask9ViewModel(DssDbEntities dssDbEntities, IErrorCatch errorCatcher)
         {
+            DssDbEntities = dssDbEntities;
+            this.Actions = DssDbEntities.Actions.Local;
             base.ErrorCatcher = errorCatcher;
-            this.BaseLayer = baseLayer;
-            this.Actions = this.BaseLayer.DssDbContext.Actions.Local;
             this.ActionForTask9ViewModels = new ObservableCollection<ActionForTask9ViewModel>();
             foreach (var action in this.Actions)
-                this.ActionForTask9ViewModels.Add(new ActionForTask9ViewModel(action, this, base.ErrorCatcher));
+                this.ActionForTask9ViewModels.Add(new ActionForTask9ViewModel(action, this, ErrorCatcher));
         }
 
         public virtual void AddAction(Action act)
@@ -59,7 +59,7 @@ namespace DecisionSupportSystem.ViewModel
         {
             if (_selectedAction <= OUT_OF_RANGE || Actions.Count == 0) return;
             ActionForTask9ViewModels.RemoveAt(_selectedAction);
-            BaseLayer.BaseMethods.DeleteAction(Actions[_selectedAction]);
+            CRUD.DeleteAction(Actions[_selectedAction]);
         }
 
         public void UpdateAction(ActionForTask9ViewModel callActionViewModel)

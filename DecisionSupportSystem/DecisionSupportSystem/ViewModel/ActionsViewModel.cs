@@ -12,17 +12,15 @@ namespace DecisionSupportSystem.ViewModel
     public class ActionsViewModel : BasePropertyChanged
     {
         protected const int OUT_OF_RANGE = -1;
-        public BaseLayer BaseLayer;
         public ObservableCollection<Action> Actions { get; set; }
         public ObservableCollection<ActionViewModel> ActionViewModels { get; set; }
         public Visibility ParamsVisibility { get; set; }
         public ActionsViewModel(){}
 
-        public ActionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public ActionsViewModel(ObservableCollection<Action> actions, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;
-            this.BaseLayer = baseLayer;
-            this.Actions = this.BaseLayer.DssDbContext.Actions.Local;
+            Actions = actions;
             this.ActionViewModels = new ObservableCollection<ActionViewModel>();
             foreach (var action in this.Actions)
                 this.ActionViewModels.Add(new ActionViewModel(action, this, base.ErrorCatcher));
@@ -60,7 +58,7 @@ namespace DecisionSupportSystem.ViewModel
         {
             if (_selectedAction <= OUT_OF_RANGE || Actions.Count == 0) return;
             ActionViewModels.RemoveAt(_selectedAction);
-            BaseLayer.BaseMethods.DeleteAction(Actions[_selectedAction]);
+            CRUD.DeleteAction(Actions[_selectedAction]);
         }
 
         public void UpdateAction(ActionViewModel callActionViewModel)

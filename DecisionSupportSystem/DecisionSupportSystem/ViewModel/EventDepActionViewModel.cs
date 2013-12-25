@@ -14,6 +14,7 @@ namespace DecisionSupportSystem.ViewModel
         public ICommand AddEventCommand { get; private set; }
         public EventsDepActionsViewModel EventsDepActionsViewModel { get; set; }
         private int _actionSelectedIndex;
+
         public int ActionSelectedIndex
         {
             get
@@ -22,13 +23,14 @@ namespace DecisionSupportSystem.ViewModel
             }
             set
             {
-                if (value != this._actionSelectedIndex)
+                if (value != _actionSelectedIndex)
                 {
-                    this._actionSelectedIndex = value;
+                    _actionSelectedIndex = value;
                     RaisePropertyChanged("ActionSelectedIndex");
                 }
             }
         }
+
         private Visibility _paramsVisibility;
         public Visibility ParamsVisibility
         {
@@ -38,22 +40,24 @@ namespace DecisionSupportSystem.ViewModel
             }
             set
             {
-                if (value != this._paramsVisibility)
+                if (value != _paramsVisibility)
                 {
-                    this._paramsVisibility = value;
+                    _paramsVisibility = value;
                     RaisePropertyChanged("ParamsVisibility");
                 }
             }
         }
-        public EventDepActionViewModel(BaseLayer baseLayer, Event eventTemplate, EventsDepActionsViewModel eventsDepActionsViewModel, IErrorCatch errorCatcher)
+
+        public EventDepActionViewModel(ObservableCollection<Action> actions, Event eventTemplate, 
+                                       EventsDepActionsViewModel eventsDepActionsViewModel, IErrorCatch errorCatcher)
         {
-            this.Actions = baseLayer.DssDbContext.Actions.Local;
-            this.EditableEvent = eventTemplate;
+            Actions = actions;
+            EditableEvent = eventTemplate;
             if (EditableEvent.EventParams.Count == 0)
                 ParamsVisibility = Visibility.Hidden;
-            base.ErrorCatcher = errorCatcher;
-            this.EventsDepActionsViewModel = eventsDepActionsViewModel;
-            AddEventCommand = new DelegateCommand<object>(this.OnAddEvent);
+            ErrorCatcher = errorCatcher;
+            EventsDepActionsViewModel = eventsDepActionsViewModel;
+            AddEventCommand = new DelegateCommand<object>(OnAddEvent);
         }
 
         private void OnAddEvent(object obj)
@@ -69,7 +73,7 @@ namespace DecisionSupportSystem.ViewModel
                     Id = eventParam.Id,
                     EventParamName = eventParam.EventParamName
                 });
-            this.EventsDepActionsViewModel.AddEvent(
+                EventsDepActionsViewModel.AddEvent(
                 Actions[ActionSelectedIndex],
                new Event
                {

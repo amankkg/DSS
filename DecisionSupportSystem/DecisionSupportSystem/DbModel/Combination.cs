@@ -21,26 +21,26 @@ namespace DecisionSupportSystem.DbModel
             this.CombinParams = new HashSet<CombinParam>();
         }
     
-        public int Id { get; set; }
-        public int? ActionId { get; set; }
-        public int? EventId { get; set; }
-        public int? TaskId { get; set; }
-        private decimal _cp;
-        public Nullable<decimal> Cp
+        public Int64 Id { get; set; }
+        public Int64? ActionId { get; set; }
+        public Int64? EventId { get; set; }
+        public Int64? TaskId { get; set; }
+        private double? _cp;
+        public double? Cp
         {
             get { return _cp; }
             set
             {
                 if (value != this._cp)
                 {
-                    this._cp = (decimal)value;
+                    this._cp = value;
                     RaisePropertyChanged("Cp");
                 }
             }
         }
-        public Nullable<decimal> Wp { get; set; }
-        public Nullable<decimal> Col { get; set; }
-        public Nullable<decimal> Wol { get; set; }
+        public double? Wp { get; set; }
+        public double? Col { get; set; }
+        public double? Wol { get; set; }
         public Guid SavingId { get; set; }
         
         public virtual Action Action { get; set; }

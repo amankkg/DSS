@@ -13,17 +13,15 @@ namespace DecisionSupportSystem.CommonClasses
         public DssDbEntities DssDbContext { get; set; }
 
         public Task Task { get; set; }
-        public SolvedTaskView SolvedTaskView { get; set; }
-        public BaseMethods BaseMethods { get; set; }
+       // public BaseMethods BaseMethods { get; set; }
         public IList<CpMax> CpMaxes { get; set; }
         #endregion
 
         public BaseLayer()
         {
             DssDbContext = new DssDbEntities();
-            BaseMethods = new BaseMethods(DssDbContext);
+           // BaseMethods = new BaseMethods(DssDbContext);
             Task = new Task();
-            SolvedTaskView = new SolvedTaskView();
             CpMaxes = new List<CpMax>();
         }
 
@@ -57,7 +55,7 @@ namespace DecisionSupportSystem.CommonClasses
         
         private void SolveWp()
         {
-            var combins = DssDbContext.Combinations.Local.ToList();
+            var combins = DssDbContext.Combinations.Local;
             foreach (var combination in combins)
                 combination.Wp = combination.Cp*combination.Event.Probability;
         }
@@ -154,11 +152,6 @@ namespace DecisionSupportSystem.CommonClasses
         public List<Task> GetSolvedTasksFromDb(string taskUniq)
         {
             return DssDbContext.Tasks.Where(x => x.TaskUniq == taskUniq).ToList();
-        }
-
-        public List<Action> GetActionsFromDb()
-        {
-            return DssDbContext.Actions.Select(a => a).ToList();
         }
 
         public List<Action> GetLocalActionsList()

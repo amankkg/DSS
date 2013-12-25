@@ -7,10 +7,10 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="496.241" Loaded="PageActionUE_OnLoaded">
+             d:DesignHeight="470" d:DesignWidth="496.241" Loaded="PageActionUE_OnLoaded">
    <Grid Background="#FF6C9EC1">
-        <task:ActionUE DataContext="{Binding Path=ActionViewModel}" Height="146" VerticalAlignment="Top" Margin="0,40,0,0"/>
-        <Grid Margin="0,211,0,0">
+        <task:ActionUE DataContext="{Binding Path=ActionViewModel}" Height="146" VerticalAlignment="Top" Margin="0,35,0,0"/>
+        <Grid Margin="0,201,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="10,186,0,0" Width="233" FontSize="14" 
+        <Label  Content="Список возможных действий:" HorizontalAlignment="Left" Margin="0,181,0,0" Width="233" FontSize="14" 
         	Padding="0,0,0,0" Height="20" VerticalAlignment="Top" Foreground="White" FontFamily="Calibri"/>
 
     </Grid>

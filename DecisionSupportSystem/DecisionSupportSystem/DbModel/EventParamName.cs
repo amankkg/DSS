@@ -19,7 +19,7 @@ namespace DecisionSupportSystem.DbModel
             this.EventParams = new HashSet<EventParam>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<EventParam> EventParams { get; set; }

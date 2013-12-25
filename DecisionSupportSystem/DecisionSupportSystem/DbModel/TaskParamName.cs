@@ -19,7 +19,7 @@ namespace DecisionSupportSystem.DbModel
             this.TaskParams = new HashSet<TaskParam>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<TaskParam> TaskParams { get; set; }

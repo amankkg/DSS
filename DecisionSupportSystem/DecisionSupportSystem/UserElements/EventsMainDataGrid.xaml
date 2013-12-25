@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:task="clr-namespace:DecisionSupportSystem.UserElements"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="206" d:DesignWidth="407">
     <Grid Name="MainGrid">
         <task:EventsDataGrid  DataContext="{Binding ElementName=MainGrid, Path=DataContext}" Margin="0,0,0,25"/>
         <task:ProbabilitySumUE DataContext="{Binding Path=ProbabilitySumViewModel}" VerticalAlignment="Bottom" Height="25"/>

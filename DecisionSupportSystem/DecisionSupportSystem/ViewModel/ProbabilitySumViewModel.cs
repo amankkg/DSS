@@ -8,8 +8,8 @@ namespace DecisionSupportSystem.ViewModel
     public class ProbabilitySumViewModel : BasePropertyChanged, IDataErrorInfo
     {
         #region Свойства
-        private decimal _sum;
-        public decimal Sum
+        private double _sum;
+        public double Sum
         {
             get
             {
@@ -27,7 +27,7 @@ namespace DecisionSupportSystem.ViewModel
         #endregion
 
         #region Методы
-        public void ChangeSum(decimal sum)
+        public void ChangeSum(double sum)
         {
             Sum = sum;
         }

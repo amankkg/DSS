@@ -14,10 +14,10 @@ namespace DecisionSupportSystem.DbModel
     
     public partial class EventParam
     {
-        public int Id { get; set; }
-        public decimal Value { get; set; }
-        public int EventId { get; set; }
-        public Nullable<int> NameId { get; set; }
+        public Int64 Id { get; set; }
+        public double Value { get; set; }
+        public Int64 EventId { get; set; }
+        public Int64? NameId { get; set; }
     
         public virtual EventParamName EventParamName { get; set; }
         public virtual Event Event { get; set; }

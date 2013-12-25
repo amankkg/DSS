@@ -1,6 +1,6 @@
 ﻿namespace DecisionSupportSystem.CommonClasses
 {
-    public class TaskViewForMainWindows
+    public class SavedTasksViewModel
     {
         public string Description { get; set; }
         public string Type { get; set; }

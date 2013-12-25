@@ -14,10 +14,10 @@ namespace DecisionSupportSystem.DbModel
     
     public partial class CombinParam
     {
-        public int Id { get; set; }
-        public decimal Value { get; set; }
-        public int CombinationId { get; set; }
-        public Nullable<int> NameId { get; set; }
+        public Int64 Id { get; set; }
+        public double Value { get; set; }
+        public Int64 CombinationId { get; set; }
+        public Int64? NameId { get; set; }
     
         public virtual Combination Combination { get; set; }
         public virtual CombinParamName CombinParamName { get; set; }

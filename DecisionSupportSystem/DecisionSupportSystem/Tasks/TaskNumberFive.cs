@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using DecisionSupportSystem.CommonClasses;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
 using DecisionSupportSystem.ViewModel;
@@ -26,24 +27,28 @@ namespace DecisionSupportSystem.Tasks
         public List<Combination> FictiveCombinations { get; set; }   
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(BaseLayer, ActionErrorCatcher);
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher);
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
-            EventsDepActionsViewModel = new EventsDepActionsViewModel(BaseLayer, EventErrorCatcher);
-            EventDepActionViewModel = new EventDepActionViewModel(BaseLayer, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
+            EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher);
+            EventDepActionViewModel = new EventDepActionViewModel(DssDbEntities.Actions.Local, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
         }
+
         protected override void InitCombinationViewModel()
         {
-            CombinationsViewModel = new CombinationsViewModel(BaseLayer, CombinationErrorCatcher);
+            CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher);
         }
+
         protected override void CreateTaskParamsTemplate() { }
         protected override Action CreateActionTemplate()
         {
             return new Action { Name = "Действие", SavingId = base.SavingID };
         }
+
         protected override Event CreateEventTemplate()
         {
             return new Event { Name = "Событие", Probability = 1, SavingId = base.SavingID };
         }
+
         protected override Combination CreateCombinationTemplate()
         {
             var combinParamNameF = new CombinParamName { Name = "Доход" };
@@ -61,7 +66,7 @@ namespace DecisionSupportSystem.Tasks
 
         protected override void CreateCombinations()
         {
-            var lastCombinations = GetCombinations(BaseLayer);
+            var combinations = DssDbEntities.Combinations.Local.ToList();
             var actions = EventsDepActionsViewModel.EventsDependingActions;
             foreach (var eventsDependingAction in actions)
             {
@@ -69,21 +74,22 @@ namespace DecisionSupportSystem.Tasks
                 if (events.Count == 0) events.Add(null);
                 foreach (var even in events)
                 {
-                    if (!ActionContainsInCombinations(eventsDependingAction.Action, lastCombinations) || !EventContainsInCombinations(even, lastCombinations))
+                    if (!ActionContainsInCombinations(eventsDependingAction.Action, combinations) || !EventContainsInCombinations(even, combinations))
                     {
-                        BaseLayer.BaseMethods.AddCombination(CreateCombinationTemplate(), eventsDependingAction.Action, even, BaseLayer.Task, 0);
+                        CRUD.AddCombination(CreateCombinationTemplate(), eventsDependingAction.Action, even, BaseAlgorithms.Task, 0);
                     }
                 }
             }
             InitCombinationViewModel();
             CreateFictiveCombinations();
         }
+
         public void CreateFictiveCombinations()
         {
             FictiveCombinations = new List<Combination>();
-            var combins = BaseLayer.DssDbContext.Combinations.Local.ToList();
-            foreach (var action in BaseLayer.DssDbContext.Actions.Local)
-                foreach (var even in BaseLayer.DssDbContext.Events.Local)
+            var combins = DssDbEntities.Combinations.Local.ToList();
+            foreach (var action in DssDbEntities.Actions.Local)
+                foreach (var even in DssDbEntities.Events.Local)
                 {
                     var combination = combins.Select(c => c).Where(c => c.Action == action && c.Event == even).ToList();
                     if (combination.Count == 0)
@@ -99,9 +105,13 @@ namespace DecisionSupportSystem.Tasks
         }
         public void SolveCp()
         {
-            var combinations = BaseLayer.DssDbContext.Combinations.Local;
+            var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)
-                combination.Cp = combination.CombinParams.ToList()[0].Value - combination.CombinParams.ToList()[1].Value;
+            {
+                var debit = combination.CombinParams.ToList()[0].Value;
+                var credit = combination.CombinParams.ToList()[1].Value;
+                combination.Cp = debit - credit;
+            }
         }
 
         protected override void ShowPageMain()
@@ -131,7 +141,7 @@ namespace DecisionSupportSystem.Tasks
         {
             if (CombinationErrorCatcher.EntityGroupErrorCount != 0) return;
             SolveCp();
-            BaseLayer.SolveThisTask(FictiveCombinations);
+            BaseAlgorithms.SolveTask(FictiveCombinations);
             SetContentUEAtContentPageAndNavigate(new PageSolveUE { DataContext = this });
         }
         public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)

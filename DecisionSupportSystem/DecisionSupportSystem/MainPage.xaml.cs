@@ -31,7 +31,7 @@ namespace DecisionSupportSystem
             var element = GetTaskType();
             if (element != null)
             {
-                var taskEx = new TaskViewForMainWindows
+                var taskEx = new SavedTasksViewModel
                     {
                         Name = element.ChildNodes[0].InnerText, 
                         TaskUniq = element.ChildNodes[3].InnerText, 

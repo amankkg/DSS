@@ -25,8 +25,8 @@ namespace DecisionSupportSystem.DbModel
         }
 
         private string _name;
-        private decimal _probability;
-        public int Id { get; set; }
+        private double _probability;
+        public Int64 Id { get; set; }
         public string Name
         {
             get { return _name; }
@@ -39,14 +39,14 @@ namespace DecisionSupportSystem.DbModel
                 }
             }
         }
-        public decimal Probability
+        public double Probability
         {
             get { return _probability; }
             set
             {
                 if (value != this._probability)
                 {
-                    this._probability = (decimal)value;
+                    this._probability = value;
                     RaisePropertyChanged("Probability");
                 }
             }

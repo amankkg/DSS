@@ -14,7 +14,7 @@
         <Rectangle Fill="#FF6C9EC1" Stroke="Black"/>
         <Label Content="Сумма вероятностей:" HorizontalAlignment="Left" Width="130" Foreground="White" FontFamily="Calibri" Margin="0,-1,0,0"/>
         <TextBox Margin="130,0" Style="{StaticResource TextBoxInGridStyle}"  TextWrapping="Wrap" IsReadOnly="True" 
-                 Text="{Binding Path=Sum, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 Text="{Binding Path=Sum, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, StringFormat=F5}" 
                  BorderBrush="Black" TextAlignment="Center" FontWeight="Bold">
             <interactivity:Interaction.Triggers>
                 <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">

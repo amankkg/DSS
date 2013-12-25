@@ -17,17 +17,14 @@ namespace DecisionSupportSystem
             Tasks = new List<Task>();
             try
             {
-            using (var dssDbContext = new DssDbEntities())
-            {
-                var tasks = (from task in dssDbContext.Tasks
-                             where task.TaskUniq == taskUniq && task.Deleted != 1
-                             select task).ToList();
-                foreach (var t in tasks)
+                using (var dssDbContext = new DssDbEntities())
                 {
-                    Tasks.Add(new Task { Comment = t.Comment, TaskUniq = t.TaskUniq, Id = t.Id, Recommendation = t.Recommendation, 
-                                         Date = t.Date, Deleted = t.Deleted, TreeDiagramm = t.TreeDiagramm, SavingId = t.SavingId, TaskParams = t.TaskParams});
+                    var tasks = (from task in dssDbContext.Tasks
+                                 where task.TaskUniq == taskUniq && task.Deleted != 1
+                                 select task).ToList();
+                    foreach (var t in tasks)
+                        Tasks.Add(t);
                 }
-            }
             }
             catch (Exception)
             {
@@ -39,10 +36,10 @@ namespace DecisionSupportSystem
 
     public partial class SolvedTasksPage
     {
-        public Load Layer { get; set; }
-        public TaskViewForMainWindows TaskViewForSolvedTaskWindow { get; set; }
+        public LoadSolvedTask Layer { get; set; }
+        public SavedTasksViewModel TaskViewForSolvedTaskWindow { get; set; }
 
-        public SolvedTasksPage(TaskViewForMainWindows taskViewForSolvedTaskWindow)
+        public SolvedTasksPage(SavedTasksViewModel taskViewForSolvedTaskWindow)
         {
             InitializeComponent();
             TaskViewForSolvedTaskWindow = taskViewForSolvedTaskWindow;
@@ -54,13 +51,13 @@ namespace DecisionSupportSystem
         {
             if (gridTasks.SelectedItem != null)
             {
-                Layer = new Load((Task)gridTasks.SelectedItem);
-                Layer.LoadCombinations();
+                Layer = new LoadSolvedTask((Task)gridTasks.SelectedItem);
+                Layer.AddCombinationsToCurrentDssDbEntities();
                 var asm = Assembly.GetExecutingAssembly();
                 var task = asm.GetType(TaskViewForSolvedTaskWindow.Window);
                 object taskInstance = Activator.CreateInstance(task);
                 MethodInfo methodInfo = task.GetMethod("InitBaseLayerAndShowMainPage");
-                methodInfo.Invoke(taskInstance, new object[] {TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.BaseLayer });
+                methodInfo.Invoke(taskInstance, new object[] {TaskViewForSolvedTaskWindow.Name, TaskViewForSolvedTaskWindow.TaskUniq, Layer.currentDssDbEntities });
             }
         }
 

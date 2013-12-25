@@ -19,7 +19,7 @@ namespace DecisionSupportSystem.DbModel
             this.ActionParams = new HashSet<ActionParam>();
         }
     
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         private string _name;
         public string Name
         {

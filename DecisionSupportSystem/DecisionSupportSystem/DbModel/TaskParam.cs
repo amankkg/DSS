@@ -16,9 +16,9 @@ namespace DecisionSupportSystem.DbModel
 
     public partial class TaskParam : BasePropertyChanged, IDataErrorInfo
     {
-        public int Id { get; set; }
-        private decimal _value;
-        public decimal Value
+        public Int64 Id { get; set; }
+        private double _value;
+        public double Value
         {
             get
             {
@@ -33,8 +33,8 @@ namespace DecisionSupportSystem.DbModel
                 }
             }
         }
-        public int TaskId { get; set; }
-        public Nullable<int> NameId { get; set; }
+        public Int64 TaskId { get; set; }
+        public Int64? NameId { get; set; }
     
         public virtual TaskParamName TaskParamName { get; set; }
         public virtual Task Task { get; set; }

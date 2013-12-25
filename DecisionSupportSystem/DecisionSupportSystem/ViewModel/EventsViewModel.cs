@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,6 @@ namespace DecisionSupportSystem.ViewModel
     public class EventsViewModel : BasePropertyChanged
     {
         private const int OUT_OF_RANGE = -1;
-        private BaseLayer _baseLayer;
         
         public ObservableCollection<Event> Events { get; set; }
         public ObservableCollection<EventViewModel> EventViewModels { get; set; }
@@ -33,22 +33,10 @@ namespace DecisionSupportSystem.ViewModel
             }
         }
         public Visibility ParamsVisibility { get; set; }
-        public EventsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public EventsViewModel(ObservableCollection<Event> events, IErrorCatch errorCatcher)
         {
             base.ErrorCatcher = errorCatcher;
-            this._baseLayer = baseLayer;
-            this.Events = this._baseLayer.DssDbContext.Events.Local;
-            this.EventViewModels = new ObservableCollection<EventViewModel>();
-            this.ProbabilitySumViewModel = new ProbabilitySumViewModel(base.ErrorCatcher);
-            foreach (var ev in this.Events)
-                this.EventViewModels.Add(new EventViewModel(ev, this, base.ErrorCatcher));
-        }
-
-        public EventsViewModel(ObservableCollection<Event> events, BaseLayer baseLayer, IErrorCatch errorCatcher)
-        {
             this.Events = events;
-            base.ErrorCatcher = errorCatcher;
-            this._baseLayer = baseLayer;
             this.EventViewModels = new ObservableCollection<EventViewModel>();
             this.ProbabilitySumViewModel = new ProbabilitySumViewModel(base.ErrorCatcher);
             foreach (var ev in this.Events)
@@ -84,15 +72,18 @@ namespace DecisionSupportSystem.ViewModel
         {
             if (_selectedEvent <= OUT_OF_RANGE || Events.Count == 0) return;
             EventViewModels.RemoveAt(_selectedEvent);
-            _baseLayer.BaseMethods.DeleteEvent(Events[_selectedEvent]);
-            Events.RemoveAt(_selectedEvent);
+            CRUD.DeleteEvent(Events[_selectedEvent]);
+            //Events.RemoveAt(_selectedEvent);
             SumProbabilities();
         }
 
         public void SumProbabilities()
         {
             if (Events != null)
+            {
                 ProbabilitySumViewModel.ChangeSum(Events.Select(ev => ev.Probability).ToList().Sum());
+                ProbabilitySumViewModel.Sum = Math.Round(ProbabilitySumViewModel.Sum, 5);
+            }
         }
 
         public void UpdateEvent(EventViewModel callEventViewModel)

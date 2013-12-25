@@ -15,7 +15,7 @@
             </Grid.RowDefinitions>
             
             <task:ActionEmvEolsUE Margin="0,40,0,323" DataContext="{Binding Path=ActionsViewModel}"/>
-            <task:TaskRecomendationUE DataContext="{Binding Path=BaseLayer.Task}" Height="323" VerticalAlignment="Bottom"/>
+            <task:TaskRecomendationUE DataContext="{Binding Path=BaseAlgorithms.Task}" Height="323" VerticalAlignment="Bottom"/>
            
             <Grid Height="40" VerticalAlignment="Top" Background="#FF6C9EC1">
                 <Grid.ColumnDefinitions>

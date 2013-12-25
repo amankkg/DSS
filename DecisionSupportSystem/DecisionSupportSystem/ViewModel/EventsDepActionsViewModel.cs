@@ -10,31 +10,29 @@ namespace DecisionSupportSystem.ViewModel
     public class EventsDepActionsViewModel : BasePropertyChanged
     {
         public ObservableCollection<EventsDependingAction> EventsDependingActions { get; set; }
-        public BaseLayer BaseLayer { get; set; }
+        public DssDbEntities DssDbEntities { get; set; }
 
-        public EventsDepActionsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public EventsDepActionsViewModel(DssDbEntities dssDbEntities, IErrorCatch errorCatcher)
         {
-            this.BaseLayer = baseLayer;
-            base.ErrorCatcher = errorCatcher;
+            DssDbEntities = dssDbEntities;
+            ErrorCatcher = errorCatcher;
             InitEventsDependingActions();
         }
 
         public void InitEventsDependingActions()
         {
             EventsDependingActions = new ObservableCollection<EventsDependingAction>();
-            var actions = BaseLayer.DssDbContext.Actions.Local;
-            var combins = BaseLayer.DssDbContext.Combinations.Local;
-            foreach (var action in actions)
-            {
+            var actions = DssDbEntities.Actions.Local;
+            var combins = DssDbEntities.Combinations.Local;
+            foreach (var action in actions){
                 var eventsDepCombinsAction = combins.Where(c => c.Action == action).Select(c => c.Event);
                 var eventsDepAction = new ObservableCollection<Event>();
                 foreach (var ev in eventsDepCombinsAction)
                     eventsDepAction.Add(ev);
 
-                EventsDependingActions.Add(new EventsDependingAction
-                {
+                EventsDependingActions.Add(new EventsDependingAction{
                     Action = action,
-                    EventsViewModel = new EventsViewModel(eventsDepAction, BaseLayer, base.ErrorCatcher){ParamsVisibility = Visibility.Hidden}
+                    EventsViewModel = new EventsViewModel(eventsDepAction, base.ErrorCatcher){ParamsVisibility = Visibility.Hidden}
                 });
             }
         }
@@ -43,9 +41,7 @@ namespace DecisionSupportSystem.ViewModel
         {
             foreach (var eventDepAction in EventsDependingActions)
                 if (eventDepAction.Action == action)
-                {
                     eventDepAction.EventsViewModel.AddEvent(even);
-                }
         }
 
         public void CheckForUpdatedData()
@@ -57,10 +53,11 @@ namespace DecisionSupportSystem.ViewModel
 
         public void CheckForNewAction()
         {
-            var actions = BaseLayer.DssDbContext.Actions.Local;
+            var actions = DssDbEntities.Actions.Local;
             if (EventsDependingActions.Count < actions.Count)
                 AddNewAction(actions);
         }
+
         private void AddNewAction(ObservableCollection<Action> actions)
         {
             var lastAction = EventsDependingActions.Select(ed => ed.Action).ToList();
@@ -68,13 +65,14 @@ namespace DecisionSupportSystem.ViewModel
                 if (!lastAction.Contains(action))
                     EventsDependingActions.Add(new EventsDependingAction
                     {
-                        Action = action,
-                        EventsViewModel = new EventsViewModel(new ObservableCollection<Event>(), BaseLayer, base.ErrorCatcher)
+                       Action = action,
+                       EventsViewModel = new EventsViewModel(new ObservableCollection<Event>(), ErrorCatcher)
                     });
         }
+
         public void CheckForDeletedEvent()
         {
-            var events = BaseLayer.DssDbContext.Events.Local.ToList();
+            var events = DssDbEntities.Events.Local.ToList();
             var deletingEvents = (from eventsDependingAction in EventsDependingActions
                                   from ev in eventsDependingAction.EventsViewModel.Events
                                   where !events.Contains(ev)
@@ -84,6 +82,7 @@ namespace DecisionSupportSystem.ViewModel
                 DeleteEvent(deletingEvent);
             }
         }
+
         public void DeleteEvent(Event eEvent)
         {
             EventsDependingAction eventsDependingAction = null;
@@ -100,9 +99,10 @@ namespace DecisionSupportSystem.ViewModel
                 eventsDependingAction.EventListViewModel.DeleteEvent(eEvent);
             }*/
         }
+
         public void CheckForDeletedAction()
         {
-            var actions = BaseLayer.DssDbContext.Actions.Local.ToList();
+            var actions = DssDbEntities.Actions.Local.ToList();
             var deletingActions = new List<EventsDependingAction>();
             foreach (var eventsDependingAction in EventsDependingActions)
             {
@@ -111,11 +111,12 @@ namespace DecisionSupportSystem.ViewModel
             }
             DeleteActions(deletingActions);
         }
+
         public void DeleteActions(List<EventsDependingAction> deletingActions)
         {
             foreach (var removingAction in deletingActions)
             {
-                BaseLayer.BaseMethods.DeleteAction(removingAction.Action);
+                CRUD.DeleteAction(removingAction.Action);
                 EventsDependingActions.Remove(removingAction);
             }
         }

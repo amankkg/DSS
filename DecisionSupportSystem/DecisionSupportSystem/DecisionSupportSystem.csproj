@@ -86,6 +86,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="CommonClasses\BaseAlgorithms.cs" />
     <Compile Include="DbModel\Action.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
@@ -138,28 +139,24 @@
     <Compile Include="DbModel\TaskParamName.cs">
       <DependentUpon>DssDbContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="CommonClasses\BaseLayer.cs" />
-    <Compile Include="CommonClasses\CpMax.cs" />
-    <Compile Include="CommonClasses\BaseMethods.cs" />
+    <Compile Include="DbModel\CpMax.cs" />
+    <Compile Include="CommonClasses\CRUD.cs" />
     <Compile Include="CommonClasses\ErrorCatcher.cs" />
     <Compile Include="CommonClasses\ErrorValidateEvents.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonClasses\IErrorCatch.cs" />
-    <Compile Include="CommonClasses\Load.cs" />
+    <Compile Include="CommonClasses\LoadSolvedTask.cs" />
     <Compile Include="CommonClasses\RoutedEventTrigger.cs" />
-    <Compile Include="CommonClasses\SolvedTaskView.cs">
+    <Compile Include="CommonClasses\SolvedTasksViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainNavWindow.xaml.cs">
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommonClasses\TaskViewForMainWindows.cs" />
+    <Compile Include="CommonClasses\SavedTasksViewModel.cs" />
     <Compile Include="PageUserElements\PageActionForTask9UE.xaml.cs">
       <DependentUpon>PageActionForTask9UE.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageUserElements\PageActionWithExtensionUE.xaml.cs">
-      <DependentUpon>PageActionWithExtensionUE.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageUserElements\PageEventsDepActionUE.xaml.cs">
       <DependentUpon>PageEventsDepActionUE.xaml</DependentUpon>
@@ -177,18 +174,24 @@
       <DependentUpon>PageEventWithExtensionUE.xaml</DependentUpon>
     </Compile>
     <Compile Include="DbModel\EventsDependingAction.cs" />
-    <Compile Include="Tasks\TaskNumberEight.cs" />
+    <Compile Include="Tasks\TaskNumberEight.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tasks\TaskNumberFive.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tasks\TaskNumberFour.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tasks\TaskNumberNine.cs" />
+    <Compile Include="Tasks\TaskNumberNine.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Tasks\TaskNumberOne.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tasks\TaskNumberTen.cs" />
+    <Compile Include="Tasks\TaskNumberTen.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
       <DependentUpon>ActionEmvEolsUE.xaml</DependentUpon>
     </Compile>
@@ -197,9 +200,6 @@
     </Compile>
     <Compile Include="UserElements\ActionUEForTask9.xaml.cs">
       <DependentUpon>ActionUEForTask9.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserElements\ActionWithExtensionUE.xaml.cs">
-      <DependentUpon>ActionWithExtensionUE.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserElements\ChangeableDataGrid.cs" />
     <Compile Include="UserElements\CombinationsWithCpDataGrid.xaml.cs">
@@ -217,19 +217,8 @@
     <Compile Include="UserElements\EventDepActionUE.xaml.cs">
       <DependentUpon>EventDepActionUE.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserElements\EventsWithExtensionDataGrid.xaml.cs">
-      <DependentUpon>EventsWithExtensionDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserElements\EventsWithExtensionMainDataGrid.xaml.cs">
-      <DependentUpon>EventsWithExtensionMainDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserElements\EventWithExtensionUE.xaml.cs">
-      <DependentUpon>EventWithExtensionUE.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ActionForTask9ViewModel.cs" />
     <Compile Include="ViewModel\ActionsForTask9ViewModel.cs" />
-    <Compile Include="ViewModel\ActionsWithExtensionsViewModel.cs" />
-    <Compile Include="ViewModel\ActionWithExtensionViewModel.cs" />
     <Compile Include="ViewModel\CombinationViewModel.cs" />
     <Compile Include="PageUserElements\PageCombinationWithCpUE.xaml.cs">
       <DependentUpon>PageCombinationWithCpUE.xaml</DependentUpon>
@@ -370,15 +359,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageUserElements\PageActionWithExtensionUE.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PageUserElements\PageEventsDepActionUE.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageUserElements\PageEventWithExtensionUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -391,10 +372,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserElements\ActionUEForTask9.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserElements\ActionWithExtensionUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -431,18 +408,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserElements\EventDepActionUE.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserElements\EventsWithExtensionDataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserElements\EventsWithExtensionMainDataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserElements\EventWithExtensionUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

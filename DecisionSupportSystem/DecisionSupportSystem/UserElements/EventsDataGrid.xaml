@@ -54,7 +54,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Style="{StaticResource TextBoxInGridStyle}" Text="{Binding Path=EditableEvent.Probability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
-                                NotifyOnValidationError=True, StringFormat=F5}" TextWrapping="Wrap" TextAlignment="Center">
+                                NotifyOnValidationError=True, StringFormat=F70}" TextWrapping="Wrap" TextAlignment="Center">
                                 <interactivity:Interaction.Triggers>
                                     <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
                                         <i:CallMethodAction TargetObject="{Binding}" MethodName="EntityGroupValidationError"/>

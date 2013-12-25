@@ -7,9 +7,9 @@ namespace DecisionSupportSystem.ViewModel
     {
         public Task Task { get; set; }
        
-        public TaskParamsViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public TaskParamsViewModel(Task task, IErrorCatch errorCatcher)
         {
-            this.Task = baseLayer.Task;
+            this.Task = task;
             ErrorCatcher = errorCatcher;
         }
 
