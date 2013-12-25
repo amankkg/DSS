@@ -363,6 +363,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageUserElements\PageActionUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageUserElements\PageActionForTask9UE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
