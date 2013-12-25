@@ -7,17 +7,17 @@
              xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="172.947" d:DesignWidth="506.534">
+             d:DesignHeight="199.947" d:DesignWidth="506.534">
     <Grid Name="mainGrid">
         <Rectangle Fill="#FF6C9EC1" />
         <Button  Content="Добавить" HorizontalAlignment="Right"
                 Command="{Binding Path=AddEventCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
         <ComboBox  Height="26" Margin="135,-2,35,0" VerticalAlignment="Top" FontSize="14" 
                    ItemsSource="{Binding Path=Actions}" DisplayMemberPath="Name" SelectedIndex="{Binding Path=ActionSelectedIndex}" Background="White"/>
-        <Label Content="Событие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="34,29,0,0" Foreground="White" 
+        <Label Content="Событие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="34,55,0,0" Foreground="White" 
                FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
 
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="26" Margin="135,29,35,0"  VerticalAlignment="Top" 
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="26" Margin="135,55,35,0"  VerticalAlignment="Top" 
                      Text="{Binding Path=EditableEvent.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
             <interactivity:Interaction.Triggers>
                 <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
@@ -25,9 +25,9 @@
                 </evend:RoutedEventTrigger>
             </interactivity:Interaction.Triggers>
         </TextBox>
-        <Label Content="Вероятность:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="8,60,0,0" Foreground="White" FontWeight="Bold"
+        <Label Content="Вероятность:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="8,84,0,0" Foreground="White" FontWeight="Bold"
             	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
-        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="135,60,0,0"  VerticalAlignment="Top" 
+        <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="135,86,0,0"  VerticalAlignment="Top" 
             	Text="{Binding Path=EditableEvent.Probability, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
             StringFormat=F5}" HorizontalAlignment="Left" Width="160">
             <interactivity:Interaction.Triggers>
@@ -36,10 +36,10 @@
                 </evend:RoutedEventTrigger>
             </interactivity:Interaction.Triggers>
         </TextBox>
-        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="14,87,0,0" Foreground="White" FontWeight="Bold"
+        <Label Content="Параметры:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" Margin="14,113,0,0" Foreground="White" FontWeight="Bold"
                FontFamily="Calibri" FontSize="16" Padding="0,0,0,0" Visibility="{Binding Path=ParamsVisibility}"/>
 
-        <DataGrid ItemsSource="{Binding Path=EditableEventParams}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="135,87,35,30"
+        <DataGrid ItemsSource="{Binding Path=EditableEventParams}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="135,113,35,30"
                   FontSize="12" Visibility="{Binding Path=ParamsVisibility}">
 
             <DataGrid.ColumnHeaderStyle>
@@ -79,6 +79,16 @@
         </DataGrid>
         <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="29,-2,0,0" Foreground="White" 
         	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
+        <CheckBox Content="Генерация событий" HorizontalAlignment="Left" Margin="135,29,0,0" VerticalAlignment="Top" IsChecked="{Binding IsGenerated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Height="23" Margin="298,27,35,0" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle}"
+        	Text="{Binding EventsCount, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+        	VerticalAlignment="Top">
+            <interactivity:Interaction.Triggers>
+                <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
+                    <i:CallMethodAction TargetObject="{Binding}" MethodName="EntityValidationError"/>
+                </evend:RoutedEventTrigger>
+            </interactivity:Interaction.Triggers>
+        </TextBox>
 
 
     </Grid>

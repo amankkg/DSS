@@ -180,6 +180,7 @@
     <Compile Include="Tasks\TaskNumberTen.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tasks\TaskNumberTwelve.cs" />
     <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
       <DependentUpon>ActionEmvEolsUE.xaml</DependentUpon>
     </Compile>

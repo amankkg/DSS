@@ -27,7 +27,7 @@ namespace DecisionSupportSystem.Tasks
         public List<Combination> FictiveCombinations { get; set; }   
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher);
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){ParamsVisibility = Visibility.Hidden};
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
             EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher);
             EventDepActionViewModel = new EventDepActionViewModel(DssDbEntities.Actions.Local, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
@@ -41,7 +41,7 @@ namespace DecisionSupportSystem.Tasks
         protected override void CreateTaskParamsTemplate() { }
         protected override Action CreateActionTemplate()
         {
-            return new Action { Name = "Действие", SavingId = base.SavingID };
+            return new Action { Name = "Действие", SavingId = SavingID };
         }
 
         protected override Event CreateEventTemplate()
@@ -103,7 +103,7 @@ namespace DecisionSupportSystem.Tasks
                         FictiveCombinations.Add(combination[0]);
                 }
         }
-        public void SolveCp()
+        public virtual void SolveCp()
         {
             var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)

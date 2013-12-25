@@ -28,8 +28,8 @@ namespace DecisionSupportSystem.CommonClasses
         public void CalculateWp(IEnumerable<Combination> combinations)
         {
             combinations = combinations ?? GetCombinations();
-            foreach (var comb in combinations)
-                comb.Wp = comb.Cp*comb.Event.Probability;
+            foreach (var combination in combinations)
+                combination.Wp = combination.Cp*combination.Event.Probability;
         }
 
         public ObservableCollection<Combination> GetCombinations()

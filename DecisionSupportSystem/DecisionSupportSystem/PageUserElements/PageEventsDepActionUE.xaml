@@ -9,8 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="354.135" d:DesignWidth="496.241">
     <Grid Background="#FF6C9EC1">
-        <task:EventDepActionUE DataContext="{Binding Path=EventDepActionViewModel}" Height="145" VerticalAlignment="Top" Margin="0,40,0,0"/>
-        <Grid Margin="0,205,0,0">
+        <task:EventDepActionUE DataContext="{Binding Path=EventDepActionViewModel}" Height="194" VerticalAlignment="Top" Margin="0,40,0,0"/>
+        <Grid Margin="0,254,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="0,185,0,0" Width="233" FontSize="14" 
+        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="0,234,0,0" Width="233" FontSize="14" 
         	Padding="0,0,0,0" Height="20" VerticalAlignment="Top" Foreground="White" FontFamily="Calibri"/>
 
     </Grid>
