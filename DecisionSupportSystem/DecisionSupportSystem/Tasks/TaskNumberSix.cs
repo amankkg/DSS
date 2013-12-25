@@ -31,7 +31,7 @@ namespace DecisionSupportSystem.Tasks
         #region Методы
         public void GenerateActions()
         {
-            actions = BaseLayer.DssDbContext.Actions.Local;
+            //actions = BaseLayer.DssDbContext.Actions.Local;
             actions.Clear();
             actions.Add(new Action
             {
@@ -44,7 +44,7 @@ namespace DecisionSupportSystem.Tasks
         }
         public void GenerateEvents()
         {
-            events = BaseLayer.DssDbContext.Events.Local;
+            /*events = BaseLayer.DssDbContext.Events.Local;
             events.Clear();
             decimal probability = 1m / gameCoin.Outcomes.Count;
             for (int i = 0; i < gameCoin.Outcomes.Count; i++)
@@ -64,11 +64,11 @@ namespace DecisionSupportSystem.Tasks
                 ev.EventParams.Add(new EventParam { EventParamName = numberOfDoubleHeads, Value = numberOfDoubleHeadsInOutcomes[i] });
                 events.Add(ev);
             }
-            //events.Add(new Event() { Name = "Ничего не происходит", Probability = 1 });
+            events.Add(new Event() { Name = "Ничего не происходит", Probability = 1 });*/
         }
         public void GenerateCombinations()
         {
-            combinations = BaseLayer.DssDbContext.Combinations.Local;
+            //combinations = BaseLayer.DssDbContext.Combinations.Local;
             combinations.Clear();
             for (int i = 0; i < gameCoin.Outcomes.Count; i++)
             {
@@ -76,39 +76,69 @@ namespace DecisionSupportSystem.Tasks
                 {
                     Action = actions[0],
                     Event = events[i],
-                    Task = BaseLayer.Task
+                    //Task = BaseLayer.Task
                 };
                 combo.Cp = CPFunction(events[i].EventParams.ToList()[0].Value, events[i].EventParams.ToList()[1].Value, events[i].EventParams.ToList()[2].Value);
                 combinations.Add(combo);
             }
             //combinations.Add(new Combination() { Action = actions[1], /*Event = new Event() { Name = "-", Probability = 1, EventParams = new List<EventParam> { new EventParam { Value = 0 }, new EventParam { Value = 0 }, new EventParam { Value = 0 }, } },*/ Cp = 0, Task = baseLayer.Task });
         }
-        decimal CPFunction(decimal _numberOfHeads, decimal _numberOfTails, decimal _numberOfDoubleHeads)
+        double CPFunction(double _numberOfHeads, double _numberOfTails, double _numberOfDoubleHeads)
         {
             return _numberOfHeads * headBonusValue.Value - _numberOfTails * tailCostValue.Value + _numberOfDoubleHeads * doubleHeadBonusValue.Value;
         }
 	    #endregion
 
-        public override void ShowPageMain()
+        protected override void ShowPageMain()
         {
             ContentPage = new Page();
             var pageOptions = new PageOptionsTask6 {DataContext = this};
             ContentPage.Content = pageOptions;
-            _navigation = NavigationService.GetNavigationService(pageOptions);
+            //_navigation = NavigationService.GetNavigationService(pageOptions);
             ShowNavigationWindow(ContentPage);
+        }
+
+        protected override void InitCombinationViewModel()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override int GetActionsCount()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override int GetEventsCount()
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override void InitViewModels()
         {
-            PageOptionsTask6ViewModel = new PageOptionsTask6ViewModel(BaseLayer,TaskParamErrorCatcher);
+            //PageOptionsTask6ViewModel = new PageOptionsTask6ViewModel(BaseLayer,TaskParamErrorCatcher);
         }
 
         protected override void CreateTaskParamsTemplate()
         {
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во бросков" } });
+            /*BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во бросков" } });
             BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во Г" } });
             BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во Р" } });
-            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во ГГ" } });
+            BaseLayer.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Кол-во ГГ" } });*/
+        }
+
+        protected override Action CreateActionTemplate()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override Event CreateEventTemplate()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override Combination CreateCombinationTemplate()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

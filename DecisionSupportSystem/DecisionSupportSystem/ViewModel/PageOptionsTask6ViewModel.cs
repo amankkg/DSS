@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using DecisionSupportSystem.DbModel;
-using DecisionSupportSystem.MainClasses;
+using DecisionSupportSystem.CommonClasses;
 
 namespace DecisionSupportSystem.ViewModel
 {
@@ -8,8 +8,8 @@ namespace DecisionSupportSystem.ViewModel
     {
         public Task Task { get; set; }
 
-        private decimal _HeadBonusValue;
-        public decimal HeadBonusValue
+        private double _HeadBonusValue;
+        public double HeadBonusValue
         {
             get { return _HeadBonusValue; }
             set
@@ -22,8 +22,8 @@ namespace DecisionSupportSystem.ViewModel
             }
         }
 
-        private decimal _TailBonusValue;
-        public decimal TailBonusValue
+        private double _TailBonusValue;
+        public double TailBonusValue
         {
             get { return _TailBonusValue; }
             set
@@ -36,8 +36,8 @@ namespace DecisionSupportSystem.ViewModel
             }
         }
 
-        private decimal _DoubleHeadBonusValue;
-        public decimal DoubleHeadBonusValue
+        private double _DoubleHeadBonusValue;
+        public double DoubleHeadBonusValue
         {
             get { return _DoubleHeadBonusValue; }
             set
@@ -50,8 +50,8 @@ namespace DecisionSupportSystem.ViewModel
             }
         }
 
-        private decimal _NumberOfThrowings;
-        public decimal NumberOfThrowings
+        private double _NumberOfThrowings;
+        public double NumberOfThrowings
         {
             get { return _NumberOfThrowings; }
             set
@@ -65,7 +65,7 @@ namespace DecisionSupportSystem.ViewModel
         }
 
 
-        public PageOptionsTask6ViewModel(BaseLayer baseLayer, IErrorCatch errorCatcher)
+        public PageOptionsTask6ViewModel(BaseAlgorithms baseLayer, IErrorCatch errorCatcher)
         {
             Task = baseLayer.Task;
             ErrorCatcher = errorCatcher;
