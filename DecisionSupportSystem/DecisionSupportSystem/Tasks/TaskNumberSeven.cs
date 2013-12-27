@@ -38,6 +38,42 @@ namespace DecisionSupportSystem.Tasks
             InitErrorCatchers();
         }
 
+        #region Проверка изменений при навигации
+        private void checkIfGameRulesChanged()
+        {
+            for (int i = 0; i < keptTaskParams.Length; i++)
+            {
+                if (keptTaskParams[i] != TaskParamsViewModel.Task.TaskParams.ToList()[i].Value)
+                {
+                    gameRulesChanged = true;
+                    needInActionsReGeneration = true;
+                    needInCombinationsReGeneration = true;
+                    needInTaskReSolving = true;
+                    break;
+                }
+            }
+        }
+        private void checkIfEventParamsChanged()
+        {
+            if (keptEventParams == null) return;
+
+            for (int i = 0; i < gameDice.Outcomes.Count; i++)
+            {
+                if (keptEventParams[i] != EventsViewModel.Events[i].EventParams.ToList()[0].Value)
+                {
+                    needInTaskReSolving = true;
+                    break;
+                }
+            }
+        }
+        private bool gameRulesChanged = true;
+        private bool needInActionsReGeneration = true;
+        private bool needInCombinationsReGeneration = true;
+        private bool needInTaskReSolving = true;
+        double[] keptTaskParams = new double[4];
+        double[] keptEventParams; 
+        #endregion
+
         #region Методы, специфика задачи
         private void GenerateEvents()
         {
@@ -160,31 +196,54 @@ namespace DecisionSupportSystem.Tasks
         }
         public override void NextBtnClick_OnPageMain(object sender, RoutedEventArgs e)
         {
-            InitialEvents = (TaskParamsViewModel.Task.TaskParams.ToList()[3].Value == 0 ? InitialEvents = evenoddNames : numericNames);
-            gameDice = new Dice(InitialEvents.Length, (int)TaskParamsViewModel.Task.TaskParams.ToList()[0].Value, (int)TaskParamsViewModel.Task.TaskParams.ToList()[1].Value);
-            GenerateEvents();
+            checkIfGameRulesChanged();
+            if (gameRulesChanged)
+            {
+                InitialEvents = (TaskParamsViewModel.Task.TaskParams.ToList()[3].Value == 0 ? InitialEvents = evenoddNames : numericNames);
+                gameDice = new Dice(InitialEvents.Length, (int)TaskParamsViewModel.Task.TaskParams.ToList()[0].Value, (int)TaskParamsViewModel.Task.TaskParams.ToList()[1].Value);
+                GenerateEvents();
+                gameRulesChanged = false;
+            }
             ContentPage.Content = new PageEventGeneratedUE { DataContext = this };
             Navigate();
         }
         public override void PrevBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
         {
+            for (int i = 0; i < keptTaskParams.Length; i++)
+            {
+                keptTaskParams[i] = TaskParamsViewModel.Task.TaskParams.ToList()[i].Value;
+            }
             ContentPage.Content = new PageMainUE { DataContext = this };
             Navigate();
         }
         public override void NextBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
         {
-            GenerateActions();
+            checkIfEventParamsChanged();
+            if (needInActionsReGeneration)
+            {
+                GenerateActions();
+                needInActionsReGeneration = false;
+            }
             ContentPage.Content = new PageActionGeneratedUE { DataContext = this };
             Navigate();
         }
         public override void PrevBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
         {
+            keptEventParams = new double[EventsViewModel.Events.Count];
+            for (int i = 0; i < keptEventParams.Length; i++)
+            {
+                keptEventParams[i] = EventsViewModel.Events[i].EventParams.ToList()[0].Value;
+            }
             ContentPage.Content = new PageEventGeneratedUE { DataContext = this };
             Navigate();
         }
         public override void NextBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
         {
-            GenerateCombinations();
+            if (needInCombinationsReGeneration)
+            {
+                GenerateCombinations();
+                needInCombinationsReGeneration = false;
+            }
             ContentPage.Content = new PageCombinationWithParamUE { DataContext = this };
             Navigate();
         }
@@ -195,8 +254,12 @@ namespace DecisionSupportSystem.Tasks
         }
         public override void NextBtnClick_OnPageCombinations(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (needInTaskReSolving)
+            {
+                BaseAlgorithms.SolveTask(null);
+                needInTaskReSolving = false;
+            }
             ContentPage.Content = new PageSolveUE { DataContext = this };
-            BaseAlgorithms.SolveTask(null);
             Navigate();
         }
         public override void PrevBtnClick_OnPageSolve(object sender, System.Windows.RoutedEventArgs e)

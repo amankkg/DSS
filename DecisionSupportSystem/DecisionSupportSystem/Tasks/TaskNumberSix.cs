@@ -15,21 +15,39 @@ namespace DecisionSupportSystem.Tasks
     public class TaskNumberSix: TaskSpecific
     {
         #region Поля
-
         public ActionsViewModel ActionsViewModel { get; set; }
         public EventsViewModel EventsViewModel { get; set; }
         public CombinationsViewModel CombinationsViewModel { get; set; }
         public TaskParamsViewModel TaskParamsViewModel { get; set; }
-
         private Coin gameCoin;
         private List<int> numberOfHeadsInOutcomes, numberOfTailsInOutcomes, numberOfDoubleHeadsInOutcomes;
         private char[] InitialEvents = new char[] { 'Г', 'Р' };
         private EventParamName numberOfHeads, numberOfTails, numberOfDoubleHeads;
-
         #endregion
-        
-        #region Методы генерации событий и действий
 
+        #region Проверка изменений при навигации
+        private void checkIfGameRulesChanged()
+        {
+            for (int i = 0; i < keptTaskParams.Length; i++)
+            {
+                if (keptTaskParams[i] != TaskParamsViewModel.Task.TaskParams.ToList()[i].Value)
+                {
+                    gameRulesChanged = true;
+                    needInEventsReGeneration = true;
+                    needInCombinationsReGeneration = true;
+                    needInTaskReSolving = true;
+                    break;
+                }
+            }
+        }
+        private bool gameRulesChanged = true;
+        private bool needInEventsReGeneration = true;
+        private bool needInCombinationsReGeneration = true;
+        private bool needInTaskReSolving = true;
+        double[] keptTaskParams = new double[4]; 
+        #endregion
+
+        #region Методы генерации событий и действий
         private void GenerateActions()
         {
             ActionsViewModel.Actions.Clear();
@@ -91,7 +109,6 @@ namespace DecisionSupportSystem.Tasks
         {
             return _numberOfHeads * BaseAlgorithms.Task.TaskParams.ToList()[1].Value - _numberOfTails * BaseAlgorithms.Task.TaskParams.ToList()[2].Value + _numberOfDoubleHeads * BaseAlgorithms.Task.TaskParams.ToList()[3].Value;
         }
-	    
         #endregion
 
         public TaskNumberSix()
@@ -103,16 +120,6 @@ namespace DecisionSupportSystem.Tasks
         }
 
         #region Переопределения и инициализация ViewModel'ей
-
-        protected override void ShowPageMain()
-        {
-            ContentPage = new Page();
-            var pageMain = new PageMainUE { DataContext = this };
-            ContentPage.Content = pageMain;
-            Navigation = NavigationService.GetNavigationService(pageMain);
-            ShowNavigationWindow(ContentPage);
-        }
-
         protected override void InitViewModels()
         {
             ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher) { ParamsVisibility = Visibility.Hidden };
@@ -135,7 +142,6 @@ namespace DecisionSupportSystem.Tasks
         {
             return EventsViewModel.Events.Count;
         }
-
         protected override void InitCombinationViewModel()
         {
             CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher)
@@ -155,29 +161,48 @@ namespace DecisionSupportSystem.Tasks
         {
             return new Combination { SavingId = this.SavingID };
         }
-
         #endregion
 
         #region Навигация
-
+        protected override void ShowPageMain()
+        {
+            ContentPage = new Page();
+            var pageMain = new PageMainUE { DataContext = this };
+            ContentPage.Content = pageMain;
+            Navigation = NavigationService.GetNavigationService(pageMain);
+            ShowNavigationWindow(ContentPage);
+        }
         public override void NextBtnClick_OnPageMain(object sender, RoutedEventArgs e)
         {
-            gameCoin = new Coin(InitialEvents.Length, (int)TaskParamsViewModel.Task.TaskParams.ToList()[0].Value);
-            numberOfHeadsInOutcomes = gameCoin.CountSequences(0);
-            numberOfTailsInOutcomes = gameCoin.CountSequences(1);
-            numberOfDoubleHeadsInOutcomes = gameCoin.CountSequences(0, 2);
-            GenerateActions();
+            checkIfGameRulesChanged();
+            if (gameRulesChanged)
+            {
+                gameCoin = new Coin(InitialEvents.Length, (int)TaskParamsViewModel.Task.TaskParams.ToList()[0].Value);
+                numberOfHeadsInOutcomes = gameCoin.CountSequences(0);
+                numberOfTailsInOutcomes = gameCoin.CountSequences(1);
+                numberOfDoubleHeadsInOutcomes = gameCoin.CountSequences(0, 2);
+                GenerateActions();
+                gameRulesChanged = false;
+            }
             ContentPage.Content = new PageActionGeneratedUE { DataContext = this };
             Navigate();
         }
         public override void PrevBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
         {
+            for (int i = 0; i < keptTaskParams.Length; i++)
+            {
+                keptTaskParams[i] = TaskParamsViewModel.Task.TaskParams.ToList()[i].Value;
+            }
             ContentPage.Content = new PageMainUE { DataContext = this };
             Navigate();
         }
         public override void NextBtnClick_OnPageActions(object sender, System.Windows.RoutedEventArgs e)
         {
-            GenerateEvents();
+            if (needInEventsReGeneration)
+            {
+                GenerateEvents();
+                needInEventsReGeneration = false;
+            }
             ContentPage.Content = new PageEventGeneratedUE { DataContext = this };
             Navigate();
         }
@@ -188,7 +213,11 @@ namespace DecisionSupportSystem.Tasks
         }
         public override void NextBtnClick_OnPageEvents(object sender, System.Windows.RoutedEventArgs e)
         {
-            GenerateCombinations();
+            if (needInCombinationsReGeneration)
+            {
+                GenerateCombinations();
+                needInCombinationsReGeneration = false;
+            }
             ContentPage.Content = new PageCombinationWithCpUE { DataContext = this };
             Navigate();
         }
@@ -199,8 +228,12 @@ namespace DecisionSupportSystem.Tasks
         }
         public override void NextBtnClick_OnPageCombinations(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (needInTaskReSolving)
+            {
+                BaseAlgorithms.SolveTask(null);
+                needInTaskReSolving = false;
+            }
             ContentPage.Content = new PageSolveUE { DataContext = this };
-            BaseAlgorithms.SolveTask(null);
             Navigate();
         }
         public override void PrevBtnClick_OnPageSolve(object sender, System.Windows.RoutedEventArgs e)
@@ -208,7 +241,6 @@ namespace DecisionSupportSystem.Tasks
             ContentPage.Content = new PageCombinationWithCpUE { DataContext = this };
             Navigate();
         }
-
         #endregion
     }
 }
