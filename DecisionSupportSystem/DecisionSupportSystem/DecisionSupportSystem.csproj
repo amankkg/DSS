@@ -155,8 +155,14 @@
       <DependentUpon>MainNavWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonClasses\SavedTasksViewModel.cs" />
+    <Compile Include="PageUserElements\PageActionGeneratedUE.xaml.cs">
+      <DependentUpon>PageActionGeneratedUE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageUserElements\PageActionForTask9UE.xaml.cs">
       <DependentUpon>PageActionForTask9UE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserElements\PageEventGeneratedUE.xaml.cs">
+      <DependentUpon>PageEventGeneratedUE.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageUserElements\PageEventsDepActionUE.xaml.cs">
       <DependentUpon>PageEventsDepActionUE.xaml</DependentUpon>
@@ -177,6 +183,8 @@
     <Compile Include="Tasks\TaskNumberOne.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tasks\TaskNumberSeven.cs" />
+    <Compile Include="Tasks\TaskNumberSix.cs" />
     <Compile Include="Tasks\TaskNumberTen.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -265,7 +273,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageUserElements\PageActionGeneratedUE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageUserElements\PageActionForTask9UE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageEventGeneratedUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -436,7 +452,9 @@
       <SubType>Designer</SubType>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DbModel\DssDbContext.edmx.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

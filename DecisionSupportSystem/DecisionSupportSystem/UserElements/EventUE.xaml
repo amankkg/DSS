@@ -27,7 +27,7 @@
             	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
         <TextBox Style="{StaticResource TextBoxStyle}" Height="22" Margin="135,78,130,0"  VerticalAlignment="Top" 
             	Text="{Binding Path=EditableEvent.Probability, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,
-            StringFormat=F18}">
+            StringFormat=F3}">
             <interactivity:Interaction.Triggers>
                 <evend:RoutedEventTrigger  RoutedEvent="{x:Static Validation.ErrorEvent}">
                     <i:CallMethodAction TargetObject="{Binding}" MethodName="EntityValidationError"/>

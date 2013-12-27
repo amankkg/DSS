@@ -166,7 +166,8 @@ namespace DecisionSupportSystem.Tasks
         }
         protected void Navigate()
         {
-            if (Navigation != null) Navigation.Navigate(ContentPage);
+            if (Navigation != null) 
+                Navigation.Navigate(ContentPage);
         }
         public virtual void SaveBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
         {

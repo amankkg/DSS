@@ -48,7 +48,7 @@ namespace DecisionSupportSystem.CommonClasses
                 var combination = new Combination();
 
                 combination.Action = GetActionById(combin.ActionId);
-                combination.Event = GetEventById(combin.EventId);
+                combination.Event = (combin.EventId != null ? GetEventById(combin.EventId) : null);
                 combination.Cp = combin.Cp;
                 combination.Col = combin.Col;
                 combination.Task = Task;

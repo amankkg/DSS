@@ -34,12 +34,14 @@ namespace DecisionSupportSystem.Tasks
             EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
             TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         }
+
         protected override void InitCombinationViewModel()
         {
             CombinationsViewModel = new CombinationsViewModel(DssDbEntities.Combinations.Local, CombinationErrorCatcher){
                     ParamsVisibility = Visibility.Hidden
                 };
         }
+
         protected override void CreateTaskParamsTemplate()
         {
             BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Количество действий:" } });
