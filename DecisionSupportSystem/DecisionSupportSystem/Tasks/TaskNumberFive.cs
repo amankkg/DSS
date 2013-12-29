@@ -74,7 +74,8 @@ namespace DecisionSupportSystem.Tasks
                 if (events.Count == 0) events.Add(null);
                 foreach (var even in events)
                 {
-                    if (!ActionContainsInCombinations(eventsDependingAction.Action, combinations) || !EventContainsInCombinations(even, combinations))
+                    if (!ActionContainsInCombinations(eventsDependingAction.Action, combinations) 
+                        || !EventContainsInCombinations(even, combinations))
                     {
                         CRUD.AddCombination(CreateCombinationTemplate(), eventsDependingAction.Action, even, BaseAlgorithms.Task, 0);
                     }

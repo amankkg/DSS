@@ -142,19 +142,23 @@ namespace DecisionSupportSystem.ViewModel
             while (Iterator != EventsCount)
             {
                 ErrorCatcher.EntityErrorCount = 0;
+                EditableEvent.Probability = Poisson();
+                EditableEvent.Name = String.Format("Событие {0}", Iterator = Iterator + 1);
+                CreateAndAddEvent();
+            }
+            else
+                CreateAndAddEvent();
+        }
+
+        private double Poisson()
+        {
                 var k = Iterator;
                 double m = DefineM();
                 double f = Factorial(k);
                 double p = Math.Pow(m, k);
                 double ex = Math.Exp(-m);
                 double prob = p * ex / f;
-                EditableEvent.Probability = Math.Abs(prob);
-                EditableEvent.Name = String.Format("Событие {0}", Iterator = Iterator + 1);
-                
-                CreateAndAddEvent();
-            }
-            else
-                CreateAndAddEvent();
+            return Math.Abs(prob);
         }
 
         private double DefineM()
