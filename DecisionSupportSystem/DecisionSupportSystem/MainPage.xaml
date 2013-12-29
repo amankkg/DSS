@@ -39,13 +39,13 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название задачи" Width="350" IsReadOnly="True"
+                <DataGridTextColumn Header="Название задачи" Width="666" IsReadOnly="True"
                                     Binding="{Binding XPath=Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Тип задачи" IsReadOnly="True" 
+                <DataGridTextColumn Header="Тип задачи ТПР" IsReadOnly="True" Visibility="Hidden"
                                     Binding="{Binding XPath=Type}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Collapsed"
+                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Hidden"
                                     Binding="{Binding XPath=Window}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Visible"
+                <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Hidden"
                                     Binding="{Binding XPath=TaskUniq}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

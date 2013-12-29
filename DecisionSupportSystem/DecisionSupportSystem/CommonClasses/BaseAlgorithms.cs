@@ -29,7 +29,9 @@ namespace DecisionSupportSystem.CommonClasses
         {
             combinations = combinations ?? GetCombinations();
             foreach (var combination in combinations)
-                combination.Wp = combination.Cp*combination.Event.Probability;
+            {
+                combination.Wp = combination.Cp * (combination.Event != null ? combination.Event.Probability : 0);
+            }
         }
 
         public ObservableCollection<Combination> GetCombinations()
@@ -43,7 +45,7 @@ namespace DecisionSupportSystem.CommonClasses
             combinations = combinations ?? GetCombinations();
             foreach (var combination in combinations)
             {
-                var cpmax = GetCpMaxByEvent(combination.Event);
+                var cpmax = (combination.Event != null ? GetCpMaxByEvent(combination.Event) : 0);
                 combination.Col = cpmax - combination.Cp;
             }
         }
@@ -83,7 +85,7 @@ namespace DecisionSupportSystem.CommonClasses
         {
             combinations = combinations ?? GetCombinations();
             foreach (var comb in combinations)
-                comb.Wol = comb.Col * comb.Event.Probability;
+                comb.Wol = comb.Col * (comb.Event != null ? comb.Event.Probability : 0);
         }
 
         public void CalculateEmv()

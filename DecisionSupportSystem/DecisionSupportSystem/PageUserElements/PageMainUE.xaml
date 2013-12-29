@@ -18,6 +18,6 @@
             </interactivity:Interaction.Triggers>
         </Button>
         <task:TaskParamsDataGrid x:Name="TaskParams" DataContext="{Binding Path=TaskParamsViewModel}" Margin="0,40,0,10"/>
-        <Label Content="Параметры задачи:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Foreground="White" FontFamily="Calibri" FontWeight="Bold"/>
+        <Label Content="Условия задачи:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Foreground="White" FontFamily="Calibri" FontWeight="Bold"/>
     </Grid>
 </UserControl>
