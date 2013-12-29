@@ -86,7 +86,7 @@ GO
 CREATE TABLE [dbo].[CombinParams] (
     [Id] bigint IDENTITY(1,1) NOT NULL  PRIMARY KEY,
     [Value] float  NOT NULL,
-    [CombinationId] bigint  NULL REFERENCES [dbo].[Combinations]([Id]),
+    [CombinationId] bigint NULL REFERENCES [dbo].[Combinations]([Id]),
     [NameId] bigint NULL REFERENCES [dbo].[CombinParamNames]([Id])
 );
 GO
@@ -102,7 +102,7 @@ GO
 CREATE TABLE [dbo].[ActionParams] (
     [Id] bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Value] float  NOT NULL,
-    [ActionId] bigint  NULL REFERENCES [dbo].[Actions]([Id]),
+    [ActionId] bigint NULL REFERENCES [dbo].[Actions]([Id]),
     [NameId] bigint NULL REFERENCES [dbo].[ActionParamNames]([Id])
 );
 GO
@@ -118,7 +118,7 @@ GO
 CREATE TABLE [dbo].[EventParams] (
     [Id] bigint IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Value] float  NOT NULL,
-    [EventId] bigint  NULL REFERENCES [dbo].[Events]([Id]),
+    [EventId] bigint NULL REFERENCES [dbo].[Events]([Id]),
     [NameId] bigint NULL REFERENCES [dbo].[EventParamNames]([Id])
 );
 GO

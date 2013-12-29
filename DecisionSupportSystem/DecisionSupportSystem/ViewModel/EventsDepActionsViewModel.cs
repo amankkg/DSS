@@ -9,6 +9,7 @@ namespace DecisionSupportSystem.ViewModel
 {
     public class EventsDepActionsViewModel : BasePropertyChanged
     {
+        public Visibility ParamsVisibility { get; set; }
         public ObservableCollection<EventsDependingAction> EventsDependingActions { get; set; }
         public DssDbEntities DssDbEntities { get; set; }
 
@@ -32,7 +33,8 @@ namespace DecisionSupportSystem.ViewModel
 
                 EventsDependingActions.Add(new EventsDependingAction{
                     Action = action,
-                    EventsViewModel = new EventsViewModel(eventsDepAction, base.ErrorCatcher){ParamsVisibility = Visibility.Hidden}
+                    EventsViewModel = new EventsViewModel(eventsDepAction, base.ErrorCatcher)
+                    { ParamsVisibility = ParamsVisibility }
                 });
             }
         }
@@ -67,6 +69,7 @@ namespace DecisionSupportSystem.ViewModel
                     {
                        Action = action,
                        EventsViewModel = new EventsViewModel(new ObservableCollection<Event>(), ErrorCatcher)
+                       {ParamsVisibility = ParamsVisibility}
                     });
         }
 

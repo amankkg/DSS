@@ -19,6 +19,7 @@ namespace DecisionSupportSystem.Tasks
         protected bool IsSaved;
         #endregion
         #region Свойства
+        public Random Random { get; set; }
         public BaseAlgorithms BaseAlgorithms { get; set; }
         public DssDbEntities DssDbEntities { get; set; }
         protected ErrorCatcher TaskParamErrorCatcher { get; set; }
@@ -44,6 +45,7 @@ namespace DecisionSupportSystem.Tasks
             EventErrorCatcher = new ErrorCatcher();
             CombinationErrorCatcher = new ErrorCatcher();
             TaskParamErrorCatcher = new ErrorCatcher();
+            Random = new Random();
         }
 
         public void InitBaseLayerAndShowMainPage(string title, string taskuniq, DssDbEntities dssDbEntities)
@@ -96,6 +98,7 @@ namespace DecisionSupportSystem.Tasks
 
         protected virtual void CreateCombinations()
         {
+            var rand = new Random();
             var combinations = DssDbEntities.Combinations.Local.ToList();
             var actions = DssDbEntities.Actions.Local;
             var events = DssDbEntities.Events.Local;
@@ -103,7 +106,7 @@ namespace DecisionSupportSystem.Tasks
                 foreach (var even in events)
                     if (!ActionContainsInCombinations(action, combinations) || !EventContainsInCombinations(even, combinations))
                     {
-                        CRUD.AddCombination(CreateCombinationTemplate(), action, even, BaseAlgorithms.Task, 0);
+                        CRUD.AddCombination(CreateCombinationTemplate(), action, even, BaseAlgorithms.Task, rand.Next(10000));
                     }
             InitCombinationViewModel();
         }

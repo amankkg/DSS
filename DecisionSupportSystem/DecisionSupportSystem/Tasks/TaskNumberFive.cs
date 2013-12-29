@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -8,6 +9,7 @@ using DecisionSupportSystem.CommonClasses;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
 using DecisionSupportSystem.ViewModel;
+using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.Tasks
 {
@@ -27,9 +29,11 @@ namespace DecisionSupportSystem.Tasks
         public List<Combination> FictiveCombinations { get; set; }   
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){ParamsVisibility = Visibility.Hidden};
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher)
+            {ParamsVisibility = Visibility.Hidden};
             ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
-            EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher);
+            EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher)
+            {ParamsVisibility = Visibility.Hidden};
             EventDepActionViewModel = new EventDepActionViewModel(DssDbEntities.Actions.Local, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher);
         }
 
@@ -58,8 +62,8 @@ namespace DecisionSupportSystem.Tasks
                 SavingId = base.SavingID,
                 CombinParams = new Collection<CombinParam>
                         {
-                            new CombinParam{CombinParamName = combinParamNameF},
-                            new CombinParam{CombinParamName = combinParamNameS}
+                            new CombinParam{CombinParamName = combinParamNameF, Value = Random.Next(1000, 15000)},
+                            new CombinParam{CombinParamName = combinParamNameS, Value = Random.Next(1000, 15000)}
                         }
             };
         }

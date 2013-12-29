@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,6 +7,7 @@ using System.Windows.Navigation;
 using DecisionSupportSystem.DbModel;
 using DecisionSupportSystem.PageUserElements;
 using DecisionSupportSystem.ViewModel;
+using Action = DecisionSupportSystem.DbModel.Action;
 
 namespace DecisionSupportSystem.Tasks
 {
@@ -51,8 +53,8 @@ namespace DecisionSupportSystem.Tasks
                     SavingId = base.SavingID,
                     CombinParams = new Collection<CombinParam>
                         {
-                            new CombinParam{CombinParamName = combinParamNameF},
-                            new CombinParam{CombinParamName = combinParamNameS}
+                            new CombinParam{CombinParamName = combinParamNameF, Value = Random.Next(100)},
+                            new CombinParam{CombinParamName = combinParamNameS, Value = Random.Next(100)}
                         }
                 };
         }

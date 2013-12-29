@@ -94,7 +94,7 @@ namespace DecisionSupportSystem.CommonClasses
             foreach (var action in actions)
             {
                 var wps = GetWpsByActionFromCombinations(action);
-                action.Emv = wps.Sum();
+                action.Emv = Math.Round((double)wps.Sum(), 5);
             }
         }
 
@@ -133,9 +133,9 @@ namespace DecisionSupportSystem.CommonClasses
         private void InitTaskProperties()
         {
             var actions = GetActions();
-            Task.MaxEmv = actions.Max(act => act.Emv);
-            Task.MinEol = actions.Min(act => act.Eol);
-            var optimalActName = actions.First(act => act.Emv == Task.MaxEmv).Name;
+            Task.MaxEmv = GetMaxEmv(actions);
+            Task.MinEol = GetMinEol(actions);
+            var optimalActName = GetSolutionName(actions);
             Task.Date = DateTime.Now;
             Task.Recommendation = string.Format(
                 "Рекомендуется выбрать действие '{0}'. Это решение принесет" +
@@ -145,6 +145,23 @@ namespace DecisionSupportSystem.CommonClasses
                 "при многократном выборе этого действие при условии, " +
                 "что вероятности событий будут неизменны.",
                 optimalActName, Task.MaxEmv, Task.MinEol);
+        }
+
+        private double GetMaxEmv(ICollection<Action> actions)
+        {
+            var action = actions.Max(act => act.Emv);
+            return action != null ? Math.Round((double) action, 3) : 0;
+        }
+
+        private double GetMinEol(ICollection<Action> actions)
+        {
+            var even = actions.Min(act => act.Eol);
+            return even != null ? Math.Round((double)even, 3) : 0;
+        }
+
+        private string GetSolutionName(ICollection<Action> actions)
+        {
+            return actions.First(act => act.Emv == Task.MaxEmv).Name;
         }
 
         public void Save()

@@ -13,6 +13,8 @@ namespace DecisionSupportSystem.ViewModel
     public class EventViewModel : BasePropertyChanged, IDataErrorInfo
     {
         private Event _editableEvent;
+        public Random Random { get; set; }
+        public int randomMax { get; set; }
         public Event EditableEvent
         {
             get { 
@@ -109,6 +111,7 @@ namespace DecisionSupportSystem.ViewModel
             this.EditableEventParams = new ObservableCollection<EventParam>();
             this.AddEventCommand = new DelegateCommand<object>(this.OnAddEvent);
             UpdateEventParams();
+            Random = new Random();
         }
         
         public void UpdateEventParams()
@@ -175,16 +178,7 @@ namespace DecisionSupportSystem.ViewModel
 
         public void CreateAndAddEvent()
         {
-            var eventParams = new Collection<EventParam>();
-            foreach (var eventParam in EditableEvent.EventParams)
-                eventParams.Add(new EventParam
-                {
-                    Event = eventParam.Event,
-                    Value = eventParam.Value,
-                    EventId = eventParam.EventId,
-                    Id = eventParam.Id,
-                    EventParamName = eventParam.EventParamName
-                });
+            var eventParams = InitEventParams();
             this.EventsViewModel.AddEvent(new Event
             {
                 Name = EditableEvent.Name,
@@ -194,6 +188,23 @@ namespace DecisionSupportSystem.ViewModel
             });
         }
 
+        private Collection<EventParam> InitEventParams()
+        {
+            var eventParams = new Collection<EventParam>();
+            foreach (var eventParam in EditableEvent.EventParams)
+            {
+                var evParam = new EventParam{ 
+                        Event = eventParam.Event,
+                        EventId = eventParam.EventId,
+                        Id = eventParam.Id,
+                        EventParamName = eventParam.EventParamName
+                };
+                if (IsGenerated) evParam.Value = Random.Next(randomMax);
+                else evParam.Value = eventParam.Value;
+                eventParams.Add(evParam);
+            }
+            return eventParams;
+        }
         #region реализация интерфейса IDataErrorInfo
         public string Error { get { throw new NotImplementedException(); } }
 

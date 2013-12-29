@@ -24,7 +24,7 @@ namespace DecisionSupportSystem.Tasks
         protected override void InitViewModels()
         {   
             EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher);
-            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
+            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher){randomMax = 10000};
             ActionsViewModel = new ActionsForTask9ViewModel(DssDbEntities, ActionErrorCatcher);
             ActionForTask9ViewModel = new ActionForTask9ViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher)
                 {EventViewModel = EventViewModel, Task = BaseAlgorithms.Task};

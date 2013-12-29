@@ -73,7 +73,7 @@ namespace DecisionSupportSystem.ViewModel
             if (_selectedEvent <= OUT_OF_RANGE || Events.Count == 0) return;
             EventViewModels.RemoveAt(_selectedEvent);
             CRUD.DeleteEvent(Events[_selectedEvent]);
-            //Events.RemoveAt(_selectedEvent);
+            Events.RemoveAt(_selectedEvent);
             SumProbabilities();
         }
 

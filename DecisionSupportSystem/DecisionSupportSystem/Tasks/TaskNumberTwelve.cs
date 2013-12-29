@@ -47,11 +47,14 @@ namespace DecisionSupportSystem.Tasks
 
         protected override void InitViewModels()
         {
-            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){ParamsVisibility = Visibility.Visible};
-            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher){ParamsVisibility = Visibility.Visible};
-            EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher);
+            ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher)
+            {ParamsVisibility = Visibility.Visible};
+            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher)
+            {ParamsVisibility = Visibility.Visible, randomMax = 10000};
+            EventsDepActionsViewModel = new EventsDepActionsViewModel(DssDbEntities, EventErrorCatcher)
+            {ParamsVisibility = Visibility.Visible};
             EventDepActionViewModel = new EventDepActionViewModel(DssDbEntities.Actions.Local, CreateEventTemplate(), EventsDepActionsViewModel, EventErrorCatcher)
-                {ParamsVisibility = Visibility.Visible};
+                {ParamsVisibility = Visibility.Visible, randomMax = 50000};
         }
 
         protected override void InitCombinationViewModel()

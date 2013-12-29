@@ -14,7 +14,8 @@ namespace DecisionSupportSystem.ViewModel
     public class ActionViewModel : BasePropertyChanged, IDataErrorInfo
     {
         public Action EditableAction { get; set; }
-
+        public Random Random { get; set; }
+        public int randomMax { get; set; }
         private int actionsCount;
 
         private bool isGenerated;
@@ -93,7 +94,9 @@ namespace DecisionSupportSystem.ViewModel
         public ICommand AddActionCommand { get; set; }
       
         public ActionViewModel()
-        {}
+        {
+            Random = new Random();
+        }
 
         public ActionViewModel(Action actionTemplate, ActionsViewModel actionsViewModel, IErrorCatch errorCatcher)
         {
@@ -108,6 +111,7 @@ namespace DecisionSupportSystem.ViewModel
             if(EditableActionParams.Count == 0)
                 ParamsVisibility = Visibility.Hidden;
             ErrorCatcher = errorCatcher;
+            Random = new Random();
         }
         
         public virtual void OnAddAction(object obj)
@@ -134,15 +138,7 @@ namespace DecisionSupportSystem.ViewModel
 
         public void CreateAndAddAction()
         {
-             var actionParams = new Collection<ActionParam>();
-            foreach (var actionParam in EditableAction.ActionParams)
-                actionParams.Add(new ActionParam {
-                        Action = actionParam.Action,
-                        Value = actionParam.Value,
-                        ActionId = actionParam.ActionId,
-                        Id = actionParam.Id,
-                        ActionParamName = actionParam.ActionParamName
-                });
+            var actionParams = InitActionParams();
             ActionsViewModel.AddAction(new Action
                 {
                     Name = EditableAction.Name, 
@@ -153,7 +149,24 @@ namespace DecisionSupportSystem.ViewModel
                 });
         }
 
-
+        private Collection<ActionParam> InitActionParams()
+        {
+            var actionParams = new Collection<ActionParam>();
+            foreach (var actionParam in EditableAction.ActionParams)
+            {
+                var actParam = new ActionParam
+                    {
+                        Action = actionParam.Action,
+                        ActionId = actionParam.ActionId,
+                        Id = actionParam.Id,
+                        ActionParamName = actionParam.ActionParamName
+                    };
+                if (IsGenerated) actParam.Value = Random.Next(randomMax);
+                else actParam.Value = actionParam.Value;
+                actionParams.Add(actParam);
+            }
+            return actionParams;
+        }
 
         #region реализация интерфейса IDataErrorInfo
         public string Error { get { throw new NotImplementedException(); } }

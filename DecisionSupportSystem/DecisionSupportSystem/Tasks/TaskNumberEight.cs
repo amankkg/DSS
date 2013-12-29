@@ -24,9 +24,9 @@ namespace DecisionSupportSystem.Tasks
         protected override void InitViewModels()
         {
             ActionsViewModel = new ActionsViewModel(DssDbEntities.Actions.Local, ActionErrorCatcher){ParamsVisibility = Visibility.Visible};
-            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher);
+            ActionViewModel = new ActionViewModel(CreateActionTemplate(), ActionsViewModel, ActionErrorCatcher){randomMax = 15};
             EventsViewModel = new EventsViewModel(DssDbEntities.Events.Local, EventErrorCatcher) { ParamsVisibility = Visibility.Visible };
-            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher);
+            EventViewModel = new EventViewModel(CreateEventTemplate(), EventsViewModel, EventErrorCatcher){randomMax = 15};
             TaskParamsViewModel = new TaskParamsViewModel(BaseAlgorithms.Task, TaskParamErrorCatcher);
         }
         protected override void InitCombinationViewModel()
@@ -35,9 +35,9 @@ namespace DecisionSupportSystem.Tasks
         }
         protected override void CreateTaskParamsTemplate()
         {
-            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Премия:" } });
-            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Штраф:" } });
-            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Пункт процента:" } });
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Премия:" }, Value = 500});
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Штраф:" }, Value = 1000});
+            BaseAlgorithms.Task.TaskParams.Add(new TaskParam { TaskParamName = new TaskParamName { Name = "Пункт процента:" }, Value = 10});
         }
         protected override Action CreateActionTemplate()
         {
@@ -61,8 +61,8 @@ namespace DecisionSupportSystem.Tasks
                 SavingId = SavingID,
                 EventParams = new Collection<EventParam>
                     {
-                        new EventParam{EventParamName = eventParamName
-                    }}
+                        new EventParam{EventParamName = eventParamName},
+                    },
             };
         }
 

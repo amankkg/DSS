@@ -33,7 +33,7 @@ namespace DesicionSupportSystemTest
 
         private IEnumerable<Combination> InitSourceDataForCalculateWpTest(BaseAlgorithms baseAlgorithms)
         {
-            var combination = new Combination { Cp = 100, Event = new Event { Probability = (decimal)0.5 } };
+            var combination = new Combination { Cp = 100, Event = new Event { Probability = 0.5 } };
             baseAlgorithms.Entities.Combinations.Local.Add(combination);
             return baseAlgorithms.Entities.Combinations.Local;
         }
@@ -113,7 +113,7 @@ namespace DesicionSupportSystemTest
 
         private IEnumerable<Combination> InitCSourceDataForCalculateWolTest(BaseAlgorithms baseAlgorithms)
         {
-            var combination = new Combination { Col = 100, Event = new Event { Probability = (decimal)0.5 } };
+            var combination = new Combination { Col = 100, Event = new Event { Probability = 0.5 } };
             baseAlgorithms.Entities.Combinations.Local.Add(combination);
             return baseAlgorithms.Entities.Combinations.Local;
         }

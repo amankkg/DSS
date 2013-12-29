@@ -14,9 +14,9 @@
         	Margin="10,39,0,0" VerticalAlignment="Top" Width="339" Height="29" FontSize="14"/>
         <TextBox Margin="10,97,10,0" Text="{Binding Path=Recommendation}" FontFamily="Calibri" FontSize="16" FontWeight="Bold" TextWrapping="Wrap"
                      VerticalScrollBarVisibility="Visible" TextAlignment="Justify" Height="140" VerticalAlignment="Top"></TextBox>
-        <Label  Content="{Binding Path=MaxEmv}" HorizontalAlignment="Left" 
+        <Label  Content="{Binding Path=MaxEmv, StringFormat=F3}" HorizontalAlignment="Left" 
             	Margin="354,10,0,0" VerticalAlignment="Top" Width="136" Height="29" FontSize="14" FontWeight="Bold"/>
-        <Label  Content="{Binding Path=MinEol}" HorizontalAlignment="Left" 
+        <Label  Content="{Binding Path=MinEol, StringFormat=F3}" HorizontalAlignment="Left" 
             	Margin="354,39,0,0" VerticalAlignment="Top" Width="136" Height="29" FontSize="14" FontWeight="Bold"/>
         <Label  Content="Комментарий:" HorizontalAlignment="Left" 
         	Margin="10,237,0,0" VerticalAlignment="Top" Width="121" Height="29" FontSize="14"/>

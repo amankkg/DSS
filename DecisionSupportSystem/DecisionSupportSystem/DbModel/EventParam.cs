@@ -16,7 +16,7 @@ namespace DecisionSupportSystem.DbModel
     {
         public Int64 Id { get; set; }
         public double Value { get; set; }
-        public Int64 EventId { get; set; }
+        public Int64? EventId { get; set; }
         public Int64? NameId { get; set; }
     
         public virtual EventParamName EventParamName { get; set; }

@@ -13,6 +13,8 @@ namespace DecisionSupportSystem.ViewModel
     public class EventDepActionViewModel : BasePropertyChanged
     {
         public Event EditableEvent { get; set; }
+        public Random Random { get; set; }
+        public int randomMax { get; set; }
         public ObservableCollection<EventParam> EditableEventParams { get; set; }
         public ObservableCollection<Action> Actions { get; set; }
         public ICommand AddEventCommand { get; private set; }
@@ -100,6 +102,7 @@ namespace DecisionSupportSystem.ViewModel
             EventsDepActionsViewModel = eventsDepActionsViewModel;
             AddEventCommand = new DelegateCommand<object>(OnAddEvent);
             UpdateEventParams();
+            Random = new Random();
         }
 
         public void UpdateEventParams()
@@ -189,16 +192,7 @@ namespace DecisionSupportSystem.ViewModel
 
         public void CreateAndAddEvent()
         {
-            var eventParams = new Collection<EventParam>();
-            foreach (var eventParam in EditableEvent.EventParams)
-                eventParams.Add(new EventParam
-                {
-                    Event = eventParam.Event,
-                    Value = eventParam.Value,
-                    EventId = eventParam.EventId,
-                    Id = eventParam.Id,
-                    EventParamName = eventParam.EventParamName
-                });
+            var eventParams = InitEventParams();
             EventsDepActionsViewModel.AddEvent(
             Actions[ActionSelectedIndex],
            new Event
@@ -208,6 +202,25 @@ namespace DecisionSupportSystem.ViewModel
                EventParams = eventParams,
                SavingId = EditableEvent.SavingId
            });
+        }
+
+        private Collection<EventParam> InitEventParams()
+        {
+            var eventParams = new Collection<EventParam>();
+            foreach (var eventParam in EditableEvent.EventParams)
+            {
+                var evParam = new EventParam
+                {
+                    Event = eventParam.Event,
+                    EventId = eventParam.EventId,
+                    Id = eventParam.Id,
+                    EventParamName = eventParam.EventParamName
+                };
+                if (IsGenerated) evParam.Value = Random.Next(randomMax);
+                else evParam.Value = eventParam.Value;
+                eventParams.Add(evParam);
+            }
+            return eventParams;
         }
     }
 }
