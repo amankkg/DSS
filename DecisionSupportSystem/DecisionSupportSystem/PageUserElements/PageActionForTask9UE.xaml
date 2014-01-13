@@ -7,9 +7,10 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="496.241">
+             d:DesignHeight="300" d:DesignWidth="545.241">
     <Grid Background="#FF6C9EC1">
-        <task:ActionUEForTask9 DataContext="{Binding Path=ActionForTask9ViewModel}" Height="157" VerticalAlignment="Top" Margin="0,40,0,0"/>
+        <task:ActionUEForTask9 DataContext="{Binding Path=ActionForTask9ViewModel}" Height="157" 
+                               VerticalAlignment="Top" Margin="0,40,0,0"/>
         <Grid Margin="0,222,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

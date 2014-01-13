@@ -9,12 +9,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="354.135" d:DesignWidth="496.241">
     <Grid Background="#FF6C9EC1">
-        <task:EventDepActionUE DataContext="{Binding Path=EventDepActionViewModel}" Height="194" VerticalAlignment="Top" Margin="0,40,0,0"/>
+        <task:EventDepActionUE DataContext="{Binding Path=EventDepActionViewModel}" 
+                               Height="194" VerticalAlignment="Top" Margin="0,40,0,0"/>
         <Grid Margin="0,254,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <task:EventDepActionsDataGrid DataContext="{Binding Path=EventsDepActionsViewModel}" Margin="0,0,0,10"/>
+            <task:EventDepActionsDataGrid DataContext="{Binding Path=EventsDepActionsViewModel}" 
+                                          Margin="0,0,0,10"/>
         </Grid>
         <Button Content="далее &gt;&gt;" Style="{StaticResource NavigationButtonStyle}" 
         	VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,35,0" >
@@ -33,8 +35,8 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="0,234,0,0" Width="233" FontSize="14" 
-        	Padding="0,0,0,0" Height="20" VerticalAlignment="Top" Foreground="White" FontFamily="Calibri"/>
-
+        <Label  Content="Список возможных событий:" HorizontalAlignment="Left" Margin="0,234,0,0" 
+                Width="233" FontSize="14" Padding="0,0,0,0" Height="20" 
+                VerticalAlignment="Top" Foreground="White" FontFamily="Calibri"/>
     </Grid>
 </UserControl>

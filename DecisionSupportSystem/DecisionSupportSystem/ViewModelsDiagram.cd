@@ -8,7 +8,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>EAAAKACAAAAAEEABAAAAACQIIAAACAAAAAggAAAAAgA=</HashCode>
+      <HashCode>EAAAKACAAAAAEEABAAAAACQIIAAACAAAAEggAAAAAgA=</HashCode>
       <FileName>ViewModel\ActionForTask9ViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -28,37 +28,30 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAACAAAQAAIABAgAAA=</HashCode>
+      <HashCode>AAAABAAAIAACAFAAABAAEIAAAAAACAAAQAAIABAgAAA=</HashCode>
       <FileName>ViewModel\ActionsForTask9ViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.ActionsViewModel" Collapsed="true">
-    <Position X="10.75" Y="1.75" Width="1.5" />
+  <Class Name="DecisionSupportSystem.ViewModel.ActionsViewModel">
+    <Position X="8.75" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAACAAAQAAAABAgACA=</HashCode>
+      <HashCode>AAAABAAAIAACAFAAABAAEAAAAAAACAAAQAAAABAgACA=</HashCode>
       <FileName>ViewModel\ActionsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.ActionsWithExtensionsViewModel" Collapsed="true">
-    <Position X="10.75" Y="2.5" Width="1.5" />
+  <Class Name="DecisionSupportSystem.ViewModel.ActionViewModel">
+    <Position X="10.75" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAABAAAIAACAFAAEBAAEAAAAAAAAAAAQAAAABAgACA=</HashCode>
-      <FileName>ViewModel\ActionsWithExtensionsViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.ActionViewModel" Collapsed="true">
-    <Position X="10.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAIACAEAAAAQAACAAAAAQAIAAACAAAAAgAAABAIAA=</HashCode>
+      <HashCode>CAEAICGAEQAAAQAACAAAAAQAIAAADAAAAAgCgABAIoA=</HashCode>
       <FileName>ViewModel\ActionViewModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.ActionWithExtensionViewModel" Collapsed="true">
-    <Position X="8.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAIACAIAAACRAACAAAAAQCIAAAABAAAAhAAABAgAA=</HashCode>
-      <FileName>ViewModel\ActionWithExtensionViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -78,46 +71,31 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DecisionSupportSystem.ViewModel.EventDepActionViewModel" Collapsed="true">
-    <Position X="10.75" Y="4" Width="1.5" />
+    <Position X="9.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAIEAAAAAAAAAAAAAAAAAACAAAAAAEAEAAKBA=</HashCode>
+      <HashCode>AAAAACIAIUABAAAAAAABAAAAAgAADAIACAAGAEAFKhA=</HashCode>
       <FileName>ViewModel\EventDepActionViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DecisionSupportSystem.ViewModel.EventsDepActionsViewModel" Collapsed="true">
-    <Position X="10.75" Y="3.25" Width="1.5" />
+    <Position X="2.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAEAACAIAEJAEAMAAAAAAAAAACAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAEAACAIAEJAAAMAAIAAAAAACCAAAAAAAAAAAAQ=</HashCode>
       <FileName>ViewModel\EventsDepActionsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DecisionSupportSystem.ViewModel.EventsViewModel" Collapsed="true">
     <Position X="4.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAGIAAAAAAAIEEBAAAAAAAACAqBACAAAAAAAAAQAAIA=</HashCode>
+      <HashCode>IAGIAAAAAAAIEEBAAAAAAAACAqBACAAAAAAAAAQAAAA=</HashCode>
       <FileName>ViewModel\EventsViewModel.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.EventsWithExtensionsViewModel" Collapsed="true">
-    <Position X="1.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IIGIAAAAAAAJAEBAEAAAAAACAqBAAAAAAAAAAAQAAAA=</HashCode>
-      <FileName>ViewModel\EventsWithExtensionsViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DecisionSupportSystem.ViewModel.EventViewModel" Collapsed="true">
     <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAMAIAAEABAwAACAABAAQAAAAACAAAAAAAAEAAIAA=</HashCode>
+      <HashCode>AAAAMCIAIUABAwAACAABACQAAgAADAIACAACAEAFIgA=</HashCode>
       <FileName>ViewModel\EventViewModel.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="DecisionSupportSystem.ViewModel.EventWithExtensionViewModel" Collapsed="true">
-    <Position X="3.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAMAIAAEgAAQAACAAAAAYAAAhAIAAAAAAAAEAAAAA=</HashCode>
-      <FileName>ViewModel\EventWithExtensionViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -130,7 +108,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DecisionSupportSystem.ViewModel.TaskParamsViewModel" Collapsed="true">
-    <Position X="7.75" Y="5" Width="1.5" />
+    <Position X="6.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>ViewModel\TaskParamsViewModel.cs</FileName>

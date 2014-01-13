@@ -43,6 +43,5 @@ namespace DecisionSupportSystem.Tasks
                 }
             }
         }
-        
     }
 }

@@ -161,6 +161,9 @@
     <Compile Include="PageUserElements\PageActionForTask9UE.xaml.cs">
       <DependentUpon>PageActionForTask9UE.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageUserElements\PageEventDepActionsGeneratedUE.xaml.cs">
+      <DependentUpon>PageEventDepActionsGeneratedUE.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageUserElements\PageEventGeneratedUE.xaml.cs">
       <DependentUpon>PageEventGeneratedUE.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,9 @@
       <DependentUpon>PageEventsDepActionUE.xaml</DependentUpon>
     </Compile>
     <Compile Include="DbModel\EventsDependingAction.cs" />
+    <Compile Include="PageUserElements\PageCombinationWithCpUEVer2.xaml.cs">
+      <DependentUpon>PageCombinationWithCpUEVer2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\TaskNumberEight.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -189,6 +195,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Tasks\TaskNumberTwelve.cs" />
+    <Compile Include="Tasks\TaskNumberTwo.cs" />
     <Compile Include="UserElements\ActionEmvEolsUE.xaml.cs">
       <DependentUpon>ActionEmvEolsUE.xaml</DependentUpon>
     </Compile>
@@ -213,6 +220,9 @@
     </Compile>
     <Compile Include="UserElements\EventDepActionUE.xaml.cs">
       <DependentUpon>EventDepActionUE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserElements\CombinationsWithCpDataGridVer2.xaml.cs">
+      <DependentUpon>CombinationsWithCpDataGridVer2.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ActionForTask9ViewModel.cs" />
     <Compile Include="ViewModel\ActionsForTask9ViewModel.cs" />
@@ -281,6 +291,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageUserElements\PageEventDepActionsGeneratedUE.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PageUserElements\PageEventGeneratedUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +302,10 @@
     <Page Include="PageUserElements\PageEventsDepActionUE.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUserElements\PageCombinationWithCpUEVer2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserElements\ActionEmvEolsUE.xaml">
       <SubType>Designer</SubType>
@@ -390,6 +408,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\StyleDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserElements\CombinationsWithCpDataGridVer2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

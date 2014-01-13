@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="470" d:DesignWidth="496.241" Loaded="PageActionUE_OnLoaded">
    <Grid Background="#FF6C9EC1">
-        <task:ActionUE DataContext="{Binding Path=ActionViewModel}" Height="146" VerticalAlignment="Top" Margin="0,35,0,0"/>
+        <task:ActionUE DataContext="{Binding Path=ActionViewModel}" Height="146" 
+                       VerticalAlignment="Top" Margin="0,35,0,0"/>
         <Grid Margin="0,201,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

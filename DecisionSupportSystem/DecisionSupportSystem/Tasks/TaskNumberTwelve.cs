@@ -67,10 +67,10 @@ namespace DecisionSupportSystem.Tasks
             var combinations = DssDbEntities.Combinations.Local;
             foreach (var combination in combinations)
             {
-                var actCredit = combination.Action.ActionParams.ToList()[0].Value;
-                var evDebit = combination.Event.EventParams.ToList()[0].Value;
-                var evCredit = combination.Event.EventParams.ToList()[1].Value;
-                combination.Cp = evDebit - actCredit - evCredit;
+                var cost = combination.Action.ActionParams.ToList()[0].Value;
+                var revenue = combination.Event.EventParams.ToList()[0].Value;
+                var loss = combination.Event.EventParams.ToList()[1].Value;
+                combination.Cp = revenue - cost - loss;
             }
         }
 

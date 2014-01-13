@@ -2,9 +2,9 @@
 
 namespace DecisionSupportSystem.PageUserElements
 {
-    public partial class PageCombinationWithCpUE : UserControl
+    public partial class PageCombinationWithCpUEVer2 : UserControl
     {
-        public PageCombinationWithCpUE()
+        public PageCombinationWithCpUEVer2()
         {
             InitializeComponent();
         }

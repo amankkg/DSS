@@ -6,11 +6,13 @@
              xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:evend="clr-namespace:DecisionSupportSystem.CommonClasses"
-             xmlns:ue="clr-namespace:DecisionSupportSystem.UserElements"
+             xmlns:userElements="clr-namespace:DecisionSupportSystem.UserElements"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="577.444" Loaded="ActionsDataGrid_OnLoaded">
     <Grid Name="MainGrid"> 
-        <ue:ChangeableDataGrid x:Name="myDatagrid" ItemsSource="{Binding Path=ActionViewModels}" ParamsVisibility="{Binding Path=ParamsVisibility}"
+        <userElements:ChangeableDataGrid x:Name="myDatagrid" 
+                                         ItemsSource="{Binding Path=ActionViewModels}" 
+                                         ParamsVisibility="{Binding Path=ParamsVisibility}"
                                AutoGenerateColumns="False" CanUserAddRows="False">
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="SelectionChanged">
@@ -18,7 +20,7 @@
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
 
-            <ue:ChangeableDataGrid.ContextMenu>
+            <userElements:ChangeableDataGrid.ContextMenu>
                 <ContextMenu>
                     <ContextMenu.ContextMenu>
                         <ContextMenu/>
@@ -31,9 +33,9 @@
                         </interactivity:Interaction.Triggers>
                     </MenuItem>
                 </ContextMenu>
-             </ue:ChangeableDataGrid.ContextMenu>
+             </userElements:ChangeableDataGrid.ContextMenu>
 
-            <ue:ChangeableDataGrid.Columns>
+            <userElements:ChangeableDataGrid.Columns>
                 
                 <DataGridTemplateColumn Header="Действие" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
@@ -95,12 +97,12 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </ue:ChangeableDataGrid.Columns>
+            </userElements:ChangeableDataGrid.Columns>
             <DataGrid.RowHeaderStyle>
                 <StaticResource ResourceKey="DataGridRowHeaderStyleSimple"/>
             </DataGrid.RowHeaderStyle>
 
-        </ue:ChangeableDataGrid>
+        </userElements:ChangeableDataGrid>
 
     </Grid>
 </UserControl>

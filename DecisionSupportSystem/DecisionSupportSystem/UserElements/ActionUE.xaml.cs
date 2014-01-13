@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace DecisionSupportSystem.UserElements
 {
@@ -7,6 +8,20 @@ namespace DecisionSupportSystem.UserElements
         public ActionUE()
         {
             InitializeComponent();
+        }
+
+        private void CheckBoxClick(object sender, RoutedEventArgs e)
+        {
+            if (CheckBoxGen.IsChecked == true)
+            {
+                TextBoxCount.Visibility = Visibility.Visible;
+                LabelCount.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TextBoxCount.Visibility = Visibility.Hidden;
+                LabelCount.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

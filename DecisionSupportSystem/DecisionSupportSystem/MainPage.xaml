@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d" 
         Title="Задачи"
-        d:DesignHeight="400" d:DesignWidth="656"
+        d:DesignHeight="400" d:DesignWidth="839"
       >
 
     <Page.Resources>
@@ -41,7 +41,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название задачи" Width="666" IsReadOnly="True"
                                     Binding="{Binding XPath=Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Тип задачи ТПР" IsReadOnly="True" Visibility="Hidden"
+                <DataGridTextColumn Header="Тип задачи" IsReadOnly="True" Visibility="Visible"
                                     Binding="{Binding XPath=Type}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Window" IsReadOnly="True" Visibility="Hidden"
                                     Binding="{Binding XPath=Window}"></DataGridTextColumn>

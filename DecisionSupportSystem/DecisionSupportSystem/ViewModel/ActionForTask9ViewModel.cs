@@ -104,7 +104,6 @@ namespace DecisionSupportSystem.ViewModel
 
         public void AddExtensions(int iter, int period)
         {
-
             for (int i = 0; i < iter; i++)
             {
                 var actionParams = new Collection<ActionParam>();
@@ -166,7 +165,7 @@ namespace DecisionSupportSystem.ViewModel
                         });
                     this.ActionsForTask9ViewModel.AddAction(new Action
                         {
-                            Name = EditableAction.Name + " с расширением через " + PeriodToString(i),
+                            Name = EditableAction.Name + " с расширением через " + PeriodToString(period - i),
                             SavingId = EditableAction.SavingId,
                             Emv = EditableAction.Emv,
                             Eol = EditableAction.Eol,

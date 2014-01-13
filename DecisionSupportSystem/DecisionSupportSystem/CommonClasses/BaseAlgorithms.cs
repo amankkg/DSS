@@ -149,14 +149,14 @@ namespace DecisionSupportSystem.CommonClasses
 
         private double GetMaxEmv(ICollection<Action> actions)
         {
-            var action = actions.Max(act => act.Emv);
-            return action != null ? Math.Round((double) action, 3) : 0;
+            var maxEMV = actions.Max(act => act.Emv);
+            return (double) maxEMV;
         }
 
         private double GetMinEol(ICollection<Action> actions)
         {
             var even = actions.Min(act => act.Eol);
-            return even != null ? Math.Round((double)even, 3) : 0;
+            return even != null ? (double)even : 0;
         }
 
         private string GetSolutionName(ICollection<Action> actions)

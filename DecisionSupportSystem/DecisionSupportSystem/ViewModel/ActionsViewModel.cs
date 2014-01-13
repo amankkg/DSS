@@ -30,7 +30,7 @@ namespace DecisionSupportSystem.ViewModel
         {
             var thisActionsHaveAct = Actions.Any(a => a.Name.Trim() == act.Name.Trim());
             if (thisActionsHaveAct) return;
-            ActionViewModels.Add(new ActionViewModel(act, this, base.ErrorCatcher));
+            ActionViewModels.Add(new ActionViewModel(act, this, ErrorCatcher));
             Actions.Add(act);
         }
 

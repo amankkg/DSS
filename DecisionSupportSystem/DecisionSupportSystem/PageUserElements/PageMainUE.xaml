@@ -8,16 +8,21 @@
              xmlns:i="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
              xmlns:d1="http://schemas.microsoft.com/expression/blend/2008" x:Class="DecisionSupportSystem.PageUserElements.PageMainUE"
              mc:Ignorable="d d1" 
-             d:DesignHeight="300" d:DesignWidth="300" d1:DesignWidth="306" d1:DesignHeight="156">
+             d:DesignHeight="300" d:DesignWidth="300" d1:DesignWidth="449" d1:DesignHeight="265">
     <Grid x:Name="mainGrid" Background="#FF6C9EC1">
-        <Button Content="далее >>" Style="{StaticResource NavigationButtonStyle}" Margin="0,10,35,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75">
+        <Button Content="далее >>" Style="{StaticResource NavigationButtonStyle}" Margin="0,10,35,0"
+                VerticalAlignment="Top" HorizontalAlignment="Right" Width="75">
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="Click">
-                    <i:CallMethodAction TargetObject="{Binding DataContext, ElementName=mainGrid}"  MethodName="NextBtnClick_OnPageMain"/>
+                    <i:CallMethodAction TargetObject="{Binding DataContext, ElementName=mainGrid}"  
+                                        MethodName="NextBtnClick_OnPageMain"/>
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
         </Button>
-        <task:TaskParamsDataGrid x:Name="TaskParams" DataContext="{Binding Path=TaskParamsViewModel}" Margin="0,40,0,10"/>
-        <Label Content="Условия задачи:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="181" Foreground="White" FontFamily="Calibri" FontWeight="Bold"/>
+        <task:TaskParamsDataGrid x:Name="TaskParams" DataContext="{Binding Path=TaskParamsViewModel}"
+                                 Margin="0,40,0,10"/>
+        <Label Content="Параметры задачи:" HorizontalAlignment="Left" Margin="10,10,0,0" 
+               VerticalAlignment="Top" Width="181" Foreground="White" 
+               FontFamily="Calibri" FontWeight="Bold"/>
     </Grid>
 </UserControl>

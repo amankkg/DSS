@@ -121,7 +121,7 @@ namespace DecisionSupportSystem.ViewModel
             else
             {
                 if (ErrorCatcher.EntityErrorCount != 0) return;
-                CreateAndAddAction();
+                CreateAndAddAction(EditableAction);
             }
         }
 
@@ -132,15 +132,14 @@ namespace DecisionSupportSystem.ViewModel
             {
                 ErrorCatcher.EntityErrorCount = 0;
                 EditableAction.Name = String.Format("Действие {0}", Iterator = Iterator + 1);
-                CreateAndAddAction();
+                CreateAndAddAction(EditableAction);
             }
         }
 
-        public void CreateAndAddAction()
+        public void CreateAndAddAction(Action EditableAction)
         {
             var actionParams = InitActionParams();
-            ActionsViewModel.AddAction(new Action
-                {
+            ActionsViewModel.AddAction(new Action{
                     Name = EditableAction.Name, 
                     SavingId = EditableAction.SavingId, 
                     Emv = EditableAction.Emv,

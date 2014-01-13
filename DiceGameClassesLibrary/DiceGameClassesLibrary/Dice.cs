@@ -5,7 +5,7 @@ namespace DiceGameClassesLibrary
 {
     public class Dice
     {
-        int _NumberOfInitialEvents;  // количество исходных события
+        int _NumberOfInitialEvents;  // количество исходных событий
         int _NumberOfThrowings; //  кол-во бросков
         int _NumberOfOutcomesPerStake;    //  кол-во исходов за комбинацию
 
@@ -130,23 +130,23 @@ namespace DiceGameClassesLibrary
             for (int i = 0; i < Stakes.Count; i++)
             {
                 for (int j = 0; j < Outcomes.Count; j++)
-                {
+                {//на i-тую ставку j-ый исход
                     StakeOutcomeCombinations.Add(new StakeOutcomeCombination() { StakeOutcomes = Stakes[i], _ChoosenStake = i, AcutalOutcome = j, SoEG = SetSoEG(Stakes[i], j) });
                 }
             }
         }
 
         bool SetSoEG(int[] stake, int outcome)
-        {
+        {//индексы всех исходов, учитываемых в текущей ставке, и индекс текущего исхода
             for (int i = 0; i < stake.LongLength; i++)
             {
                 if (stake[i] == outcome)
-                {
+                {//если при обходе всех индексов исходов в ставке есть искомый индекс
                     return true;
                 }
             }
             return false;
-        }
+        }   //функция расчет вероятности при соотв. ставке и исходе
 
         public Dice(int NumberOfInitialEvents, int NumberOfThrowings, int NumberOfOutcomesPerStake = 2)
         {   //присваиваем значения свойствам игры/класса
@@ -164,7 +164,7 @@ namespace DiceGameClassesLibrary
     {
         public int[] StakeOutcomes; //  ставки в виде массива (для вычисления имени действия в задаче, чтобы опять не лезть в список Stakes) - иначе хватило бы и _ChoosenStake
         public int _ChoosenStake;   //  выбранная ставка
-        public int AcutalOutcome;   //  выпаший исход
+        public int AcutalOutcome;   //  выпавший исход
         public bool SoEG;   //  выигрыш/проигрыш
     }
 }

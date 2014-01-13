@@ -7,7 +7,7 @@ using DecisionSupportSystem.ViewModel;
 
 namespace DecisionSupportSystem.Tasks
 {
-    public class TaskNumberOne : TaskSpecific
+    public class TaskNumberTwo : TaskSpecific
     {
         public ActionsViewModel ActionsViewModel { get; set; }
         public ActionViewModel ActionViewModel { get; set; }
@@ -16,7 +16,7 @@ namespace DecisionSupportSystem.Tasks
         public CombinationsViewModel CombinationsViewModel { get; set; }
         public TaskParamsViewModel TaskParamsViewModel { get; set; }
 
-        public TaskNumberOne()
+        public TaskNumberTwo()
         {
             InitErrorCatchers();
         }
@@ -67,18 +67,6 @@ namespace DecisionSupportSystem.Tasks
             Navigation = NavigationService.GetNavigationService(pageMainUe.Parent);
             ShowNavigationWindow(ContentPage);
         }
-        public override void PrevBtnClick_OnPageSolve(object sender, RoutedEventArgs e)
-        {
-            CreateCombinations();
-            SetContentUEAtContentPageAndNavigate(new PageCombinationWithCpUEVer2 { DataContext = this });
-        }
-
-        public override void NextBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
-        {
-            if (EventErrorCatcher.EntityGroupErrorCount != 0 || GetEventsCount() == 0) return;
-            CreateCombinations();
-            SetContentUEAtContentPageAndNavigate(new PageCombinationWithCpUEVer2 { DataContext = this });
-        }
 
         public override void PrevBtnClick_OnPageEvents(object sender, RoutedEventArgs e)
         {
@@ -90,6 +78,8 @@ namespace DecisionSupportSystem.Tasks
             if (TaskParamErrorCatcher.EntityErrorCount != 0) return;
             SetContentUEAtContentPageAndNavigate(new PageActionUE { DataContext = this });
         }
+
+
         protected override int GetActionsCount()
         {
             return ActionsViewModel.Actions.Count;

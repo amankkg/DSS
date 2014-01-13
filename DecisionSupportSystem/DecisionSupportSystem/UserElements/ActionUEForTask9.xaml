@@ -11,10 +11,10 @@
     <Grid Name="mainGrid">
         <Rectangle Fill="#FF6C9EC1" />
 
-        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="31,5,0,0" Foreground="White" 
+        <Label Content="Действие:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" 
+               FontWeight="Bold" Margin="31,5,0,0" Foreground="White" 
                FontFamily="Calibri" FontSize="16" Padding="0,0,0,0">
         </Label>
-
         <TextBox Style="{StaticResource TextBoxStyle}" Height="40" Margin="159,5,35,0"  VerticalAlignment="Top" 
                     Text="{Binding Path=EditableAction.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
                     ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
@@ -25,17 +25,24 @@
             </interactivity:Interaction.Triggers>
         </TextBox>
         <Button  Content="Добавить" HorizontalAlignment="Right"
-                Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" VerticalAlignment="Bottom" Width="75" />
-        <CheckBox Name="extChkBox" Content="Расширить" Margin="159,79,126,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsExtended, Mode=TwoWay}"/>
-        <Label Content="Расширение:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="10,101,0,0" Foreground="White" 
+                 Command="{Binding Path=AddActionCommand}" Margin="0,0,35,0" Height="25" 
+                 VerticalAlignment="Bottom" Width="75" />
+        <CheckBox Name="extChkBox" Content="Расширить" Margin="159,79,126,0" VerticalAlignment="Top" 
+                  IsChecked="{Binding Path=IsExtended, Mode=TwoWay}"/>
+        <Label Content="Расширение:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" 
+               FontWeight="Bold" Margin="10,101,0,0" Foreground="White" 
         	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
-        <TextBox Name="extTxtBox" HorizontalAlignment="Left" Height="23" Margin="159,100,0,0"  Style="{StaticResource TextBoxStyle}"
+        <TextBox Name="extTxtBox" HorizontalAlignment="Left" Height="23" Margin="159,100,0,0"  
+                 Style="{StaticResource TextBoxStyle}"
                  Text="{Binding Path=CreditToExtend, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
-                    ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F2}" VerticalAlignment="Top" Width="251" IsEnabled="{Binding Path=IsExtended, Mode=TwoWay}"/>
-        <Label Content="Затрата:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" FontWeight="Bold" Margin="44,50,0,0" Foreground="White" 
+                 ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F0}" 
+                 VerticalAlignment="Top" Width="251" IsEnabled="{Binding Path=IsExtended, Mode=TwoWay}"/>
+        <Label Content="Затрата:" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="24" 
+               FontWeight="Bold" Margin="44,50,0,0" Foreground="White" 
         	FontFamily="Calibri" FontSize="16" Padding="0,0,0,0"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="159,50,0,0" Style="{StaticResource TextBoxStyle}"
                  Text="{Binding Path=Credit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,  
-                    ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F2}" VerticalAlignment="Top" Width="251"/>
+                 ValidatesOnDataErrors=True, NotifyOnValidationError=True, StringFormat=F0}" 
+                 VerticalAlignment="Top" Width="251"/>
     </Grid>
 </UserControl>
